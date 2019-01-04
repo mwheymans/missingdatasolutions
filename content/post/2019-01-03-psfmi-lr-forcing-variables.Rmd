@@ -1,0 +1,82 @@
+---
+title: Backward Logistic Regression after MI - forcing variables in model
+author: Martijn Heymans
+date: '2019-01-02'
+slug: psfmi-lr-forcing-variables
+categories: []
+tags: 
+- force variables
+- keep predictors
+- interaction terms
+thumbnailImagePosition: left
+thumbnailImage: "/images/forcing.png"
+
+---
+
+With the psfmi package it is possible to force variables in the model during 
+backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model. 
+
+Forcing predictors in the model can be applied by using the *keep.predictors* option in
+the psfmi_lr function. These variables can be continuous, dichotomous or 
+categorical variables. Also more than one variable can be forced in the model
+during backward selection. Examples will be given below.
+
+## Examples 
+
++ [Pooling with BS and forcing dichotomous variable in the model] 
++ [Pooling with BS and forcing categorical variable in the model]
++ [Pooling with BS and forcing dichotomous and categorical variable in the model]
+
+### Pooling with BS and forcing dichotomous variable in the model
+
+Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor "Smoking" in the models 
+during backward selection with method MR (Meng and Rubin likelihood ratio statistics or D3).
+
+```{r }
+
+library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+    predictors=c("Gender", "Smoking", "Function", "JobControl",
+    "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
+    p.crit = 0.05, method="MR")
+
+```
+
+Back to [Examples]
+
+### Pooling with BS and forcing categorical variable in the model
+
+Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the categorical predictor "Satisfaction" in the models 
+during backward selection with method D1.
+
+```{r }
+
+library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+    predictors=c("Gender", "Smoking", "Function", "JobControl",
+    "JobDemands", "SocialSupport"), cat.predictors = "Satisfaction", 
+    keep.predictors = "Satisfaction",
+    p.crit = 0.05, method="D1")
+```
+
+Back to [Examples]
+
+### Pooling with BS and forcing dichotomous and categorical variable in the model
+
+Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor "Smoking" and categorical 
+predictor "Satisfaction" in the models during backward selection with method D1.
+
+```{r }
+
+library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+    predictors=c("Gender", "Smoking", "Function", "JobControl",
+    "JobDemands", "SocialSupport"), cat.predictors = "Satisfaction", 
+    keep.predictors = c("Satisfaction", "Smoking"),
+    p.crit = 0.05, method="D1")
+```
+
+Back to [Examples]

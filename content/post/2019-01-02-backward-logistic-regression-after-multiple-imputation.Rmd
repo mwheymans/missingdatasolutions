@@ -1,0 +1,64 @@
+---
+title: "Logistic Regression after Multiple Imputation - different selection criteria"
+author: "Martijn Heymans"
+date: '2019-01-02'
+slug: backward-logistic-regression-after-multiple-imputation
+output:
+    blogdown::html_page
+description: "Logistic Regression after Multiple Imputation"
+tags:
+- psfmi
+- Multiple Imputation
+- backward selection
+- logistic regression
+- pooling 
+- D1
+- D2
+- Meng and Rubin
+- Rubins Rules
+categories: ["Multiple Imputation"]
+thumbnailImagePosition: left
+thumbnailImage: "/images/different_selection_criteria.jpg"
+---
+
+With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model. 
+
+For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, Meng and Rubin (MR or D3) and Median P-rule (MPR) method and can be found in the papers of [Marshall et al](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-9-57){target="_blank"} and [Eekhout, vd Wiel and Heymans](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-017-0404-7){target="_blank"}. 
+
+## Examples 
+
++ [Pooling without BS and method D1] 
++ [Pooling with BS and method MR] 
+
+## Logistic Regression
+
+### Pooling without BS and method D1
+
+```{r }
+
+library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+         predictors=c("Gender", "Smoking", "Function", "JobControl",
+                      "JobDemands", "SocialSupport"), method="D1")
+
+```
+
+Back to [Examples]
+
+### Pooling with BS and method MR
+
+Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method MR (Meng and Rubin likelihood ratio statistics).
+
+```{r }
+
+library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+         predictors=c("Gender", "Smoking", "Function", "JobControl",
+                      "JobDemands", "SocialSupport"), p.crit = 0.05, method="MR")
+
+```
+
+Back to [Examples]
+
+

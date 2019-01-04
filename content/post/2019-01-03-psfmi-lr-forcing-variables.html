@@ -1,0 +1,571 @@
+---
+title: Backward Logistic Regression after MI - forcing variables in model
+author: Martijn Heymans
+date: '2019-01-02'
+slug: psfmi-lr-forcing-variables
+categories: []
+tags: 
+- force variables
+- keep predictors
+- interaction terms
+thumbnailImagePosition: left
+thumbnailImage: "/images/forcing.png"
+
+---
+
+
+
+<p>With the psfmi package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
+<p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in the psfmi_lr function. These variables can be continuous, dichotomous or categorical variables. Also more than one variable can be forced in the model during backward selection. Examples will be given below.</p>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<ul>
+<li><a href="#pooling-with-bs-and-forcing-dichotomous-variable-in-the-model">Pooling with BS and forcing dichotomous variable in the model</a></li>
+<li><a href="#pooling-with-bs-and-forcing-categorical-variable-in-the-model">Pooling with BS and forcing categorical variable in the model</a></li>
+<li><a href="#pooling-with-bs-and-forcing-dichotomous-and-categorical-variable-in-the-model">Pooling with BS and forcing dichotomous and categorical variable in the model</a></li>
+</ul>
+<div id="pooling-with-bs-and-forcing-dichotomous-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing dichotomous variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models during backward selection with method MR (Meng and Rubin likelihood ratio statistics or D3).</p>
+<pre class="r"><code>library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
+    p.crit = 0.05, method=&quot;MR&quot;)</code></pre>
+<pre><code>## 
+##  Step 1 
+## 
+##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport 
+## 
+##  Mixed Pooled p-values (RR / MR) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                   est std.err signif   lower   upper     OR lower.EXP
+## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018    0.0365
+## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557    0.2952
+## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234    0.5761
+## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644    0.7959
+## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021    0.9652
+## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913    0.9243
+## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252    0.9222
+##               upper.EXP
+## (Intercept)    280.8649
+## Gender           1.4568
+## Smoking          2.1907
+## Function         0.9387
+## JobControl       1.0404
+## JobDemands       1.0632
+## SocialSupport    1.1397
+## 
+##               Mixed p-values (MR &amp; RR)
+## Gender                          0.3001
+## Smoking                         0.7327
+## Function                        0.0005
+## JobControl                      0.9145
+## JobDemands                      0.8065
+## SocialSupport                   0.6449
+## 
+##  Predictor(s) to keep are Smoking 
+## 
+##  Variable excluded at Step 1 is  JobControl 
+## 
+##  Step 2 
+## 
+##  Variables included in model = Gender Smoking Function JobDemands SocialSupport 
+## 
+##  Mixed Pooled p-values (RR / MR) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                   est std.err signif   lower   upper     OR lower.EXP
+## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019    0.1004
+## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508    0.2965
+## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245    0.5768
+## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651    0.7975
+## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911    0.9242
+## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242    0.9228
+##               upper.EXP
+## (Intercept)    136.5169
+## Gender           1.4286
+## Smoking          2.1922
+## Function         0.9383
+## JobDemands       1.0628
+## SocialSupport    1.1367
+## 
+##               Mixed p-values (MR &amp; RR)
+## Gender                          0.2843
+## Smoking                         0.7305
+## Function                        0.0005
+## JobDemands                      0.8019
+## SocialSupport                   0.6532
+## 
+##  Predictor(s) to keep are Smoking 
+## 
+##  Variable excluded at Step 2 is  JobDemands 
+## 
+##  Step 3 
+## 
+##  Variables included in model = Gender Smoking Function SocialSupport 
+## 
+##  Mixed Pooled p-values (RR / MR) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                   est std.err signif   lower   upper     OR lower.EXP
+## (Intercept)    0.9989  1.3631 0.4637 -1.6728  3.6705 2.7152    0.1877
+## Gender        -0.4128  0.3955 0.2966 -1.1880  0.3624 0.6618    0.3048
+## Smoking        0.1177  0.3406 0.7298 -0.5499  0.7852 1.1249    0.5770
+## Function      -0.1448  0.0414 0.0005 -0.2260 -0.0636 0.8652    0.7977
+## SocialSupport  0.0236  0.0532 0.6575 -0.0806  0.1278 1.0239    0.9225
+##               upper.EXP
+## (Intercept)     39.2713
+## Gender           1.4367
+## Smoking          2.1929
+## Function         0.9384
+## SocialSupport    1.1363
+## 
+##               Mixed p-values (MR &amp; RR)
+## Gender                          0.2966
+## Smoking                         0.7298
+## Function                        0.0005
+## SocialSupport                   0.6575
+## 
+##  Predictor(s) to keep are Smoking 
+## 
+##  Variable excluded at Step 3 is  SocialSupport 
+## 
+##  Step 4 
+## 
+##  Variables included in model = Gender Smoking Function 
+## 
+##  Mixed Pooled p-values (RR / MR) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                 est std.err signif   lower   upper     OR lower.EXP
+## (Intercept)  1.5547  0.5442 0.0043  0.4882  2.6212 4.7337    1.6293
+## Gender      -0.4212  0.3944 0.2855 -1.1943  0.3518 0.6562    0.3029
+## Smoking      0.1133  0.3402 0.7392 -0.5535  0.7800 1.1199    0.5749
+## Function    -0.1445  0.0414 0.0005 -0.2257 -0.0633 0.8654    0.7980
+##             upper.EXP
+## (Intercept)   13.7527
+## Gender         1.4216
+## Smoking        2.1815
+## Function       0.9386
+## 
+##          Mixed p-values (MR &amp; RR)
+## Gender                     0.2855
+## Smoking                    0.7392
+## Function                   0.0005
+## 
+##  Predictor(s) to keep are Smoking 
+## 
+##  Variable excluded at Step 4 is  Gender 
+## 
+##  Step 5 
+## 
+##  Variables included in model = Smoking Function 
+## 
+##  Mixed Pooled p-values (RR / MR) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                 est std.err signif   lower   upper     OR lower.EXP
+## (Intercept)  1.2804  0.4737 0.0069  0.3519  2.2089 3.5981    1.4218
+## Smoking      0.1087  0.3389 0.7485 -0.5555  0.7728 1.1148    0.5738
+## Function    -0.1486  0.0412 0.0003 -0.2293 -0.0679 0.8619    0.7951
+##             upper.EXP
+## (Intercept)    9.1058
+## Smoking        2.1658
+## Function       0.9343
+## 
+##          Mixed p-values (MR &amp; RR)
+## Smoking                    0.7485
+## Function                   0.0003
+## 
+##  Final result of Pooled model
+##           with a p-value of 0.05 and predictors to keep Smoking</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-forcing-categorical-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing categorical variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the categorical predictor “Satisfaction” in the models during backward selection with method D1.</p>
+<pre class="r"><code>library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), cat.predictors = &quot;Satisfaction&quot;, 
+    keep.predictors = &quot;Satisfaction&quot;,
+    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
+<pre><code>## 
+##  Step 1 
+## 
+##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.9256  2.3554 0.4136 -2.6910  6.5423 6.8595 0.0678
+## Gender                -0.4805  0.4154 0.2474 -1.2947  0.3337 0.6185 0.2740
+## Smoking                0.0678  0.3459 0.8446 -0.6101  0.7457 1.0702 0.5433
+## Function              -0.1582  0.0434 0.0003 -0.2432 -0.0732 0.8537 0.7841
+## JobControl            -0.0005  0.0192 0.9778 -0.0382  0.0371 0.9995 0.9625
+## JobDemands            -0.0089  0.0361 0.8050 -0.0796  0.0618 0.9911 0.9235
+## SocialSupport          0.0245  0.0547 0.6550 -0.0828  0.1317 1.0248 0.9205
+## factor(Satisfaction)2 -0.4403  0.4540 0.3333 -1.3351  0.4546 0.6439 0.2631
+## factor(Satisfaction)3 -0.7296  0.5161 0.1575 -1.7414  0.2822 0.4821 0.1753
+##                           U.OR
+## (Intercept)           693.8487
+## Gender                  1.3962
+## Smoking                 2.1079
+## Function                0.9294
+## JobControl              1.0378
+## JobDemands              1.0637
+## SocialSupport           1.1408
+## factor(Satisfaction)2   1.5755
+## factor(Satisfaction)3   1.3260
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.338         0.2474
+## Smoking               0.038         0.8446
+## Function             13.312         0.0003
+## JobControl            0.001         0.9778
+## JobDemands            0.061         0.8050
+## SocialSupport         0.200         0.6550
+## factor(Satisfaction)  0.968         0.3809
+## 
+##  Predictor(s) to keep are factor(Satisfaction) 
+## 
+##  Variable excluded at Step 1 is  JobControl 
+## 
+##  Step 2 
+## 
+##  Variables included in model = Gender Smoking Function JobDemands SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.8870  1.9090 0.3229 -1.8546  5.6285 6.5994 0.1565
+## Gender                -0.4784  0.4086 0.2417 -1.2793  0.3225 0.6198 0.2782
+## Smoking                0.0676  0.3458 0.8450 -0.6101  0.7453 1.0699 0.5433
+## Function              -0.1584  0.0430 0.0002 -0.2426 -0.0741 0.8535 0.7846
+## JobDemands            -0.0088  0.0360 0.8060 -0.0794  0.0617 0.9912 0.9237
+## SocialSupport          0.0247  0.0540 0.6476 -0.0812  0.1306 1.0250 0.9220
+## factor(Satisfaction)2 -0.4402  0.4539 0.3332 -1.3348  0.4543 0.6439 0.2632
+## factor(Satisfaction)3 -0.7279  0.5135 0.1564 -1.7346  0.2788 0.4829 0.1765
+##                           U.OR
+## (Intercept)           278.2441
+## Gender                  1.3806
+## Smoking                 2.1071
+## Function                0.9286
+## JobDemands              1.0637
+## SocialSupport           1.1395
+## factor(Satisfaction)2   1.5751
+## factor(Satisfaction)3   1.3215
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.371         0.2417
+## Smoking               0.038         0.8450
+## Function             13.575         0.0002
+## JobDemands            0.060         0.8060
+## SocialSupport         0.209         0.6476
+## factor(Satisfaction)  0.972         0.3794
+## 
+##  Predictor(s) to keep are factor(Satisfaction) 
+## 
+##  Variable excluded at Step 2 is  Smoking 
+## 
+##  Step 3 
+## 
+##  Variables included in model = Gender Function JobDemands SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.9247  1.9001 0.3111 -1.7995  5.6488 6.8528 0.1654
+## Gender                -0.4787  0.4087 0.2415 -1.2797  0.3224 0.6196 0.2781
+## Function              -0.1576  0.0427 0.0002 -0.2413 -0.0738 0.8542 0.7856
+## JobDemands            -0.0089  0.0360 0.8045 -0.0795  0.0617 0.9911 0.9236
+## SocialSupport          0.0244  0.0540 0.6517 -0.0815  0.1303 1.0247 0.9217
+## factor(Satisfaction)2 -0.4467  0.4520 0.3241 -1.3375  0.4441 0.6397 0.2625
+## factor(Satisfaction)3 -0.7376  0.5113 0.1492 -1.7399  0.2647 0.4782 0.1755
+##                           U.OR
+## (Intercept)           283.9531
+## Gender                  1.3804
+## Function                0.9288
+## JobDemands              1.0636
+## SocialSupport           1.1392
+## factor(Satisfaction)2   1.5592
+## factor(Satisfaction)3   1.3030
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.372         0.2415
+## Function             13.598         0.0002
+## JobDemands            0.061         0.8045
+## SocialSupport         0.204         0.6517
+## factor(Satisfaction)  1.009         0.3656
+## 
+##  Predictor(s) to keep are factor(Satisfaction) 
+## 
+##  Variable excluded at Step 3 is  JobDemands 
+## 
+##  Step 4 
+## 
+##  Variables included in model = Gender Function SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.6185  1.4487 0.2639 -1.2211  4.4580 5.0454 0.2949
+## Gender                -0.4612  0.4026 0.2520 -1.2503  0.3279 0.6305 0.2864
+## Function              -0.1574  0.0427 0.0002 -0.2411 -0.0736 0.8544 0.7858
+## SocialSupport          0.0240  0.0540 0.6564 -0.0818  0.1298 1.0243 0.9215
+## factor(Satisfaction)2 -0.4515  0.4517 0.3187 -1.3418  0.4388 0.6367 0.2614
+## factor(Satisfaction)3 -0.7356  0.5111 0.1502 -1.7376  0.2664 0.4792 0.1759
+##                          U.OR
+## (Intercept)           86.3186
+## Gender                 1.3880
+## Function               0.9290
+## SocialSupport          1.1387
+## factor(Satisfaction)2  1.5509
+## factor(Satisfaction)3  1.3053
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.312         0.2520
+## Function             13.563         0.0002
+## SocialSupport         0.198         0.6564
+## factor(Satisfaction)  1.007         0.3664
+## 
+##  Predictor(s) to keep are factor(Satisfaction) 
+## 
+##  Variable excluded at Step 4 is  SocialSupport 
+## 
+##  Step 5 
+## 
+##  Variables included in model = Gender Function factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            2.1832  0.6999 0.0018  0.8110  3.5554 8.8748 2.2502
+## Gender                -0.4694  0.4013 0.2421 -1.2558  0.3171 0.6254 0.2848
+## Function              -0.1572  0.0428 0.0002 -0.2410 -0.0734 0.8545 0.7858
+## factor(Satisfaction)2 -0.4522  0.4525 0.3187 -1.3444  0.4399 0.6362 0.2607
+## factor(Satisfaction)3 -0.7318  0.5118 0.1528 -1.7352  0.2715 0.4810 0.1764
+##                          U.OR
+## (Intercept)           35.0024
+## Gender                 1.3732
+## Function               0.9292
+## factor(Satisfaction)2  1.5526
+## factor(Satisfaction)3  1.3120
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.368         0.2421
+## Function             13.517         0.0002
+## factor(Satisfaction)  0.996         0.3705
+## 
+##  Predictor(s) to keep are factor(Satisfaction) 
+## 
+##  Variable excluded at Step 5 is  Gender 
+## 
+##  Step 6 
+## 
+##  Variables included in model = Function factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.8397  0.6224 0.0031  0.6196  3.0598 6.2945 1.8581
+## Function              -0.1612  0.0426 0.0002 -0.2446 -0.0777 0.8511 0.7830
+## factor(Satisfaction)2 -0.4183  0.4457 0.3490 -1.2965  0.4600 0.6582 0.2735
+## factor(Satisfaction)3 -0.6885  0.5069 0.1745 -1.6823  0.3053 0.5023 0.1859
+##                          U.OR
+## (Intercept)           21.3231
+## Function               0.9252
+## factor(Satisfaction)2  1.5840
+## factor(Satisfaction)3  1.3570
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Function              14.33         0.0002
+## factor(Satisfaction)   0.90         0.4075
+## 
+##  Final result of Pooled model
+##           with a p-value of 0.05 and predictors to keep factor(Satisfaction)</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-forcing-dichotomous-and-categorical-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing dichotomous and categorical variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” and categorical predictor “Satisfaction” in the models during backward selection with method D1.</p>
+<pre class="r"><code>library(psfmi)
+psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), cat.predictors = &quot;Satisfaction&quot;, 
+    keep.predictors = c(&quot;Satisfaction&quot;, &quot;Smoking&quot;),
+    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
+<pre><code>## 
+##  Step 1 
+## 
+##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.9256  2.3554 0.4136 -2.6910  6.5423 6.8595 0.0678
+## Gender                -0.4805  0.4154 0.2474 -1.2947  0.3337 0.6185 0.2740
+## Smoking                0.0678  0.3459 0.8446 -0.6101  0.7457 1.0702 0.5433
+## Function              -0.1582  0.0434 0.0003 -0.2432 -0.0732 0.8537 0.7841
+## JobControl            -0.0005  0.0192 0.9778 -0.0382  0.0371 0.9995 0.9625
+## JobDemands            -0.0089  0.0361 0.8050 -0.0796  0.0618 0.9911 0.9235
+## SocialSupport          0.0245  0.0547 0.6550 -0.0828  0.1317 1.0248 0.9205
+## factor(Satisfaction)2 -0.4403  0.4540 0.3333 -1.3351  0.4546 0.6439 0.2631
+## factor(Satisfaction)3 -0.7296  0.5161 0.1575 -1.7414  0.2822 0.4821 0.1753
+##                           U.OR
+## (Intercept)           693.8487
+## Gender                  1.3962
+## Smoking                 2.1079
+## Function                0.9294
+## JobControl              1.0378
+## JobDemands              1.0637
+## SocialSupport           1.1408
+## factor(Satisfaction)2   1.5755
+## factor(Satisfaction)3   1.3260
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.338         0.2474
+## Smoking               0.038         0.8446
+## Function             13.312         0.0003
+## JobControl            0.001         0.9778
+## JobDemands            0.061         0.8050
+## SocialSupport         0.200         0.6550
+## factor(Satisfaction)  0.968         0.3809
+## 
+##  Predictor(s) to keep are factor(Satisfaction) Smoking 
+## 
+##  Variable excluded at Step 1 is  JobControl 
+## 
+##  Step 2 
+## 
+##  Variables included in model = Gender Smoking Function JobDemands SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.8870  1.9090 0.3229 -1.8546  5.6285 6.5994 0.1565
+## Gender                -0.4784  0.4086 0.2417 -1.2793  0.3225 0.6198 0.2782
+## Smoking                0.0676  0.3458 0.8450 -0.6101  0.7453 1.0699 0.5433
+## Function              -0.1584  0.0430 0.0002 -0.2426 -0.0741 0.8535 0.7846
+## JobDemands            -0.0088  0.0360 0.8060 -0.0794  0.0617 0.9912 0.9237
+## SocialSupport          0.0247  0.0540 0.6476 -0.0812  0.1306 1.0250 0.9220
+## factor(Satisfaction)2 -0.4402  0.4539 0.3332 -1.3348  0.4543 0.6439 0.2632
+## factor(Satisfaction)3 -0.7279  0.5135 0.1564 -1.7346  0.2788 0.4829 0.1765
+##                           U.OR
+## (Intercept)           278.2441
+## Gender                  1.3806
+## Smoking                 2.1071
+## Function                0.9286
+## JobDemands              1.0637
+## SocialSupport           1.1395
+## factor(Satisfaction)2   1.5751
+## factor(Satisfaction)3   1.3215
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.371         0.2417
+## Smoking               0.038         0.8450
+## Function             13.575         0.0002
+## JobDemands            0.060         0.8060
+## SocialSupport         0.209         0.6476
+## factor(Satisfaction)  0.972         0.3794
+## 
+##  Predictor(s) to keep are factor(Satisfaction) Smoking 
+## 
+##  Variable excluded at Step 2 is  JobDemands 
+## 
+##  Step 3 
+## 
+##  Variables included in model = Gender Smoking Function SocialSupport factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.5828  1.4595 0.2782 -1.2779  4.4436 4.8687 0.2786
+## Gender                -0.4611  0.4026 0.2521 -1.2502  0.3279 0.6306 0.2865
+## Smoking                0.0684  0.3457 0.8431 -0.6092  0.7460 1.0708 0.5438
+## Function              -0.1582  0.0430 0.0002 -0.2424 -0.0739 0.8537 0.7847
+## SocialSupport          0.0243  0.0540 0.6523 -0.0815  0.1302 1.0246 0.9217
+## factor(Satisfaction)2 -0.4451  0.4535 0.3275 -1.3390  0.4488 0.6408 0.2621
+## factor(Satisfaction)3 -0.7258  0.5133 0.1574 -1.7321  0.2805 0.4839 0.1769
+##                          U.OR
+## (Intercept)           85.0819
+## Gender                 1.3881
+## Smoking                2.1086
+## Function               0.9287
+## SocialSupport          1.1390
+## factor(Satisfaction)2  1.5665
+## factor(Satisfaction)3  1.3238
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.312         0.2521
+## Smoking               0.039         0.8431
+## Function             13.541         0.0002
+## SocialSupport         0.203         0.6523
+## factor(Satisfaction)  0.971         0.3798
+## 
+##  Predictor(s) to keep are factor(Satisfaction) Smoking 
+## 
+##  Variable excluded at Step 3 is  SocialSupport 
+## 
+##  Step 4 
+## 
+##  Variables included in model = Gender Smoking Function factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            2.1568  0.7147 0.0026  0.7556  3.5580 8.6432 2.1289
+## Gender                -0.4693  0.4013 0.2422 -1.2557  0.3172 0.6255 0.2849
+## Smoking                0.0637  0.3453 0.8536 -0.6132  0.7406 1.0658 0.5416
+## Function              -0.1580  0.0430 0.0002 -0.2423 -0.0737 0.8539 0.7848
+## factor(Satisfaction)2 -0.4462  0.4543 0.3272 -1.3421  0.4497 0.6401 0.2613
+## factor(Satisfaction)3 -0.7226  0.5141 0.1599 -1.7305  0.2852 0.4855 0.1772
+##                          U.OR
+## (Intercept)           35.0917
+## Gender                 1.3732
+## Smoking                2.0972
+## Function               0.9290
+## factor(Satisfaction)2  1.5678
+## factor(Satisfaction)3  1.3300
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Gender                1.368         0.2422
+## Smoking               0.034         0.8536
+## Function             13.490         0.0002
+## factor(Satisfaction)  0.961         0.3836
+## 
+##  Predictor(s) to keep are factor(Satisfaction) Smoking 
+## 
+##  Variable excluded at Step 4 is  Gender 
+## 
+##  Step 5 
+## 
+##  Variables included in model = Smoking Function factor(Satisfaction) 
+## 
+##  Pooled model (Rubin&#39;s Rules) 
+##                           est std.err signif   lower   upper     OR   L.OR
+## (Intercept)            1.8137  0.6384 0.0045  0.5621  3.0652 6.1329 1.7544
+## Smoking                0.0638  0.3435 0.8526 -0.6095  0.7372 1.0659 0.5436
+## Function              -0.1619  0.0428 0.0002 -0.2459 -0.0780 0.8505 0.7820
+## factor(Satisfaction)2 -0.4127  0.4474 0.3573 -1.2943  0.4689 0.6618 0.2741
+## factor(Satisfaction)3 -0.6797  0.5091 0.1819 -1.6777  0.3183 0.5068 0.1868
+##                          U.OR
+## (Intercept)           21.4396
+## Smoking                2.0900
+## Function               0.9250
+## factor(Satisfaction)2  1.5982
+## factor(Satisfaction)3  1.3748
+## 
+##  Mixed Pooled p-values (D1 &amp; RR) 
+##                      Chi.sq Pooled.P.value
+## Smoking               0.035         0.8526
+## Function             14.297         0.0002
+## factor(Satisfaction)  0.868         0.4207
+## 
+##  Final result of Pooled model
+##           with a p-value of 0.05 and predictors to keep factor(Satisfaction) Smoking</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+</div>

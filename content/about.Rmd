@@ -1,0 +1,23 @@
+---
+title: "About Me"
+author: "Martijn Heymans"
+date: "2018 M10 10"
+output: html_document
+---
+
+My name is Martijn Heymans. I am an Assistant Professor of Applied Biostatistics 
+and Missing Data Methods at the department of Epidemiology and Biostatistics 
+of the Amsterdam University Medical Center (Amsterdam UMC), The Netherlands. 
+
+My work consists of statistical consultancy, supervising PhD projects 
+on several methodological and clinical topics and lecturing courses in 
+epidemiology and biostatistics for the bachelor and Master's Programme 
+in Epidemiology [epidm.nl](https://www.epidm.nl/nl/) and Medicine.
+
+I like to work with RStudio and try to provide solutions for applied clinical 
+researchers. I have a background in Physical Therapy, Human Movement Sciences, 
+Epidemiology and Medical Biostatistics.
+
+See for my courses:
+[Missing Data](https://epidm.nl/en/courses/missing-data-consequences-and-solutions/) and 
+[Prediction Models](https://epidm.nl/en/courses/clinical-prediction-models/) 

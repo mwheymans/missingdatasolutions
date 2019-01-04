@@ -1,0 +1,263 @@
+---
+title: "Steps to externally validate a prediction model"
+date: "2019-01-01"
+description: "External validation of a prediction model" 
+tags: 
+- external validation
+thumbnailImagePosition: left
+thumbnailImage: "/images/external.png"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+External validation means that the performance of a prediction model
+is studied in a new (external) patient dataset that is not used to 
+develop the model. To study the performance of the model measures
+for discrimination (e.g. Area Under the Curve) and calibration
+(e.g. Calibration curve, Hosmer and Lemeshow test (H&L)) are used.
+
+## Original prediction model
+
+We will externally validate the following prediction model:
+
+```{r , echo=FALSE}
+suppressWarnings(suppressMessages(library(foreign)))
+suppressWarnings(suppressMessages(library(rms)))
+suppressWarnings(suppressMessages(library(ResourceSelection)))
+suppressWarnings(suppressMessages(library(pROC)))
+
+```
+
+```{r }
+
+library(foreign)
+dat.orig <- read.spss(file="Hipstudy.sav", to.data.frame=T)
+
+library(rms)
+dd <- datadist(dat.orig)
+options(datadist='dd')
+
+dat.orig$Mobility <- factor(dat.orig$Mobility)
+fit.orig <- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.orig) 
+fit.orig
+
+pred.orig <- predict(fit.orig, type="fitted")
+
+```
+
+### ROC curve and AUC
+
+```{r }
+library(pROC)
+roc(fit.orig$y, pred.orig, ci=TRUE, plot = TRUE)
+```
+
+### Calibration curve and H&L test
+
+```{r echo=FALSE}
+group.cut <- quantile(pred.orig, c(seq(0, 1, 0.1)))
+group <- cut(pred.orig, group.cut) 
+pred.prob <- tapply(pred.orig, group, mean)
+
+# Observed probabilities
+obs.prob <- tapply(fit.orig$y, group, mean)
+cal.m <- data.frame(cbind(pred.prob, obs.prob))
+```
+
+```{r }
+library(ggplot2)
+cal.plot <- ggplot(cal.m,aes(x=pred.prob,y=obs.prob)) + 
+  scale_x_continuous(name = "Predicted Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) +
+  scale_y_continuous(name = "Observed Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) + 
+  geom_smooth(method='lm', formula = y~x, se = FALSE) + 
+  geom_point(size=2, shape = 19) + 
+  geom_abline(intercept = 0, slope = 1, linetype=2) + 
+  ggtitle("Calibration Curve") 
+plot(cal.plot)
+
+library(ResourceSelection)
+hoslem.test(fit.orig$y, pred.orig) # Hosmer and Lemeshow test from package ResourceSelection
+```
+
+This model has an **C-index (ROC) value of 0.774** and an **R2 of 0.234**. **The Hosmer and Lemeshow test is not significant** indicating that the model calibrates well.
+
+## Steps to externally validate a prediction model 
+
+#### 1. Determine the Linear Predictor of the model. This is in our case:
+
+```{r }
+coef.orig <- coef(fit.orig) 
+coef.orig # Coefficients of original model
+```
+
+#### 2. Transport the original regression coefficients to the external dataset and calculate the linear predictor.
+
+```{r , echo=FALSE}
+
+set.seed(15)
+id <- sample(dat.orig[, 1], 300, replace = F)
+dat.ext <- dat.orig[id, ]
+
+``` 
+
+```{r }
+
+fit.ext <- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.ext) 
+lp.ext <- model.matrix(fit.ext) %*% coef.orig # model.matrix extracts predictor values of external dataset, including dummy coded variables. 
+
+``` 
+
+```{r , echo=FALSE}
+
+lp.ext <- as.numeric(lp.ext + 0.7)
+P <- 1/(1+exp(-lp.ext))
+y <- ifelse(runif(300)<=P, 1, 0)
+dat.ext$Mortality <- y # dat.ext is the external dataset
+
+``` 
+
+#### 3. Determine the amount of miscalibration in intercept and calibration slope. 
+
+```{r }
+
+fit.ext.lp <- lrm(fit.ext$y ~ lp.ext)
+fit.ext.lp
+
+``` 
+
+The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively 
+indicate thje amount of miscalibration in the intercept ansd slope value. 
+Without miscalibration these values are 0 and 1 respectively.
+
+#### 4. Deterimne Discrimination and Calibration in the external dataset  
+
+#### Discrimination
+
+```{r }
+
+pred.ext <-  1/(1+exp(-lp.ext))
+roc(fit.ext$y, pred.ext, ci=TRUE, plot = TRUE)
+
+``` 
+
+The AUC drops from 0.774 to 0.748.
+
+#### Calibration 
+
+```{r echo=FALSE}
+pred.ext <-  1/(1+exp(-lp.ext))
+group.cut <- quantile(pred.ext, c(seq(0, 1, 0.1)))
+group <- cut(pred.ext, group.cut) 
+pred.prob <- tapply(pred.ext, group, mean)
+
+# Observed probabilities
+obs.prob <- tapply(fit.ext$y, group, mean)
+cal.m.ext <- data.frame(cbind(pred.prob, obs.prob))
+```
+
+```{r }
+library(ggplot2)
+cal.plot <- ggplot(cal.m.ext,aes(x=pred.prob,y=obs.prob)) + 
+  scale_x_continuous(name = "Predicted Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) +
+  scale_y_continuous(name = "Observed Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) + 
+  geom_smooth(method="lm", formula = y~x, se = FALSE) + 
+  geom_point(size=2, shape = 19) + 
+  geom_abline(intercept = 0, slope = 1, linetype=2) + 
+  ggtitle("Calibration Curve") 
+plot(cal.plot)
+```
+
+The calibration curve deviates from the ideal line.
+
+#### Hosmer and Lemeshow test
+
+```{r }
+
+hoslem.test(fit.ext$y, pred.ext)
+
+``` 
+
+The Hosmer and Lemeshow test is now significant. The test confirms
+the miscalibration in the intercept and calibration slope, visualized
+on the calibration curve.
+
+### Incorrect external validation: recalibrated predictions
+
+When you externally validate a prediction model you have to use  
+*uncalibrated* predictions. Otherwise the external validation 
+procedure is incorrect.
+
+The uncalibrated predictions were used above and were calculated
+"outside" the model by using the formula to calculated predicted probabilities:
+
+```{r }
+pred.ext <-  1/(1+exp(-lp.ext))
+``` 
+
+Calibrated predictions are calculated via the prediction model, using:
+
+```{r }
+
+fit.ext.lp <- lrm(fit.ext$y ~ lp.ext) # the coefficient values reflect the amount of miscalibration 
+pred.ext.recal <- predict(fit.ext.lp, type="fitted")
+
+``` 
+
+These predictions are calibrated in the model by using the intercept and slope 
+coefficient values as correction factors. These values are -0.7751 and 0.8631 for the intercept 
+and slope respectively. Without miscalibration these intercept and slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following result for discrimination and calibration.
+
+#### Discrimination
+
+```{r }
+
+roc(fit.ext$y, pred.ext.recal, ci=TRUE, plot = TRUE)
+
+``` 
+
+#### Calibration 
+
+```{r echo=FALSE}
+group.cut <- quantile(pred.ext.recal, c(seq(0, 1, 0.1)))
+group <- cut(pred.ext.recal, group.cut) 
+pred.prob <- tapply(pred.ext.recal, group, mean)
+
+# Observed probabilities
+obs.prob <- tapply(fit.ext$y, group, mean)
+cal.m.ext <- data.frame(cbind(pred.prob, obs.prob))
+```
+
+```{r }
+library(ggplot2)
+cal.plot <- ggplot(cal.m.ext,aes(x=pred.prob,y=obs.prob)) + 
+  scale_x_continuous(name = "Predicted Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) +
+  scale_y_continuous(name = "Observed Probabilities",
+    breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) + 
+  geom_smooth(method="lm", formula = y~x, se = FALSE) + 
+  geom_point(size=2, shape = 19) + 
+  geom_abline(intercept = 0, slope = 1, linetype=2) + 
+  ggtitle("Calibration Curve") 
+plot(cal.plot)
+```
+
+#### Hosmer and Lemeshow test
+
+```{r }
+
+hoslem.test(fit.ext$y, pred.ext.recal)
+
+``` 
+
+The Hosmer and Lemeshow test is not significant and the calibration
+curve looks as if the model calibrates well in the external dataset.
+This is incorrect and the result of working with calibrated predictions.
+These calibrated predictions do not influence the ROC curve and AUC.
+
+#### For external validation in Multiple Imputed datasets see <http://missingdatasolutions.rbind.io/psfmi/>.
