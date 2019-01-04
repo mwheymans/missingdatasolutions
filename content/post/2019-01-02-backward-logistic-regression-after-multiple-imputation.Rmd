@@ -5,7 +5,6 @@ date: '2019-01-02'
 slug: backward-logistic-regression-after-multiple-imputation
 output:
     blogdown::html_page
-description: "Logistic Regression after Multiple Imputation"
 tags:
 - psfmi
 - Multiple Imputation
@@ -16,14 +15,15 @@ tags:
 - D2
 - Meng and Rubin
 - Rubins Rules
-categories: ["Multiple Imputation"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/different_selection_criteria.jpg"
+description: With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, Meng and Rubin (MR or D3) and Median P-rule (MPR).
+
 ---
 
-With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model. 
+The different methods are described in the papers of [Marshall et al](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-9-57) and [Eekhout, vd Wiel and Heymans](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-017-0404-7).  
 
-For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, Meng and Rubin (MR or D3) and Median P-rule (MPR) method and can be found in the papers of [Marshall et al](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-9-57){target="_blank"} and [Eekhout, vd Wiel and Heymans](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-017-0404-7){target="_blank"}. 
+Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
 
 ## Examples 
 

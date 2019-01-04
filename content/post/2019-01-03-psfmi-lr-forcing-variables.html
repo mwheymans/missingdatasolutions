@@ -5,17 +5,18 @@ date: '2019-01-02'
 slug: psfmi-lr-forcing-variables
 categories: []
 tags: 
+- psfmi
 - force variables
 - keep predictors
 - interaction terms
 thumbnailImagePosition: left
 thumbnailImage: "/images/forcing.png"
+description: With the [psfmi](/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
 
 ---
 
 
 
-<p>With the psfmi package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
 <p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in the psfmi_lr function. These variables can be continuous, dichotomous or categorical variables. Also more than one variable can be forced in the model during backward selection. Examples will be given below.</p>
 <div id="examples" class="section level2">
 <h2>Examples</h2>

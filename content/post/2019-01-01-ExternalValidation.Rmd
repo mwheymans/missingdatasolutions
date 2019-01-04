@@ -1,22 +1,17 @@
 ---
 title: "Steps to externally validate a prediction model"
 date: "2019-01-01"
-description: "External validation of a prediction model" 
 tags: 
 - external validation
 thumbnailImagePosition: left
 thumbnailImage: "/images/external.png"
+description: External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. To study the performance of the model measures for discrimination (e.g. Area Under the Curve) and calibration (e.g. Calibration curve, Hosmer and Lemeshow test (H&L)) are used.
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-External validation means that the performance of a prediction model
-is studied in a new (external) patient dataset that is not used to 
-develop the model. To study the performance of the model measures
-for discrimination (e.g. Area Under the Curve) and calibration
-(e.g. Calibration curve, Hosmer and Lemeshow test (H&L)) are used.
 
 ## Original prediction model
 

@@ -1,7 +1,6 @@
 ---
 title: "Welcome to Missing Data Solutions"
 date: "2019-01-03"
-description: "Missing Data Solutions" 
 tags: 
 - psfmi
 keywords:
@@ -12,16 +11,14 @@ thumbnailImagePosition: "top"
 thumbnailImage: "/images/Cover_small.jpg"
 coverImage: "/images/cover_mountain.jpg"
 metaAlignment: center
+description: Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.  
+
 ---
 
-Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx){target="_blank"}. This may severely bias the study results! 
-
-On this website you will find simple and complex missing data solutions 
-concerning medical and epidemiological studies. These solutions originate 
+Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern  
+Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate 
 from FAQs asked during statistical consultations or during courses.
 
-Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern  
-Regression modeling, Clinical Prediction models and Spline regression modeling.
 
 Examples are provided for applied researchers and frequenly in RStudio.  
 RStudio is an open source free package with a lot of possibilities, 
