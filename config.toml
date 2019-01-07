@@ -32,7 +32,7 @@ canonifyurls = true
   archive = "archives"
 
 [author]
-  name = "Martijn Heymans"
+  name = "Martijn W Heymans"
   bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: [Missing Data](https://epidm.nl/en/courses/missing-data-consequences-and-solutions/) and [Prediction Models](https://epidm.nl/en/courses/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m)"
   job = "Amsterdam UMC"
   location = "The Netherlands"
