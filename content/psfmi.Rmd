@@ -28,27 +28,26 @@ knitr::opts_chunk$set(
 ## Introduction
 
 On this page you will find information about the psfmi package. 
-The	package contains functions to apply pooling or backward 
-selection (BS) for logistic (psfmi_lr) or Cox regression (psfmi_coxr)
-models in multiple imputed datasets. Be aware that backward selection 
-may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model. This is also possible with the psfmi package. 
+The	package contains functions to pool logistic (psfmi_lr) or Cox 
+regression (psfmi_coxr) models in multiple imputed datasets. It is also possible to 
+apply backward variable selection in multiple imputed datasets (Be aware that backward selection 
+may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation)). Backward selection should therefore be followed by internal validation of the model. This is also possible with the psfmi package. 
 
-The basic pooling method is Rubin's Rules. For categorical predictors, 
-different methods to derive pooled p-values are available as: 
+Pooling methods are Rubin's Rules, and especially of interest for categorical predictors,
 the total covariance matrix (D1 method), pooling Chi-square values 
 (D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin or D3 method) 
-or pooling the median p-values (MPR rule). Moreover, two-way interaction 
-terms between continuous, dichotomous and categorical predictors
-are allowed during BS. Also, all type of predictors, interaction terms or 
-a combination, can be forced in the model during BS. For very large datasets
-and a large number of imputed datasets the D1 and MR methods may be less 
+or pooling the median p-values (MPR rule). Moreover, pooling results can be obtained for
+models including two-way interaction terms between continuous, dichotomous, categorical predictors
+and restricted cubic spline variables. This is also allowed during variable selection. Further, 
+all type of predictors, interaction terms or a combination, can be forced in the model during variable selection. 
+For very large datasets and a large number of imputed datasets the D1 and MR methods may be less 
 efficient than the D2 and MPR methods.
 
-The package also contains a function to generate apparent model performance 
+The package also contains a function to generate pooled apparent model performance 
 measures as ROC/AUC, Nagelkerke R-squares, Hosmer & Lemeshow test values and calibration plots over imputed datasets (miperform_lr). A wrapper function 
 over Frank Harrell's validate function is available. Bootstrap internal 
 validation is performed in each imputed dataset and results are pooled. 
-BS as part of internal validation	is  optional and recommended.
+Backward Selection as part of internal validation	is optional and recommended.
 
 There is also a function to perfrom external validation in multiply imputed 
 datasets (mivalext_lr).  
@@ -70,7 +69,7 @@ the R console window:
 
 The main functions that are available in the psfmi package are:
 
-psfmi_lr: Pooling and Predictor selection function for Logistic regression models in multiply imputed datasets 
+psfmi_lr: Pooling and predictor selection function for Logistic regression models in multiply imputed datasets 
 
 psfmi_coxr: Pooling and predictor selection function for Cox regression models in multiply imputed datasets
 
