@@ -1,6 +1,6 @@
 ---
 title: "Welcome to Missing Data Solutions"
-date: "2019-01-03"
+date: "2019-01-21"
 tags: 
 - psfmi
 keywords:
@@ -21,4 +21,4 @@ description: Missing data is present in each study, but is still not wel underst
 Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.</p>
 <p>Examples are provided for applied researchers and frequenly in RStudio.<br />
 RStudio is an open source free package with a lot of possibilities, making it easy to share code so that you can use the code example and adjust it to your own needs. Applied researchers also use other packages as SPSS, examples using that package will also be provided.</p>
-<p>A nice R package is the <a href="/psfmi/">psfmi</a> package that I wrote. With the psfmi package it is possible to apply pooling or backward selection (BS) for logistic (psfmi_lr) or Cox regression (psfmi_coxr) models in multiple imputed datasets in just a second! These procedures are not implemented in standard packages as SPSS, Stata or SAS and are therefore not available or may force the researcher to take wrong pragmatic solutions as applying single imputation procedures first.</p>
+<p>A nice R package is the <a href="/psfmi/">psfmi</a> package that I wrote. With the psfmi package it is possible to pool logistic (function psfmi_lr) and Cox (function psfmi_coxr) regression models using different pooling methods, i.e. Rubin’s Rules and D1, D2, Meng and Rubin and a median pooling method to pool categorical predictors (to get a overall pooled p-value). It is also possible to apply backward variable selection using these different pooling procedures. These methods are not implemented in standard packages as SPSS, Stata or SAS!</p>
