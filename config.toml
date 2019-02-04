@@ -82,7 +82,7 @@ canonifyurls = true
   identifier = "simpleimputation"
   name = "Shiny Apps"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-play\"></i>"
-  url = "/simpleimputation"  
+  url = "/simpleimputation/"  
 [[menu.main]]
   weight = 7
   identifier = "about"
