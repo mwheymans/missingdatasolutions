@@ -80,7 +80,7 @@ canonifyurls = true
 [[menu.main]]
   weight = 6
   identifier = "shiny"
-  name = "Shiny Apps"
+  name = "Interactive Learning"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-play\"></i>"
   url = "/shiny/"  
 [[menu.main]]
