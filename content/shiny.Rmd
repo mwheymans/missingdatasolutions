@@ -1,9 +1,14 @@
 ---
-title: "Single Imputation methods"
+title: "Shiny apps"
+author: "Martijn Heymans"
+description: "Interactive Shiny apps"
 output: html_document
 runtime: shiny
-
 ---
+
+On this page you will find interactive Shiny apps to learn about missing data methods. 
+
+## Simple imputation methods
 
 ```{r, echo=FALSE}
 
@@ -12,8 +17,9 @@ library(haven)
 library(mice)
 library(ggplot2)
 
-shinyApp(
-  
+  shinyApp(
+
+
 # Define UI  ----
 ui <- fluidPage(
   
@@ -116,5 +122,6 @@ server <- function(input, output) {
 )
 
 
-
 ```
+
+
