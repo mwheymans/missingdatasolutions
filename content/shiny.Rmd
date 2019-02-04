@@ -15,8 +15,7 @@ library(haven)
 library(mice)
 library(ggplot2)
 
-  shinyApp(
-
+shinyApp(
 
 # Define UI  ----
 ui <- fluidPage(
@@ -116,10 +115,8 @@ server <- function(input, output) {
     })
   
   }
-
 )
 
 
 ```
-
 
