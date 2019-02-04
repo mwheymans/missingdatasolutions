@@ -82,7 +82,7 @@ canonifyurls = true
   identifier = "shiny"
   name = "Interactive Learning"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-play\"></i>"
-  url = "/shiny/"  
+  url = "public/shiny/"  
 [[menu.main]]
   weight = 7
   identifier = "about"
