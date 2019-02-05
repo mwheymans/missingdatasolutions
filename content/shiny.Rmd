@@ -1,7 +1,7 @@
 ---
 title: "Shiny apps"
 description: "Interactive education tools"
-output: html_document
+
 ---
 
 On this page you will interactive learning tools of missing data methods
