@@ -1,0 +1,9 @@
+---
+title: "News about Missing Data Methods"
+description: "News"
+date: "`r Sys.Date()`"
+tags: 
+- news
+---
+
+On this page you will find the latest news about missing data methods

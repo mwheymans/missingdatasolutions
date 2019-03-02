@@ -1,6 +1,11 @@
 ---
 title: "Shiny apps"
 description: "Interactive education tools"
+date: "`r Sys.Date()`"
+tags: 
+- apps
+- Shiny
+- Interactive learning
 ---
 
 On this page you will find interactive learning tools of missing data methods
