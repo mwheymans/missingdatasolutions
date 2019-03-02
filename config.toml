@@ -20,7 +20,7 @@ theme = "hugo-tranquilpeak-theme"
 disqusShortname = "http-missingdatasolutions-rbind-io"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 googleAnalytics = "UA-127301719-2"
-paginate = 8
+paginate = 7
 canonifyurls = true
 
 [permalinks]
@@ -75,7 +75,7 @@ canonifyurls = true
   weight = 5
   identifier = "news"
   name = "News"
-  pre = "<i class=\"sidebar-button-icon fas fa-newspaper\"></i>"
+  pre = "<i class=\"sidebar-button-icon fa fa-newspaper-o fa-lg\"></i>"
   url = "/news/"
 [[menu.main]]
   weight = 6
