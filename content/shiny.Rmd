@@ -11,13 +11,17 @@ tags:
 On this page you will find interactive learning tools of missing data methods
 
 # Simple Imputation methods
-This [app](https://mwheymans.shinyapps.io/simpleimp/){target="_blank"} shows the effect of applying single imputation methods in the case of one outcome variable
+This [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"} shows the effect of applying single imputation methods in the case of one outcome variable
 and one covariate with missing data. 
 
-# Multiple Imputation (1)
-This [app](https://mwheymans.shinyapps.io/mianimate/){target="_blank"} is one of several apps to explain the Multivariate Imputation by Chained Equations (MICE) algorithm used as basis for Multiple Imputation with the `mice` function in R (that is also implemented in SPSS version 17 and later). 
+# Multiple Imputation
+This app shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm.
+The example dataset is small and contains three variables. A Pain, Tampa scale and Disability variable. The Tampa scale and Disability variables have three missing values each. 
+These three missing values will be imputed by the MICE algorithm.
 
-The app shows a convergence plot of imputations in one imputed dataset. With Multiple Imputation the procedure is repeted in several datasets. The means of the imputed values are visible on the convergende plot. The imputed values at each iteration step are visible after clicking the "Show Imputed Values" button. Missing values are imputed in one variable with missing data, i.e. the Tampa scale variable. Another variable, i.e. the Pain variable is used to generate the imputations. The results can be repeated by the user because the original dataset is downloadable and the settings for the `mice` function are `m=1, maxit=20` and `seed=1232`. 
+On the left side you can change the number of iterations and imputations and you can ask to show for the MICE ouput, the MICE regression formula's and the exact calculation of the imputed values by clicking those buttons. The output is visible on each tabbed panel on the right side of the window. Each time you change the number of imputations and iterations the output will be updated by clicking a button. There is also a tab that shows the convergence plot.   
 
-# Multiple Imputation (2)
-This [app](https://mwheymans.shinyapps.io/mianimate4/){target="_blank"} shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm. The results can be repeated by the user because the original dataset is downloadable and the settings for the `mice` function are `m=2, maxit=3`, `method="norm"` and `seed=1680`.
+The results can be repeated by the user in R because the original dataset is downloadable and the seed for the `mice` function is `seed=1232`. 
+
+Go to the [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"}
+
