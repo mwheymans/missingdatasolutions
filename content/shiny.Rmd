@@ -11,8 +11,8 @@ tags:
 On this page you will find interactive learning tools of missing data methods
 
 # Simple Imputation methods
-This [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"} shows the effect of applying single imputation methods in the case of one outcome variable
-and one covariate with missing data. 
+This app shows the effect of applying single imputation methods in the case of one outcome variable and one covariate with missing data. 
+Go to the [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"}
 
 # Multiple Imputation
 This app shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm.
@@ -22,6 +22,5 @@ These three missing values will be imputed by the MICE algorithm.
 On the left side you can change the number of iterations and imputations and you can ask to show for the MICE ouput, the MICE regression formula's and the exact calculation of the imputed values by clicking those buttons. The output is visible on each tabbed panel on the right side of the window. Each time you change the number of imputations and iterations the output will be updated by clicking a button. There is also a tab that shows the convergence plot.   
 
 The results can be repeated by the user in R because the original dataset is downloadable and the seed for the `mice` function is `seed=1232`. 
-
 Go to the [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"}
 
