@@ -19,7 +19,7 @@ This app shows how imputed values are calculated during each iteration and imput
 The example dataset is small and contains three variables. A Pain, Tampa scale and Disability variable. The Tampa scale and Disability variables have three missing values each. 
 These three missing values will be imputed by the MICE algorithm.
 
-On the left side you can change the number of iterations and imputations and you can ask to show for the MICE ouput, the MICE regression formula's and the exact calculation of the imputed values by clicking those buttons. The output is visible on each tabbed panel on the right side of the window. Each time you change the number of imputations and iterations the output will be updated by clicking a button. There is also a tab that shows the convergence plot.   
+On the left side you can change the number of iterations and imputations and you can ask for the MICE ouput, the MICE regression formula's and the exact MICE calculations of the imputed values by clicking those buttons. The output will become visible on each tabbed panel on the right side of the window. Each time you change the number of imputations and iterations the output will be updated by clicking a button. There is also a tab that shows the convergence plot.   
 
 The results can be repeated by the user in R because the original dataset is downloadable and the seed for the `mice` function is `seed=1232`. 
 Go to the [app](https://mwheymans.shinyapps.io/mi2variables/){target="_blank"}
