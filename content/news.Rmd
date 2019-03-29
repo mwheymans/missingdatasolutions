@@ -11,3 +11,7 @@ On this page you will find news about missing data and applied biostatistical me
 # Package naniar
 
 Package [`naniar`](http://naniar.njtierney.com/index.html){target="_blank"} provides tidy ways to summarise, visualise, and manipulate missing data. 
+
+# Package missCompare
+
+You can compare different missing data imputation algorithms with package [`missCompare`](https://cran.r-project.org/web/packages/missCompare/vignettes/misscompare.html){target="_blank"}.  
