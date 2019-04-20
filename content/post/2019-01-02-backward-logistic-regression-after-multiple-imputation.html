@@ -17,7 +17,7 @@ tags:
 - Rubins Rules
 thumbnailImagePosition: left
 thumbnailImage: "/images/different_selection_criteria.jpg"
-description: With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, Meng and Rubin (MR or D3) and Median P-rule (MPR).
+description: With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
 
 ---
 
@@ -29,7 +29,7 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 <h2>Examples</h2>
 <ul>
 <li><a href="#pooling-without-bs-and-method-d1">Pooling without BS and method D1</a></li>
-<li>[Pooling with BS and method D3]</li>
+<li><a href="#pooling-with-bs-and-method-d3">Pooling with BS and method D3</a></li>
 </ul>
 </div>
 <div id="logistic-regression" class="section level2">
@@ -76,8 +76,8 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ##         with a p-value of 1</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
-<div id="pooling-with-bs-and-method-mr" class="section level3">
-<h3>Pooling with BS and method MR</h3>
+<div id="pooling-with-bs-and-method-d3" class="section level3">
+<h3>Pooling with BS and method D3</h3>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics).</p>
 <pre class="r"><code>library(psfmi)
