@@ -117,7 +117,9 @@ fit.ext.lp</code></pre>
 ##  Intercept -0.7751 0.1612 -4.81  &lt;0.0001 
 ##  lp.ext     0.8631 0.1611  5.36  &lt;0.0001 
 ## </code></pre>
-<p>The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively indicate thje amount of miscalibration in the intercept ansd slope value. Without miscalibration these values are 0 and 1 respectively.</p>
+<p>The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively
+indicate thje amount of miscalibration in the intercept ansd slope value.
+Without miscalibration these values are 0 and 1 respectively.</p>
 </div>
 <div id="deterimne-discrimination-and-calibration-in-the-external-dataset" class="section level4">
 <h4>4. Deterimne Discrimination and Calibration in the external dataset</h4>
@@ -160,18 +162,24 @@ plot(cal.plot)</code></pre>
 ## 
 ## data:  fit.ext$y, pred.ext
 ## X-squared = 31.103, df = 8, p-value = 0.0001347</code></pre>
-<p>The Hosmer and Lemeshow test is now significant. The test confirms the miscalibration in the intercept and calibration slope, visualized on the calibration curve.</p>
+<p>The Hosmer and Lemeshow test is now significant. The test confirms
+the miscalibration in the intercept and calibration slope, visualized
+on the calibration curve.</p>
 </div>
 <div id="incorrect-external-validation-recalibrated-predictions" class="section level3">
 <h3>Incorrect external validation: recalibrated predictions</h3>
 <p>When you externally validate a prediction model you have to use<br />
-<em>uncalibrated</em> predictions. Otherwise the external validation procedure is incorrect.</p>
-<p>The uncalibrated predictions were used above and were calculated “outside” the model by using the formula to calculated predicted probabilities:</p>
+<em>uncalibrated</em> predictions. Otherwise the external validation
+procedure is incorrect.</p>
+<p>The uncalibrated predictions were used above and were calculated
+“outside” the model by using the formula to calculated predicted probabilities:</p>
 <pre class="r"><code>pred.ext &lt;-  1/(1+exp(-lp.ext))</code></pre>
 <p>Calibrated predictions are calculated via the prediction model, using:</p>
 <pre class="r"><code>fit.ext.lp &lt;- lrm(fit.ext$y ~ lp.ext) # the coefficient values reflect the amount of miscalibration 
 pred.ext.recal &lt;- predict(fit.ext.lp, type=&quot;fitted&quot;)</code></pre>
-<p>These predictions are calibrated in the model by using the intercept and slope coefficient values as correction factors. These values are -0.7751 and 0.8631 for the intercept and slope respectively. Without miscalibration these intercept and slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following result for discrimination and calibration.</p>
+<p>These predictions are calibrated in the model by using the intercept and slope
+coefficient values as correction factors. These values are -0.7751 and 0.8631 for the intercept
+and slope respectively. Without miscalibration these intercept and slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following result for discrimination and calibration.</p>
 <div id="discrimination-1" class="section level4">
 <h4>Discrimination</h4>
 <pre class="r"><code>roc(fit.ext$y, pred.ext.recal, ci=TRUE, plot = TRUE)</code></pre>
@@ -207,7 +215,10 @@ plot(cal.plot)</code></pre>
 ## 
 ## data:  fit.ext$y, pred.ext.recal
 ## X-squared = 6.4644, df = 8, p-value = 0.5954</code></pre>
-<p>The Hosmer and Lemeshow test is not significant and the calibration curve looks as if the model calibrates well in the external dataset. This is incorrect and the result of working with calibrated predictions. These calibrated predictions do not influence the ROC curve and AUC.</p>
+<p>The Hosmer and Lemeshow test is not significant and the calibration
+curve looks as if the model calibrates well in the external dataset.
+This is incorrect and the result of working with calibrated predictions.
+These calibrated predictions do not influence the ROC curve and AUC.</p>
 </div>
 <div id="for-external-validation-in-multiple-imputed-datasets-see-httpmissingdatasolutions.rbind.iopsfmi." class="section level4">
 <h4>For external validation in Multiple Imputed datasets see <a href="http://missingdatasolutions.rbind.io/psfmi/" class="uri">http://missingdatasolutions.rbind.io/psfmi/</a>.</h4>

@@ -2,7 +2,7 @@
 title: "the R psfmi package"
 author: "Martijn W Heymans"
 description: "R psfmi package for Predictor selection after Multiple Imputation in Logistic and Cox Regression models"
-date: "2019-03-29"
+date: "2019-04-20"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{psfmi}
@@ -22,14 +22,32 @@ categories: ["psfmi"]
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>On this page you will find information about the psfmi package. The package contains functions to pool logistic (psfmi_lr) or Cox regression (psfmi_coxr) models in multiple imputed datasets. It is also possible to apply backward variable selection in multiple imputed datasets (Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>). Backward selection should therefore be followed by internal validation of the model. This is also possible with the psfmi package.</p>
-<p>Pooling methods are Rubin’s Rules, and especially of interest for categorical predictors, the total covariance matrix (D1 method), pooling Chi-square values (D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin or D3 method) or pooling the median p-values (MPR rule). Moreover, pooling results can be obtained for models including two-way interaction terms between continuous, dichotomous, categorical predictors and restricted cubic spline variables. This is also allowed during variable selection. Further, all type of predictors, interaction terms or a combination, can be forced in the model during variable selection. For very large datasets and a large number of imputed datasets the D1 and MR methods may be less efficient than the D2 and MPR methods.</p>
-<p>The package also contains a function to generate pooled apparent model performance measures as ROC/AUC, Nagelkerke R-squares, Hosmer &amp; Lemeshow test values and calibration plots over imputed datasets (miperform_lr). A wrapper function over Frank Harrell’s validate function is available. Bootstrap internal validation is performed in each imputed dataset and results are pooled. Backward Selection as part of internal validation is optional and recommended.</p>
-<p>There is also a function to perfrom external validation in multiply imputed datasets (mivalext_lr).</p>
+<p>On this page you will find information about the psfmi package.
+The package contains functions to pool logistic (psfmi_lr) or Cox
+regression (psfmi_coxr) models in multiple imputed datasets. It is also possible to
+apply backward variable selection in multiple imputed datasets (Be aware that backward selection
+may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>). Backward selection should therefore be followed by internal validation of the model. This is also possible with the psfmi package.</p>
+<p>Pooling methods are Rubin’s Rules, and especially of interest for categorical predictors,
+the total covariance matrix (D1 method), pooling Chi-square values
+(D2 method), pooling Likelihood ratio statistics (D3 method)
+or pooling the median p-values (MPR rule). Moreover, pooling results can be obtained for
+models including two-way interaction terms between continuous, dichotomous, categorical predictors
+and restricted cubic spline variables. This is also allowed during variable selection. Further,
+all type of predictors, interaction terms or a combination, can be forced in the model during variable selection.
+For very large datasets and a large number of imputed datasets the D1 and MR methods may be less
+efficient than the D2 and MPR methods.</p>
+<p>The package also contains a function to generate pooled apparent model performance
+measures as ROC/AUC, Nagelkerke R-squares, Hosmer &amp; Lemeshow test values and calibration plots over imputed datasets (miperform_lr). A wrapper function
+over Frank Harrell’s validate function is available. Bootstrap internal
+validation is performed in each imputed dataset and results are pooled.
+Backward Selection as part of internal validation is optional and recommended.</p>
+<p>There is also a function to perfrom external validation in multiply imputed
+datasets (mivalext_lr).</p>
 </div>
 <div id="installing-the-psfmi-package" class="section level2">
 <h2>Installing the psfmi package</h2>
-<p>The package can be installed by running the following code in the R console window:</p>
+<p>The package can be installed by running the following code in
+the R console window:</p>
 <p>install.packages(“devtools”)</p>
 <p>library(devtools)</p>
 <p>devtools::install_github(“mwheymans/psfmi”)</p>

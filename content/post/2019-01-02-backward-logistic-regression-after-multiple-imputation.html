@@ -29,7 +29,7 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 <h2>Examples</h2>
 <ul>
 <li><a href="#pooling-without-bs-and-method-d1">Pooling without BS and method D1</a></li>
-<li><a href="#pooling-with-bs-and-method-mr">Pooling with BS and method MR</a></li>
+<li>[Pooling with BS and method D3]</li>
 </ul>
 </div>
 <div id="logistic-regression" class="section level2">
@@ -78,17 +78,18 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 </div>
 <div id="pooling-with-bs-and-method-mr" class="section level3">
 <h3>Pooling with BS and method MR</h3>
-<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and as method MR (Meng and Rubin likelihood ratio statistics).</p>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics).</p>
 <pre class="r"><code>library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
-                      &quot;JobDemands&quot;, &quot;SocialSupport&quot;), p.crit = 0.05, method=&quot;MR&quot;)</code></pre>
+                      &quot;JobDemands&quot;, &quot;SocialSupport&quot;), p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
 <pre><code>## 
 ##  Step 1 
 ## 
 ##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -108,7 +109,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands       1.0632
 ## SocialSupport    1.1397
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.3001
 ## Smoking                         0.7327
 ## Function                        0.0005
@@ -122,7 +123,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Smoking Function JobDemands SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -140,7 +141,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands       1.0628
 ## SocialSupport    1.1367
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.2843
 ## Smoking                         0.7305
 ## Function                        0.0005
@@ -153,7 +154,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Smoking Function SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -169,7 +170,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Function         0.9384
 ## SocialSupport    1.1363
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.2966
 ## Smoking                         0.7298
 ## Function                        0.0005
@@ -181,7 +182,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Function SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -195,7 +196,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Function         0.9393
 ## SocialSupport    1.1356
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.2982
 ## Function                        0.0005
 ## SocialSupport                   0.6644
@@ -206,7 +207,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Function 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                 est std.err signif   lower   upper     OR lower.EXP
@@ -218,7 +219,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Gender         1.4235
 ## Function       0.9394
 ## 
-##          Mixed p-values (MR &amp; RR)
+##          Mixed p-values (D3 &amp; RR)
 ## Gender                     0.2872
 ## Function                   0.0005
 ## 
@@ -228,7 +229,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Function 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                 est std.err signif   lower   upper     OR lower.EXP
@@ -238,7 +239,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## (Intercept)    9.2097
 ## Function       0.9351
 ## 
-##          Mixed p-values (MR &amp; RR)
+##          Mixed p-values (D3 &amp; RR)
 ## Function                    3e-04</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>

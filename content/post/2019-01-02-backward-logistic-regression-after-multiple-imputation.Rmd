@@ -28,7 +28,7 @@ Be aware that backward selection may result in overfitted and optimistic predict
 ## Examples 
 
 + [Pooling without BS and method D1] 
-+ [Pooling with BS and method MR] 
++ [Pooling with BS and method D3] 
 
 ## Logistic Regression
 
@@ -48,14 +48,14 @@ Back to [Examples]
 ### Pooling with BS and method MR
 
 Pooling Logistic regression models over 5 imputed datasets with backward selection
-using a p-value of 0.05 and as method MR (Meng and Rubin likelihood ratio statistics).
+using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics).
 
 ```{r }
 
 library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
          predictors=c("Gender", "Smoking", "Function", "JobControl",
-                      "JobDemands", "SocialSupport"), p.crit = 0.05, method="MR")
+                      "JobDemands", "SocialSupport"), p.crit = 0.05, method="D3")
 
 ```
 

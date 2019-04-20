@@ -30,7 +30,7 @@ during backward selection. Examples will be given below.
 
 Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and forcing the dichotomous predictor "Smoking" in the models 
-during backward selection with method MR (Meng and Rubin likelihood ratio statistics or D3).
+during backward selection with method D3 (Meng and Rubin likelihood ratio statistics method).
 
 ```{r }
 
@@ -38,7 +38,7 @@ library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "JobControl",
     "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
-    p.crit = 0.05, method="MR")
+    p.crit = 0.05, method="D3")
 
 ```
 

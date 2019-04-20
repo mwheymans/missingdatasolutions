@@ -17,7 +17,10 @@ description: With the [psfmi](/psfmi/) package it is possible to force variables
 
 
 
-<p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in the psfmi_lr function. These variables can be continuous, dichotomous or categorical variables. Also more than one variable can be forced in the model during backward selection. Examples will be given below.</p>
+<p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in
+the psfmi_lr function. These variables can be continuous, dichotomous or
+categorical variables. Also more than one variable can be forced in the model
+during backward selection. Examples will be given below.</p>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
 <ul>
@@ -27,18 +30,20 @@ description: With the [psfmi](/psfmi/) package it is possible to force variables
 </ul>
 <div id="pooling-with-bs-and-forcing-dichotomous-variable-in-the-model" class="section level3">
 <h3>Pooling with BS and forcing dichotomous variable in the model</h3>
-<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models during backward selection with method MR (Meng and Rubin likelihood ratio statistics or D3).</p>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models
+during backward selection with method D3 (Meng and Rubin likelihood ratio statistics method).</p>
 <pre class="r"><code>library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
     &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
-    p.crit = 0.05, method=&quot;MR&quot;)</code></pre>
+    p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
 <pre><code>## 
 ##  Step 1 
 ## 
 ##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -58,7 +63,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands       1.0632
 ## SocialSupport    1.1397
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.3001
 ## Smoking                         0.7327
 ## Function                        0.0005
@@ -74,7 +79,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Smoking Function JobDemands SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -92,7 +97,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands       1.0628
 ## SocialSupport    1.1367
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.2843
 ## Smoking                         0.7305
 ## Function                        0.0005
@@ -107,7 +112,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Smoking Function SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                   est std.err signif   lower   upper     OR lower.EXP
@@ -123,7 +128,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Function         0.9384
 ## SocialSupport    1.1363
 ## 
-##               Mixed p-values (MR &amp; RR)
+##               Mixed p-values (D3 &amp; RR)
 ## Gender                          0.2966
 ## Smoking                         0.7298
 ## Function                        0.0005
@@ -137,7 +142,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Gender Smoking Function 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                 est std.err signif   lower   upper     OR lower.EXP
@@ -151,7 +156,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Smoking        2.1815
 ## Function       0.9386
 ## 
-##          Mixed p-values (MR &amp; RR)
+##          Mixed p-values (D3 &amp; RR)
 ## Gender                     0.2855
 ## Smoking                    0.7392
 ## Function                   0.0005
@@ -164,7 +169,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## 
 ##  Variables included in model = Smoking Function 
 ## 
-##  Mixed Pooled p-values (RR / MR) 
+##  Mixed Pooled p-values (RR / D3) 
 ## 
 ##  Pooled model (Rubin&#39;s Rules) 
 ##                 est std.err signif   lower   upper     OR lower.EXP
@@ -176,7 +181,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Smoking        2.1658
 ## Function       0.9343
 ## 
-##          Mixed p-values (MR &amp; RR)
+##          Mixed p-values (D3 &amp; RR)
 ## Smoking                    0.7485
 ## Function                   0.0003
 ## 
@@ -186,7 +191,9 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 </div>
 <div id="pooling-with-bs-and-forcing-categorical-variable-in-the-model" class="section level3">
 <h3>Pooling with BS and forcing categorical variable in the model</h3>
-<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the categorical predictor “Satisfaction” in the models during backward selection with method D1.</p>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the categorical predictor “Satisfaction” in the models
+during backward selection with method D1.</p>
 <pre class="r"><code>library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
@@ -391,7 +398,9 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 </div>
 <div id="pooling-with-bs-and-forcing-dichotomous-and-categorical-variable-in-the-model" class="section level3">
 <h3>Pooling with BS and forcing dichotomous and categorical variable in the model</h3>
-<p>Pooling Logistic regression models over 5 imputed datasets with backward selection using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” and categorical predictor “Satisfaction” in the models during backward selection with method D1.</p>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” and categorical
+predictor “Satisfaction” in the models during backward selection with method D1.</p>
 <pre class="r"><code>library(psfmi)
 psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,

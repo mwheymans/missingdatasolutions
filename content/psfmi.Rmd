@@ -35,7 +35,7 @@ may result in overfitted and optimistic prediction models, see [TRIPOD](http://a
 
 Pooling methods are Rubin's Rules, and especially of interest for categorical predictors,
 the total covariance matrix (D1 method), pooling Chi-square values 
-(D2 method), pooling Likelihood ratio statistics (method of Meng and Rubin or D3 method) 
+(D2 method), pooling Likelihood ratio statistics (D3 method) 
 or pooling the median p-values (MPR rule). Moreover, pooling results can be obtained for
 models including two-way interaction terms between continuous, dichotomous, categorical predictors
 and restricted cubic spline variables. This is also allowed during variable selection. Further, 
