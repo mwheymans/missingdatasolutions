@@ -35,10 +35,12 @@ during backward selection with method D3 (Meng and Rubin likelihood ratio statis
 ```{r }
 
 library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "JobControl",
     "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
     p.crit = 0.05, method="D3")
+pool_lr$RR_Model
+pool_lr$multiparm_p
 
 ```
 
@@ -53,11 +55,14 @@ during backward selection with method D1.
 ```{r }
 
 library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "JobControl",
     "JobDemands", "SocialSupport"), cat.predictors = "Satisfaction", 
     keep.predictors = "Satisfaction",
     p.crit = 0.05, method="D1")
+pool_lr$RR_Model
+pool_lr$multiparm_p
+
 ```
 
 Back to [Examples]
@@ -71,11 +76,14 @@ predictor "Satisfaction" in the models during backward selection with method D1.
 ```{r }
 
 library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "JobControl",
     "JobDemands", "SocialSupport"), cat.predictors = "Satisfaction", 
     keep.predictors = c("Satisfaction", "Smoking"),
     p.crit = 0.05, method="D1")
+pool_lr$RR_Model
+pool_lr$multiparm_p
+
 ```
 
 Back to [Examples]

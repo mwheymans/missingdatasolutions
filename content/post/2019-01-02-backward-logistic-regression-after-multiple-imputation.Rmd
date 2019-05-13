@@ -37,9 +37,11 @@ Be aware that backward selection may result in overfitted and optimistic predict
 ```{r }
 
 library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
          predictors=c("Gender", "Smoking", "Function", "JobControl",
                       "JobDemands", "SocialSupport"), method="D1")
+pool_lr$RR_Model
+pool_lr$multiparm_p
 
 ```
 
@@ -53,9 +55,11 @@ using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statis
 ```{r }
 
 library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
          predictors=c("Gender", "Smoking", "Function", "JobControl",
                       "JobDemands", "SocialSupport"), p.crit = 0.05, method="D3")
+pool_lr$RR_Model
+pool_lr$multiparm_p
 
 ```
 

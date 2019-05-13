@@ -42,14 +42,14 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 ##   [.quosures     rlang
 ##   c.quosures     rlang
 ##   print.quosures rlang</code></pre>
-<pre class="r"><code>psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)</code></pre>
 <pre><code>## 
 ## Pooled model correctly estimated
 ##            using a p-value of 1</code></pre>
-<pre><code>## $RR_Model
-## $RR_Model$`Step 1`
+<pre class="r"><code>pool_lr$RR_Model</code></pre>
+<pre><code>## $`Step 1`
 ##                   est std.err signif   lower   upper     OR   L.OR
 ## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365
 ## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952
@@ -65,59 +65,16 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 ## Function        0.9387
 ## JobControl      1.0404
 ## JobDemands      1.0632
-## SocialSupport   1.1397
-## 
-## 
-## $multiparm_p
-## $multiparm_p$`Step 1`
+## SocialSupport   1.1397</code></pre>
+<pre class="r"><code>pool_lr$multiparm_p</code></pre>
+<pre><code>## $`Step 1`
 ##               Chi_sq D1 &amp; RR p-values
 ## Gender         1.074           0.3001
 ## Smoking        0.117           0.7327
 ## Function      11.984           0.0005
 ## JobControl     0.012           0.9145
 ## JobDemands     0.060           0.8065
-## SocialSupport  0.212           0.6449
-## 
-## 
-## $coef.excl_step
-## NULL
-## 
-## $impvar
-## [1] &quot;Impnr&quot;
-## 
-## $nimp
-## [1] 5
-## 
-## $Outcome
-## [1] &quot;Chronic&quot;
-## 
-## $method
-## [1] &quot;D1&quot;
-## 
-## $p.crit
-## [1] 1
-## 
-## $predictors
-## [1] &quot;Gender&quot;        &quot;Smoking&quot;       &quot;Function&quot;      &quot;JobControl&quot;   
-## [5] &quot;JobDemands&quot;    &quot;SocialSupport&quot;
-## 
-## $cat.predictors
-## NULL
-## 
-## $keep.predictors
-## NULL
-## 
-## $int.predictors
-## NULL
-## 
-## $spline.predictors
-## NULL
-## 
-## $knots
-## NULL
-## 
-## $print.method
-## [1] FALSE</code></pre>
+## SocialSupport  0.212           0.6449</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-and-method-d3" class="section level3">
@@ -125,7 +82,7 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics).</p>
 <pre class="r"><code>library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
 <pre><code>## Variable excluded at Step 1 is - JobControl</code></pre>
@@ -133,8 +90,8 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 <pre><code>## Variable excluded at Step 3 is - Smoking</code></pre>
 <pre><code>## Variable excluded at Step 4 is - SocialSupport</code></pre>
 <pre><code>## Variable excluded at Step 5 is - Gender</code></pre>
-<pre><code>## $RR_Model
-## $RR_Model$`Step 1`
+<pre class="r"><code>pool_lr$RR_Model</code></pre>
+<pre><code>## $`Step 1`
 ##                   est std.err signif   lower   upper     OR   L.OR
 ## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365
 ## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952
@@ -152,7 +109,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands      1.0632
 ## SocialSupport   1.1397
 ## 
-## $RR_Model$`Step 2`
+## $`Step 2`
 ##                   est std.err signif   lower   upper     OR   L.OR
 ## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019 0.1004
 ## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508 0.2965
@@ -168,7 +125,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands      1.0628
 ## SocialSupport   1.1367
 ## 
-## $RR_Model$`Step 3`
+## $`Step 3`
 ##                   est std.err signif   lower   upper     OR   L.OR    U.OR
 ## (Intercept)    0.9989  1.3631 0.4637 -1.6728  3.6705 2.7152 0.1877 39.2713
 ## Gender        -0.4128  0.3955 0.2966 -1.1880  0.3624 0.6618 0.3048  1.4367
@@ -176,27 +133,25 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## Function      -0.1448  0.0414 0.0005 -0.2260 -0.0636 0.8652 0.7977  0.9384
 ## SocialSupport  0.0236  0.0532 0.6575 -0.0806  0.1278 1.0239 0.9225  1.1363
 ## 
-## $RR_Model$`Step 4`
+## $`Step 4`
 ##                   est std.err signif   lower   upper     OR   L.OR    U.OR
 ## (Intercept)    1.0465  1.3564 0.4404 -1.6119  3.7050 2.8477 0.1995 40.6483
 ## Gender        -0.4113  0.3954 0.2982 -1.1861  0.3636 0.6628 0.3054  1.4385
 ## Function      -0.1432  0.0411 0.0005 -0.2237 -0.0627 0.8666 0.7996  0.9393
 ## SocialSupport  0.0231  0.0531 0.6644 -0.0811  0.1272 1.0233 0.9221  1.1356
 ## 
-## $RR_Model$`Step 5`
+## $`Step 5`
 ##                 est std.err signif   lower   upper     OR   L.OR    U.OR
 ## (Intercept)  1.5889  0.5348 0.0030  0.5407  2.6371 4.8983 1.7172 13.9725
 ## Gender      -0.4196  0.3943 0.2872 -1.1924  0.3531 0.6573 0.3035  1.4235
 ## Function    -0.1430  0.0411 0.0005 -0.2235 -0.0625 0.8668 0.7997  0.9394
 ## 
-## $RR_Model$`Step 6`
+## $`Step 6`
 ##                 est std.err signif   lower   upper     OR   L.OR   U.OR
 ## (Intercept)  1.3143  0.4622 0.0045  0.4084  2.2203 3.7222 1.5043 9.2097
-## Function    -0.1471  0.0408 0.0003 -0.2272 -0.0671 0.8632 0.7968 0.9351
-## 
-## 
-## $multiparm_p
-## $multiparm_p$`Step 1`
+## Function    -0.1471  0.0408 0.0003 -0.2272 -0.0671 0.8632 0.7968 0.9351</code></pre>
+<pre class="r"><code>pool_lr$multiparm_p</code></pre>
+<pre><code>## $`Step 1`
 ##               D3 &amp; RR p-values
 ## Gender                  0.3001
 ## Smoking                 0.7327
@@ -205,7 +160,7 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands              0.8065
 ## SocialSupport           0.6449
 ## 
-## $multiparm_p$`Step 2`
+## $`Step 2`
 ##               D3 &amp; RR p-values
 ## Gender                  0.2843
 ## Smoking                 0.7305
@@ -213,73 +168,27 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands              0.8019
 ## SocialSupport           0.6532
 ## 
-## $multiparm_p$`Step 3`
+## $`Step 3`
 ##               D3 &amp; RR p-values
 ## Gender                  0.2966
 ## Smoking                 0.7298
 ## Function                0.0005
 ## SocialSupport           0.6575
 ## 
-## $multiparm_p$`Step 4`
+## $`Step 4`
 ##               D3 &amp; RR p-values
 ## Gender                  0.2982
 ## Function                0.0005
 ## SocialSupport           0.6644
 ## 
-## $multiparm_p$`Step 5`
+## $`Step 5`
 ##          D3 &amp; RR p-values
 ## Gender             0.2872
 ## Function           0.0005
 ## 
-## $multiparm_p$`Step 6`
+## $`Step 6`
 ##          D3 &amp; RR p-values
-## Function            3e-04
-## 
-## 
-## $coef.excl_step
-##             Excluded
-## Step 1    JobControl
-## Step 2    JobDemands
-## Step 3       Smoking
-## Step 4 SocialSupport
-## Step 5        Gender
-## 
-## $impvar
-## [1] &quot;Impnr&quot;
-## 
-## $nimp
-## [1] 5
-## 
-## $Outcome
-## [1] &quot;Chronic&quot;
-## 
-## $method
-## [1] &quot;D3&quot;
-## 
-## $p.crit
-## [1] 0.05
-## 
-## $predictors
-## [1] &quot;Gender&quot;        &quot;Smoking&quot;       &quot;Function&quot;      &quot;JobControl&quot;   
-## [5] &quot;JobDemands&quot;    &quot;SocialSupport&quot;
-## 
-## $cat.predictors
-## NULL
-## 
-## $keep.predictors
-## NULL
-## 
-## $int.predictors
-## NULL
-## 
-## $spline.predictors
-## NULL
-## 
-## $knots
-## NULL
-## 
-## $print.method
-## [1] FALSE</code></pre>
+## Function            3e-04</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
