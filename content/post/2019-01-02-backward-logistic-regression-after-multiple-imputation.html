@@ -36,16 +36,20 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 <h2>Logistic Regression</h2>
 <div id="pooling-without-bs-and-method-d1" class="section level3">
 <h3>Pooling without BS and method D1</h3>
-<pre class="r"><code>library(psfmi)
-psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
+##   method         from 
+##   [.quosures     rlang
+##   c.quosures     rlang
+##   print.quosures rlang</code></pre>
+<pre class="r"><code>psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)</code></pre>
 <pre><code>## 
-##  Step 1 
-## 
-##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport 
-## 
-##  Pooled model (Rubin&#39;s Rules) 
+## Pooled model correctly estimated
+##            using a p-value of 1</code></pre>
+<pre><code>## $RR_Model
+## $RR_Model$`Step 1`
 ##                   est std.err signif   lower   upper     OR   L.OR
 ## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365
 ## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952
@@ -63,17 +67,57 @@ psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&q
 ## JobDemands      1.0632
 ## SocialSupport   1.1397
 ## 
-##  Mixed Pooled p-values (D1 &amp; RR) 
-##               Chi.sq Pooled.P.value
-## Gender         1.074         0.3001
-## Smoking        0.117         0.7327
-## Function      11.984         0.0005
-## JobControl     0.012         0.9145
-## JobDemands     0.060         0.8065
-## SocialSupport  0.212         0.6449
 ## 
-##  Final results of Pooled model
-##         with a p-value of 1</code></pre>
+## $multiparm_p
+## $multiparm_p$`Step 1`
+##               Chi_sq D1 &amp; RR p-values
+## Gender         1.074           0.3001
+## Smoking        0.117           0.7327
+## Function      11.984           0.0005
+## JobControl     0.012           0.9145
+## JobDemands     0.060           0.8065
+## SocialSupport  0.212           0.6449
+## 
+## 
+## $coef.excl_step
+## NULL
+## 
+## $impvar
+## [1] &quot;Impnr&quot;
+## 
+## $nimp
+## [1] 5
+## 
+## $Outcome
+## [1] &quot;Chronic&quot;
+## 
+## $method
+## [1] &quot;D1&quot;
+## 
+## $p.crit
+## [1] 1
+## 
+## $predictors
+## [1] &quot;Gender&quot;        &quot;Smoking&quot;       &quot;Function&quot;      &quot;JobControl&quot;   
+## [5] &quot;JobDemands&quot;    &quot;SocialSupport&quot;
+## 
+## $cat.predictors
+## NULL
+## 
+## $keep.predictors
+## NULL
+## 
+## $int.predictors
+## NULL
+## 
+## $spline.predictors
+## NULL
+## 
+## $knots
+## NULL
+## 
+## $print.method
+## [1] FALSE</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bs-and-method-d3" class="section level3">
@@ -84,163 +128,158 @@ using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statis
 psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
-<pre><code>## 
-##  Step 1 
+<pre><code>## Variable excluded at Step 1 is - JobControl</code></pre>
+<pre><code>## Variable excluded at Step 2 is - JobDemands</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 4 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 5 is - Gender</code></pre>
+<pre><code>## $RR_Model
+## $RR_Model$`Step 1`
+##                   est std.err signif   lower   upper     OR   L.OR
+## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365
+## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952
+## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234 0.5761
+## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644 0.7959
+## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021 0.9652
+## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913 0.9243
+## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252 0.9222
+##                   U.OR
+## (Intercept)   280.8649
+## Gender          1.4568
+## Smoking         2.1907
+## Function        0.9387
+## JobControl      1.0404
+## JobDemands      1.0632
+## SocialSupport   1.1397
 ## 
-##  Variables included in model = Gender Smoking Function JobControl JobDemands SocialSupport 
+## $RR_Model$`Step 2`
+##                   est std.err signif   lower   upper     OR   L.OR
+## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019 0.1004
+## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508 0.2965
+## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245 0.5768
+## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651 0.7975
+## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911 0.9242
+## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242 0.9228
+##                   U.OR
+## (Intercept)   136.5169
+## Gender          1.4286
+## Smoking         2.1922
+## Function        0.9383
+## JobDemands      1.0628
+## SocialSupport   1.1367
 ## 
-##  Mixed Pooled p-values (RR / D3) 
+## $RR_Model$`Step 3`
+##                   est std.err signif   lower   upper     OR   L.OR    U.OR
+## (Intercept)    0.9989  1.3631 0.4637 -1.6728  3.6705 2.7152 0.1877 39.2713
+## Gender        -0.4128  0.3955 0.2966 -1.1880  0.3624 0.6618 0.3048  1.4367
+## Smoking        0.1177  0.3406 0.7298 -0.5499  0.7852 1.1249 0.5770  2.1929
+## Function      -0.1448  0.0414 0.0005 -0.2260 -0.0636 0.8652 0.7977  0.9384
+## SocialSupport  0.0236  0.0532 0.6575 -0.0806  0.1278 1.0239 0.9225  1.1363
 ## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                   est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018    0.0365
-## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557    0.2952
-## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234    0.5761
-## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644    0.7959
-## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021    0.9652
-## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913    0.9243
-## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252    0.9222
-##               upper.EXP
-## (Intercept)    280.8649
-## Gender           1.4568
-## Smoking          2.1907
-## Function         0.9387
-## JobControl       1.0404
-## JobDemands       1.0632
-## SocialSupport    1.1397
+## $RR_Model$`Step 4`
+##                   est std.err signif   lower   upper     OR   L.OR    U.OR
+## (Intercept)    1.0465  1.3564 0.4404 -1.6119  3.7050 2.8477 0.1995 40.6483
+## Gender        -0.4113  0.3954 0.2982 -1.1861  0.3636 0.6628 0.3054  1.4385
+## Function      -0.1432  0.0411 0.0005 -0.2237 -0.0627 0.8666 0.7996  0.9393
+## SocialSupport  0.0231  0.0531 0.6644 -0.0811  0.1272 1.0233 0.9221  1.1356
 ## 
-##               Mixed p-values (D3 &amp; RR)
-## Gender                          0.3001
-## Smoking                         0.7327
-## Function                        0.0005
-## JobControl                      0.9145
-## JobDemands                      0.8065
-## SocialSupport                   0.6449
+## $RR_Model$`Step 5`
+##                 est std.err signif   lower   upper     OR   L.OR    U.OR
+## (Intercept)  1.5889  0.5348 0.0030  0.5407  2.6371 4.8983 1.7172 13.9725
+## Gender      -0.4196  0.3943 0.2872 -1.1924  0.3531 0.6573 0.3035  1.4235
+## Function    -0.1430  0.0411 0.0005 -0.2235 -0.0625 0.8668 0.7997  0.9394
 ## 
-##  Variable excluded at Step 1 is  JobControl 
+## $RR_Model$`Step 6`
+##                 est std.err signif   lower   upper     OR   L.OR   U.OR
+## (Intercept)  1.3143  0.4622 0.0045  0.4084  2.2203 3.7222 1.5043 9.2097
+## Function    -0.1471  0.0408 0.0003 -0.2272 -0.0671 0.8632 0.7968 0.9351
 ## 
-##  Step 2 
 ## 
-##  Variables included in model = Gender Smoking Function JobDemands SocialSupport 
+## $multiparm_p
+## $multiparm_p$`Step 1`
+##               D3 &amp; RR p-values
+## Gender                  0.3001
+## Smoking                 0.7327
+## Function                0.0005
+## JobControl              0.9145
+## JobDemands              0.8065
+## SocialSupport           0.6449
 ## 
-##  Mixed Pooled p-values (RR / D3) 
+## $multiparm_p$`Step 2`
+##               D3 &amp; RR p-values
+## Gender                  0.2843
+## Smoking                 0.7305
+## Function                0.0005
+## JobDemands              0.8019
+## SocialSupport           0.6532
 ## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                   est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019    0.1004
-## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508    0.2965
-## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245    0.5768
-## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651    0.7975
-## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911    0.9242
-## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242    0.9228
-##               upper.EXP
-## (Intercept)    136.5169
-## Gender           1.4286
-## Smoking          2.1922
-## Function         0.9383
-## JobDemands       1.0628
-## SocialSupport    1.1367
+## $multiparm_p$`Step 3`
+##               D3 &amp; RR p-values
+## Gender                  0.2966
+## Smoking                 0.7298
+## Function                0.0005
+## SocialSupport           0.6575
 ## 
-##               Mixed p-values (D3 &amp; RR)
-## Gender                          0.2843
-## Smoking                         0.7305
-## Function                        0.0005
-## JobDemands                      0.8019
-## SocialSupport                   0.6532
+## $multiparm_p$`Step 4`
+##               D3 &amp; RR p-values
+## Gender                  0.2982
+## Function                0.0005
+## SocialSupport           0.6644
 ## 
-##  Variable excluded at Step 2 is  JobDemands 
+## $multiparm_p$`Step 5`
+##          D3 &amp; RR p-values
+## Gender             0.2872
+## Function           0.0005
 ## 
-##  Step 3 
+## $multiparm_p$`Step 6`
+##          D3 &amp; RR p-values
+## Function            3e-04
 ## 
-##  Variables included in model = Gender Smoking Function SocialSupport 
 ## 
-##  Mixed Pooled p-values (RR / D3) 
+## $coef.excl_step
+##             Excluded
+## Step 1    JobControl
+## Step 2    JobDemands
+## Step 3       Smoking
+## Step 4 SocialSupport
+## Step 5        Gender
 ## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                   est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)    0.9989  1.3631 0.4637 -1.6728  3.6705 2.7152    0.1877
-## Gender        -0.4128  0.3955 0.2966 -1.1880  0.3624 0.6618    0.3048
-## Smoking        0.1177  0.3406 0.7298 -0.5499  0.7852 1.1249    0.5770
-## Function      -0.1448  0.0414 0.0005 -0.2260 -0.0636 0.8652    0.7977
-## SocialSupport  0.0236  0.0532 0.6575 -0.0806  0.1278 1.0239    0.9225
-##               upper.EXP
-## (Intercept)     39.2713
-## Gender           1.4367
-## Smoking          2.1929
-## Function         0.9384
-## SocialSupport    1.1363
+## $impvar
+## [1] &quot;Impnr&quot;
 ## 
-##               Mixed p-values (D3 &amp; RR)
-## Gender                          0.2966
-## Smoking                         0.7298
-## Function                        0.0005
-## SocialSupport                   0.6575
+## $nimp
+## [1] 5
 ## 
-##  Variable excluded at Step 3 is  Smoking 
+## $Outcome
+## [1] &quot;Chronic&quot;
 ## 
-##  Step 4 
+## $method
+## [1] &quot;D3&quot;
 ## 
-##  Variables included in model = Gender Function SocialSupport 
+## $p.crit
+## [1] 0.05
 ## 
-##  Mixed Pooled p-values (RR / D3) 
+## $predictors
+## [1] &quot;Gender&quot;        &quot;Smoking&quot;       &quot;Function&quot;      &quot;JobControl&quot;   
+## [5] &quot;JobDemands&quot;    &quot;SocialSupport&quot;
 ## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                   est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)    1.0465  1.3564 0.4404 -1.6119  3.7050 2.8477    0.1995
-## Gender        -0.4113  0.3954 0.2982 -1.1861  0.3636 0.6628    0.3054
-## Function      -0.1432  0.0411 0.0005 -0.2237 -0.0627 0.8666    0.7996
-## SocialSupport  0.0231  0.0531 0.6644 -0.0811  0.1272 1.0233    0.9221
-##               upper.EXP
-## (Intercept)     40.6483
-## Gender           1.4385
-## Function         0.9393
-## SocialSupport    1.1356
+## $cat.predictors
+## NULL
 ## 
-##               Mixed p-values (D3 &amp; RR)
-## Gender                          0.2982
-## Function                        0.0005
-## SocialSupport                   0.6644
+## $keep.predictors
+## NULL
 ## 
-##  Variable excluded at Step 4 is  SocialSupport 
+## $int.predictors
+## NULL
 ## 
-##  Step 5 
+## $spline.predictors
+## NULL
 ## 
-##  Variables included in model = Gender Function 
+## $knots
+## NULL
 ## 
-##  Mixed Pooled p-values (RR / D3) 
-## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                 est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)  1.5889  0.5348 0.0030  0.5407  2.6371 4.8983    1.7172
-## Gender      -0.4196  0.3943 0.2872 -1.1924  0.3531 0.6573    0.3035
-## Function    -0.1430  0.0411 0.0005 -0.2235 -0.0625 0.8668    0.7997
-##             upper.EXP
-## (Intercept)   13.9725
-## Gender         1.4235
-## Function       0.9394
-## 
-##          Mixed p-values (D3 &amp; RR)
-## Gender                     0.2872
-## Function                   0.0005
-## 
-##  Variable excluded at Step 5 is  Gender 
-## 
-##  Step 6 
-## 
-##  Variables included in model = Function 
-## 
-##  Mixed Pooled p-values (RR / D3) 
-## 
-##  Pooled model (Rubin&#39;s Rules) 
-##                 est std.err signif   lower   upper     OR lower.EXP
-## (Intercept)  1.3143  0.4622 0.0045  0.4084  2.2203 3.7222    1.5043
-## Function    -0.1471  0.0408 0.0003 -0.2272 -0.0671 0.8632    0.7968
-##             upper.EXP
-## (Intercept)    9.2097
-## Function       0.9351
-## 
-##          Mixed p-values (D3 &amp; RR)
-## Function                    3e-04</code></pre>
+## $print.method
+## [1] FALSE</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>

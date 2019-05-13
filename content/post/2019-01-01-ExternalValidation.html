@@ -107,15 +107,15 @@ fit.ext.lp</code></pre>
 ##  
 ##                        Model Likelihood     Discrimination    Rank Discrim.    
 ##                           Ratio Test           Indexes           Indexes       
-##  Obs           300    LR chi2      38.04    R2       0.185    C       0.748    
-##   0            236    d.f.             1    g        1.195    Dxy     0.495    
-##   1             64    Pr(&gt; chi2) &lt;0.0001    gr       3.303    gamma   0.497    
-##  max |deriv| 4e-11                          gp       0.161    tau-a   0.167    
-##                                             Brier    0.149                     
+##  Obs           300    LR chi2      43.89    R2       0.205    C       0.750    
+##   0            230    d.f.             1    g        1.271    Dxy     0.499    
+##   1             70    Pr(&gt; chi2) &lt;0.0001    gr       3.564    gamma   0.501    
+##  max |deriv| 2e-10                          gp       0.178    tau-a   0.179    
+##                                             Brier    0.156                     
 ##  
 ##            Coef    S.E.   Wald Z Pr(&gt;|Z|)
-##  Intercept -0.7751 0.1612 -4.81  &lt;0.0001 
-##  lp.ext     0.8631 0.1611  5.36  &lt;0.0001 
+##  Intercept -0.6594 0.1567 -4.21  &lt;0.0001 
+##  lp.ext     0.8767 0.1554  5.64  &lt;0.0001 
 ## </code></pre>
 <p>The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively
 indicate thje amount of miscalibration in the intercept ansd slope value.
@@ -133,9 +133,9 @@ roc(fit.ext$y, pred.ext, ci=TRUE, plot = TRUE)</code></pre>
 ## Call:
 ## roc.default(response = fit.ext$y, predictor = pred.ext, ci = TRUE,     plot = TRUE)
 ## 
-## Data: pred.ext in 236 controls (fit.ext$y 0) &lt; 64 cases (fit.ext$y 1).
-## Area under the curve: 0.7475
-## 95% CI: 0.6847-0.8104 (DeLong)</code></pre>
+## Data: pred.ext in 230 controls (fit.ext$y 0) &lt; 70 cases (fit.ext$y 1).
+## Area under the curve: 0.7496
+## 95% CI: 0.6893-0.8098 (DeLong)</code></pre>
 <p>The AUC drops from 0.774 to 0.748.</p>
 </div>
 <div id="calibration" class="section level4">
@@ -161,7 +161,7 @@ plot(cal.plot)</code></pre>
 ##  Hosmer and Lemeshow goodness of fit (GOF) test
 ## 
 ## data:  fit.ext$y, pred.ext
-## X-squared = 31.103, df = 8, p-value = 0.0001347</code></pre>
+## X-squared = 23.991, df = 8, p-value = 0.0023</code></pre>
 <p>The Hosmer and Lemeshow test is now significant. The test confirms
 the miscalibration in the intercept and calibration slope, visualized
 on the calibration curve.</p>
@@ -188,9 +188,9 @@ and slope respectively. Without miscalibration these intercept and slope coeffic
 ## Call:
 ## roc.default(response = fit.ext$y, predictor = pred.ext.recal,     ci = TRUE, plot = TRUE)
 ## 
-## Data: pred.ext.recal in 236 controls (fit.ext$y 0) &lt; 64 cases (fit.ext$y 1).
-## Area under the curve: 0.7475
-## 95% CI: 0.6847-0.8104 (DeLong)</code></pre>
+## Data: pred.ext.recal in 230 controls (fit.ext$y 0) &lt; 70 cases (fit.ext$y 1).
+## Area under the curve: 0.7496
+## 95% CI: 0.6893-0.8098 (DeLong)</code></pre>
 </div>
 <div id="calibration-1" class="section level4">
 <h4>Calibration</h4>
@@ -214,7 +214,7 @@ plot(cal.plot)</code></pre>
 ##  Hosmer and Lemeshow goodness of fit (GOF) test
 ## 
 ## data:  fit.ext$y, pred.ext.recal
-## X-squared = 6.4644, df = 8, p-value = 0.5954</code></pre>
+## X-squared = 5.9383, df = 8, p-value = 0.6541</code></pre>
 <p>The Hosmer and Lemeshow test is not significant and the calibration
 curve looks as if the model calibrates well in the external dataset.
 This is incorrect and the result of working with calibrated predictions.
