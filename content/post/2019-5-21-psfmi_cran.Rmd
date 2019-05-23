@@ -8,10 +8,9 @@ tags:
 - psfmi
 - cran
 - multiple imputation
-thumbnailImagePosition: le ft
+thumbnailImagePosition: left
 thumbnailImage: "/images/cran_image.jpg"
-description: My psfmi package is now on Cran.
-
+description: The psfmi package is now on Cran.
 ---
 
 More information about the package can be found on the [Cran](https://CRAN.R-project.org/package=psfmi){target="_blank"} website.
