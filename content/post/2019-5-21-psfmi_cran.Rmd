@@ -14,18 +14,16 @@ description: My psfmi package is now on Cran.
 
 ---
 
-You can easily install the package by running install.packages("psfmi") in the Console window in Rstudio or R.
-
-The development version can be installed from Github by using:
-install.packages("devtools")
-
-library(devtools)
-
-devtools::install_github("mwheymans/psfmi")
-
-library(psfmi)
-
 More information about the package can be found on the [Cran](https://CRAN.R-project.org/package=psfmi){target="_blank"} website.
+
+You can easily install the package by running `install.packages("psfmi")` in the Console window in Rstudio or R. The development version can be installed from Github by using:
+`install.packages("devtools")`
+
+`library(devtools)`
+
+`devtools::install_github("mwheymans/psfmi")`
+
+`library(psfmi)`
 
 If you have questions about the psfmi package send an email to mw.heymans@amsterdamumc.nl or leave a message below. Enjoy using the package!
 
