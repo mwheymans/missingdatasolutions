@@ -36,13 +36,8 @@ description: With the [psfmi](/psfmi/) package it is possible to do backward sel
 <h2>Logistic Regression</h2>
 <div id="pooling-without-bs-and-method-d1" class="section level3">
 <h3>Pooling without BS and method D1</h3>
-<pre class="r"><code>library(psfmi)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang</code></pre>
-<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)</code></pre>
 <pre><code>## 

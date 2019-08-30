@@ -51,7 +51,7 @@ roc(fit.orig$y, pred.orig, ci=TRUE, plot = TRUE)
 
 ### Calibration curve and H&L test
 
-```{r echo=FALSE}
+```{r }
 group.cut <- quantile(pred.orig, c(seq(0, 1, 0.1)))
 group <- cut(pred.orig, group.cut) 
 pred.prob <- tapply(pred.orig, group, mean)
