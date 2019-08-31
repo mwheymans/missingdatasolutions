@@ -8,7 +8,7 @@ description: External validation means that the performance of a prediction mode
 date: '2019-01-01'
 thumbnailImage: /images/external.png
 thumbnailImagePosition: left
-tags: external validation
+tags: ["external validation"]
 ---
 
 ```{r setup, include=FALSE}
