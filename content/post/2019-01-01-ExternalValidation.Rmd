@@ -1,12 +1,14 @@
 ---
 title: "Steps to externally validate a prediction model"
-date: "2019-01-01"
-tags: 
-- external validation
+description: External validation means that the performance of a prediction model
+  is studied in a new (external) patient dataset that is not used to develop the model.
+  To study the performance of the model measures for discrimination (e.g. Area Under
+  the Curve) and calibration (e.g. Calibration curve, Hosmer and Lemeshow test (H&L))
+  are used.
+date: '2019-01-01'
+thumbnailImage: /images/external.png
 thumbnailImagePosition: left
-thumbnailImage: "/images/external.png"
-description: External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. To study the performance of the model measures for discrimination (e.g. Area Under the Curve) and calibration (e.g. Calibration curve, Hosmer and Lemeshow test (H&L)) are used.
-
+tags: external validation
 ---
 
 ```{r setup, include=FALSE}
@@ -63,7 +65,7 @@ cal.m <- data.frame(cbind(pred.prob, obs.prob))
 
 ```{r }
 library(ggplot2)
-cal.plot <- ggplot(cal.m,aes(x=pred.prob,y=obs.prob)) + 
+plot(ggplot(cal.m,aes(x=pred.prob,y=obs.prob)) + 
   scale_x_continuous(name = "Predicted Probabilities",
     breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) +
   scale_y_continuous(name = "Observed Probabilities",
@@ -71,8 +73,7 @@ cal.plot <- ggplot(cal.m,aes(x=pred.prob,y=obs.prob)) +
   geom_smooth(method='lm', formula = y~x, se = FALSE) + 
   geom_point(size=2, shape = 19) + 
   geom_abline(intercept = 0, slope = 1, linetype=2) + 
-  ggtitle("Calibration Curve") 
-plot(cal.plot)
+  ggtitle("Calibration Curve") )
 
 library(ResourceSelection)
 hoslem.test(fit.orig$y, pred.orig) # Hosmer and Lemeshow test from package ResourceSelection
@@ -156,7 +157,7 @@ cal.m.ext <- data.frame(cbind(pred.prob, obs.prob))
 
 ```{r }
 library(ggplot2)
-cal.plot <- ggplot(cal.m.ext,aes(x=pred.prob,y=obs.prob)) + 
+plot(ggplot(cal.m.ext,aes(x=pred.prob,y=obs.prob)) + 
   scale_x_continuous(name = "Predicted Probabilities",
     breaks = seq(0, 1, 0.1), limits=c(0, 0.8)) +
   scale_y_continuous(name = "Observed Probabilities",
@@ -164,8 +165,7 @@ cal.plot <- ggplot(cal.m.ext,aes(x=pred.prob,y=obs.prob)) +
   geom_smooth(method="lm", formula = y~x, se = FALSE) + 
   geom_point(size=2, shape = 19) + 
   geom_abline(intercept = 0, slope = 1, linetype=2) + 
-  ggtitle("Calibration Curve") 
-plot(cal.plot)
+  ggtitle("Calibration Curve") )
 ```
 
 The calibration curve deviates from the ideal line.
