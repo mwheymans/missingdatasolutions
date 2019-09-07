@@ -64,7 +64,7 @@ canonifyurls = true
   identifier = "book"
   name = "Missing Data Book"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-book\"></i>"
-  url = "https://bookdown.org/mwheymans/Book_MI/"
+  url = "https://bookdown.org/mwheymans/bookmi/"
 [[menu.main]]
   weight = 4
   identifier = "shiny"

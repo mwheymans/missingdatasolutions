@@ -11,6 +11,6 @@ thumbnailImage: "/images/book_mi.jpg"
 description: I have written an online Applied Missing Data book for all researchers that have missing data. Click on continue reading to access the book.
 ---
 
-The book can be found [here](https://bookdown.org/mwheymans/Book_MI/){target="_blank"}.
+The book can be found [here](https://bookdown.org/mwheymans/bookmi/){target="_blank"}.
 I have written that book with my colleague [Iris Eekhout](https://www.iriseekhout.com/).
 It is a first draft and it will be continuously updated and improved. For comments and suggestions leave a comment below or email me at: mw.heymans@vumc.nl. Thank you.
