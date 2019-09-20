@@ -34,7 +34,7 @@ canonifyurls = true
 [author]
   name = "Martijn W Heymans"
   bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: [Missing Data](https://epidm.nl/en/courses/missing-data-consequences-and-solutions/) and [Prediction Models](https://epidm.nl/en/courses/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m)"
-  job = "mw.heymans@vumc.nl"
+  job = "mw.heymans@amsterdamumc.nl"
   location = "Amsterdam UMC | The Netherlands"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   #gravatarEmail = "mw.heymans@vumc.nl"
