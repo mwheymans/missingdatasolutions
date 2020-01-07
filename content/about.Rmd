@@ -10,7 +10,7 @@ and Missing Data Methods at the department of Epidemiology and Biostatistics
 of the Amsterdam University Medical Center (Amsterdam UMC), The Netherlands. 
 
 My work consists of statistical consultancy, supervising PhD projects 
-on several methodological and clinical topics and lecturing courses in 
+on methodological and clinical topics and lecturing courses in 
 epidemiology and biostatistics for the bachelor and Master's Programme 
 in Epidemiology [epidm.nl](https://www.epidm.nl/nl/) and Medicine.
 

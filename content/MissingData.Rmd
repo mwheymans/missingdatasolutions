@@ -8,7 +8,7 @@ On this page you will find information about modern Missing Data Methods.
 
 ## Regression models
 I have written an R package that is called [psfmi](/psfmi/), which
-means "Predictor Selection Functions in Multiple Imputed Datasets"
+means "Predictor Selection Functions in Multiply Imputed Datasets"
 
 ## Missing Data websites
 You may visit the Website of [Iris Eekhout](https://www.iriseekhout.com/missing-data/){target="_blank"}, 

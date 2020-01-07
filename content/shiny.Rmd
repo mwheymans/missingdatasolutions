@@ -13,8 +13,7 @@ Go to the [app](https://missingdata.shinyapps.io/simpleimp/){target="_blank"}
 
 # Multiple Imputation
 This app shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm.
-The example dataset is small and contains three variables. A Pain, Tampa scale and Disability variable. The Tampa scale and Disability variables have three missing values each. 
-These three missing values will be imputed by the MICE algorithm.
+The example dataset is small and contains three variables. A Pain, Tampa scale and Disability variable. The Tampa scale and Disability variables have three missing values each. These three missing values will be imputed by the MICE algorithm.
 
 On the left side you can change the number of iterations and imputations and you can ask for the MICE ouput, the MICE regression formula's and the exact MICE calculations of the imputed values by clicking those buttons. The output will become visible on each tabbed panel on the right side of the window. Each time you change the number of imputations and iterations the output will be updated by clicking a button. There is also a tab that shows the convergence plot.   
 

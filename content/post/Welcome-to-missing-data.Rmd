@@ -14,9 +14,7 @@ description: Missing data is present in each study, but is still not wel underst
 
 ---
 
-Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern  
-Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate 
-from FAQs asked during statistical consultations or during courses.
+Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
 
 Examples are provided for applied researchers and frequenly in RStudio.  
 RStudio is an open source free package with a lot of possibilities, 
@@ -24,9 +22,12 @@ making it easy to share code so that you can use the code example
 and adjust it to your own needs. Applied researchers also use
 other packages as SPSS, examples using that package will also be provided.  
 
-A nice R package is the [psfmi](/psfmi/) package that I wrote. 
-With the psfmi package it is possible to pool logistic (function psfmi_lr) and Cox (function psfmi_coxr)
-regression models using different pooling methods, i.e. Rubin's Rules and D1, D2, Meng and Rubin and a median 
-pooling method to pool categorical predictors (to get a overall pooled p-value). It is also
-possible to apply backward variable selection using these different pooling procedures. These
-methods are not implemented in standard packages as SPSS, Stata or SAS!
+An R package that I wrote is the [psfmi](https://cran.r-project.org/web/packages/psfmi/index.html). With the psfmi package it is possible to pool logistic (function psfmi_lr), Cox (function psfmi_coxr) and Multilevel (psfmi_mm) regression models using different pooling methods, i.e. Rubin’s Rules and D1, D2, D3 and a median pooling method. It is also possible to apply backward variable selection using these different pooling procedures. These methods are not implemented in standard packages as SPSS, Stata or SAS! The package can be downloaded from CRAN and a development version can be downloaded from github by using:
+
+install.packages("devtools")
+
+library(devtools)
+
+devtools::install_github("mwheymans/psfmi")
+
+library(psfmi)
