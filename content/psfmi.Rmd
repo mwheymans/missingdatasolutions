@@ -8,13 +8,7 @@ vignette: >
   %\VignetteIndexEntry{psfmi}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-tags:
-- psfmi
-- Multiple Imputation
-- backward selection
-- logistic regression
-- Meng and Rubin
-- Rubins Rules
+tags: ["psfmi", "Multiple Imputation"]
 categories: ["psfmi"]  
 ---
 

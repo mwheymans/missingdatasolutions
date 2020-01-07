@@ -1,8 +1,7 @@
 ---
 title: "Welcome to Missing Data Solutions"
-date: "2019-05-21"
-tags: 
-- psfmi
+date: "`r Sys.Date()`"
+tags: ["psfmi"]
 keywords:
 - predictor selection
 - psfmi

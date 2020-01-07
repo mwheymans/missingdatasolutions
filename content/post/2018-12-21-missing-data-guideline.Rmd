@@ -4,8 +4,7 @@ author: Martijn Heymans
 date: '2018-12-21'
 slug: missing-data-guideline
 categories: []
-tags: 
-- guideline
+tags: ["guideline"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/guideline.jpg"
 description: I have written a Missing Data guideline as part of the Research Quality handbook for all researchers in and outside The Amsterdam Public Health research institute (collaborative research institute between the VUMC and AMC universities and Academic Hospitals in Amsterdam). This guideline may be useful for researchers.

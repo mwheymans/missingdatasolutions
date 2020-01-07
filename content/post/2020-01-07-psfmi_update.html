@@ -1,0 +1,22 @@
+---
+title: "psfmi package update"
+author: "Martijn Heymans"
+date: '2020-01-07'
+description: The psfmi package has been updated and contains new functions, the psfmi_mm
+  and psfmi_stab functions for pooling and selection of Mixed models and for model
+  stability evaluation.
+slug: psfmi
+tags: ["psfmi"]
+thumbnailImage: "/images/psfmi_update.png"
+thumbnailImagePosition: left
+categories: []
+---
+
+
+
+<p>With the psfmi_mm function pooling and selection of (generalized) linear mixed models, i.e linear and logistic mixed models, is possible. With the psfmi_stab function the stability of models after using psfmi_lr, psfmi_coxr and psfmi_mm can be evaluated. The latter function uses (single) bootstrapping for the psfmi_lr and psfmi_coxr functions and cluster bootstrapping for the psfmi_mm function. With the function the bootstrap inclusion frequency of predictors and models can be estimated. The functions are under development and can be downloaded from my github page via:</p>
+<p>install.packages(“devtools”)</p>
+<p>library(devtools)</p>
+<p>devtools::install_github(“mwheymans/psfmi”)</p>
+<p>library(psfmi)</p>
+<p>Feedback to improve the functions is appreciated.</p>

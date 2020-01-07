@@ -4,11 +4,7 @@ author: Martijn Heymans
 date: '2019-01-02'
 slug: psfmi-lr-forcing-variables
 categories: []
-tags: 
-- psfmi
-- force variables
-- keep predictors
-- interaction terms
+tags: ["psfmi", "force variables", "keep predictors", "interaction terms"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/forcing.png"
 description: With the [psfmi](/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
@@ -38,6 +34,12 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
     &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
     p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
 <pre><code>## Variable excluded at Step 1 is - JobControl</code></pre>
 <pre><code>## Variable excluded at Step 2 is - JobDemands</code></pre>
 <pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
@@ -47,38 +49,23 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
 ##           using a p-value of 0.05 and predictors to keep Smoking</code></pre>
 <pre class="r"><code>pool_lr$RR_Model</code></pre>
 <pre><code>## $`Step 1`
-##                   est std.err signif   lower   upper     OR   L.OR
-## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365
-## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952
-## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234 0.5761
-## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644 0.7959
-## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021 0.9652
-## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913 0.9243
-## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252 0.9222
-##                   U.OR
-## (Intercept)   280.8649
-## Gender          1.4568
-## Smoking         2.1907
-## Function        0.9387
-## JobControl      1.0404
-## JobDemands      1.0632
-## SocialSupport   1.1397
+##                   est std.err signif   lower   upper     OR   L.OR     U.OR
+## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365 280.8649
+## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952   1.4568
+## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234 0.5761   2.1907
+## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644 0.7959   0.9387
+## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021 0.9652   1.0404
+## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913 0.9243   1.0632
+## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252 0.9222   1.1397
 ## 
 ## $`Step 2`
-##                   est std.err signif   lower   upper     OR   L.OR
-## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019 0.1004
-## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508 0.2965
-## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245 0.5768
-## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651 0.7975
-## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911 0.9242
-## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242 0.9228
-##                   U.OR
-## (Intercept)   136.5169
-## Gender          1.4286
-## Smoking         2.1922
-## Function        0.9383
-## JobDemands      1.0628
-## SocialSupport   1.1367
+##                   est std.err signif   lower   upper     OR   L.OR     U.OR
+## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019 0.1004 136.5169
+## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508 0.2965   1.4286
+## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245 0.5768   2.1922
+## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651 0.7975   0.9383
+## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911 0.9242   1.0628
+## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242 0.9228   1.1367
 ## 
 ## $`Step 3`
 ##                   est std.err signif   lower   upper     OR   L.OR    U.OR

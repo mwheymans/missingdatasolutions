@@ -4,8 +4,7 @@ author: Martijn Heymans
 date: "2019-01-20"
 slug: bookmi
 categories: []
-tags: 
-- book
+tags: ["book"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/book_mi.jpg"
 description: I have written an online Applied Missing Data book for all researchers that have missing data. Click on continue reading to access the book.
