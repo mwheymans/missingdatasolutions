@@ -18,12 +18,12 @@ Be aware that backward selection may result in overfitted and optimistic predict
 
 ## Examples 
 
-+ [Pooling without BS and method D1] 
-+ [Pooling with BS and method D3] 
++ [Pooling without BWS and method D1] 
++ [Pooling with BWS and method D3] 
 
 ## Logistic Regression
 
-### Pooling without BS and method D1
+### Pooling without BWS and method D1
 
 ```{r }
 
@@ -32,13 +32,13 @@ pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
          predictors=c("Gender", "Smoking", "Function", "JobControl",
                       "JobDemands", "SocialSupport"), method="D1")
 pool_lr$RR_Model
-pool_lr$multiparm_p
+pool_lr$multiparm
 
 ```
 
 Back to [Examples]
 
-### Pooling with BS and method D3
+### Pooling with BWS and method D3
 
 Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statistics).
@@ -50,7 +50,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
          predictors=c("Gender", "Smoking", "Function", "JobControl",
                       "JobDemands", "SocialSupport"), p.crit = 0.05, method="D3")
 pool_lr$RR_Model
-pool_lr$multiparm_p
+pool_lr$multiparm
 
 ```
 

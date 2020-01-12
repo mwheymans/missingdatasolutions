@@ -36,7 +36,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     "JobDemands", "SocialSupport"), keep.predictors = "Smoking",
     p.crit = 0.05, method="D3")
 pool_lr$RR_Model
-pool_lr$multiparm_p
+pool_lr$multiparm
 
 ```
 
@@ -57,7 +57,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     keep.predictors = "Satisfaction",
     p.crit = 0.05, method="D1")
 pool_lr$RR_Model
-pool_lr$multiparm_p
+pool_lr$multiparm
 
 ```
 
@@ -78,7 +78,7 @@ pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     keep.predictors = c("Satisfaction", "Smoking"),
     p.crit = 0.05, method="D1")
 pool_lr$RR_Model
-pool_lr$multiparm_p
+pool_lr$multiparm
 
 ```
 

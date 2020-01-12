@@ -1,0 +1,160 @@
+---
+title: "Model Stability analysis after Multiple Imputation"
+author: "Martijn Heymans"
+date: '2020-01-11'
+description: With the psfmi_stab function of the psfmi package it is possible to do
+  important stability analyses of the models and predictors selected during backward
+  selection after multiple imputation.
+slug: 
+tags: ["psfmi", "Model Stability", "Bootstrap Inclusion Frequency"]
+thumbnailImage: /images/Model_Stability.png
+thumbnailImagePosition: left
+categories: ["Model Stability", "Bootstrapping", "BIF"]
+---
+
+
+
+<div id="model-stability-analysis" class="section level3">
+<h3>Model Stability analysis</h3>
+<p>To build a prediction model you can reliably use backward selection in a data situation where
+there are enough persons that are positive and negative on the outcome compared to the number
+of potential predictors when you combine it with internal validation and model stability analysis.</p>
+<p>You can find more about model stability analysis in the papers of <a href="https://journals.sagepub.com/doi/10.1177/1536867X0900900403">Royston and Sauerbrei</a>, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780111607">Sauerbrei and Schumacher</a>, <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-7-33">Heymans et al.</a> and <a href="https://onlinelibrary.wiley.com/doi/10.1002/bimj.201700067">Heinze et al.</a></p>
+<p>With model stability analysis the selection of models and predictors can be evaluated. Bootstrapping
+is used to evaluate the selected models and predictors in the resampled datasets. With the
+<code>psfmi_stab</code> function this evaluation of model stability can be done in multiply imputed datasets.
+For normal (single) datasets, bootstrapping is applied in these datasets. For multilevel data, cluster
+bootstrapping is used <a href="https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-9868.2007.00593.x">(Field)</a>.</p>
+</div>
+<div id="example-of-model-stability-analysis" class="section level3">
+<h3>Example of Model Stability analysis</h3>
+<p>First start with backward selection over 5 imputed datasets using a p-value of 0.05
+and method D1. With the line of code, <code>pool_lr$predictors_in</code>, information can be
+obtained from the predictors that were selected in the model at each selection step.</p>
+<pre class="r"><code>library(psfmi)
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
+    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre class="r"><code>pool_lr$predictors_in</code></pre>
+<pre><code>##        Gender Smoking Function SocialSupport
+## Step 1      1       1        1             1
+## Step 2      1       0        1             1
+## Step 3      1       0        1             0
+## Step 4      0       0        1             0</code></pre>
+<p>Now apply model stability analysis. For the example 10 bootstrap samples are used, but these can easily increased to 1000. Note that this may take a while when the predictors are selected in several steps.</p>
+<pre class="r"><code>library(psfmi)
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
+    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre class="r"><code>psfmi_stab(pool_lr, boot_method = &quot;single&quot;, nboot=10)</code></pre>
+<pre><code>## 
+## Boot 1</code></pre>
+<pre><code>## Variable excluded at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Boot 2</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
+<pre><code>## 
+## Boot 3</code></pre>
+<pre><code>## Variable excluded at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## Model is empty after last step</code></pre>
+<pre><code>## 
+## Boot 4</code></pre>
+<pre><code>## Variable excluded at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## Model is empty after last step</code></pre>
+<pre><code>## 
+## Boot 5</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## Model is empty after last step</code></pre>
+<pre><code>## 
+## Boot 6</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## Model is empty after last step</code></pre>
+<pre><code>## 
+## Boot 7</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## Model is empty after last step</code></pre>
+<pre><code>## 
+## Boot 8</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Boot 9</code></pre>
+<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Gender</code></pre>
+<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
+<pre><code>## 
+## Boot 10</code></pre>
+<pre><code>## Variable excluded at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## $bif
+##         Gender Smoking Function SocialSupport
+## boot 1       0       0        1             0
+## boot 2       0       0        1             0
+## boot 3       0       0        0             0
+## boot 4       0       0        0             0
+## boot 5       0       0        0             0
+## boot 6       0       0        0             0
+## boot 7       0       0        0             0
+## boot 8       0       0        1             0
+## boot 9       0       0        1             0
+## boot 10      0       0        1             0
+## 
+## $bif_total
+##        Gender       Smoking      Function SocialSupport 
+##             0             0             5             0 
+## 
+## $bif_perc
+##        Gender       Smoking      Function SocialSupport 
+##             0             0            50             0 
+## 
+## $model_stab
+##   Gender Smoking Function SocialSupport freq bif_pat_perc
+## 1      0       0        0             0    5           50
+## 2      0       0        1             0    5           50
+## 
+## $call
+## psfmi_stab(pobj = pool_lr, boot_method = &quot;single&quot;, nboot = 10)</code></pre>
+</div>

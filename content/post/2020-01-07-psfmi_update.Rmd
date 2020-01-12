@@ -6,7 +6,7 @@ description: The psfmi package has been updated and contains new functions, the 
   and psfmi_stab functions for pooling and selection of Mixed models and for model
   stability evaluation.
 slug: psfmi
-tags: ["psfmi"]
+tags: ["psfmi", "update"]
 thumbnailImage: "/images/psfmi_update.png"
 thumbnailImagePosition: left
 categories: []

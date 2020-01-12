@@ -4,7 +4,7 @@ author: Martijn Heymans
 date: "2019-05-20"
 slug: psfmi
 categories: []
-tags: ["psfmi", "cran", "multiple imputation"]
+tags: ["psfmi", "cran", "Multiple Imputation"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/cran_image.jpg"
 description: The psfmi package is now on Cran.

@@ -1,0 +1,56 @@
+---
+title: "Model Stability analysis after Multiple Imputation"
+author: "Martijn Heymans"
+date: '2020-01-11'
+description: With the psfmi_stab function of the psfmi package it is possible to do
+  important stability analyses of the models and predictors selected during backward
+  selection after multiple imputation.
+slug: 
+tags: ["psfmi", "Model Stability", "Bootstrap Inclusion Frequency"]
+thumbnailImage: /images/Model_Stability.png
+thumbnailImagePosition: left
+categories: ["Model Stability", "Bootstrapping", "BIF"]
+---
+
+### Model Stability analysis
+
+To build a prediction model you can reliably use backward selection in a data situation where 
+there are enough persons that are positive and negative on the outcome compared to the number 
+of potential predictors when you combine it with internal validation and model stability analysis. 
+
+You can find more about model stability analysis in the papers of [Royston and Sauerbrei](https://journals.sagepub.com/doi/10.1177/1536867X0900900403), [Sauerbrei and Schumacher](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780111607), [Heymans et al.](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-7-33) and [Heinze et al.](https://onlinelibrary.wiley.com/doi/10.1002/bimj.201700067)
+
+With model stability analysis the selection of models and predictors can be evaluated. Bootstrapping 
+is used to evaluate the selected models and predictors in the resampled datasets. With the
+`psfmi_stab` function this evaluation of model stability can be done in multiply imputed datasets.
+For normal (single) datasets, bootstrapping is applied in these datasets. For multilevel data, cluster 
+bootstrapping is used [(Field)](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-9868.2007.00593.x).
+
+### Example of Model Stability analysis
+
+First start with backward selection over 5 imputed datasets using a p-value of 0.05 
+and method D1. With the line of code, `pool_lr$predictors_in`, information can be 
+obtained from the predictors that were selected in the model at each selection step.
+
+```{r }
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
+    predictors=c("Gender", "Smoking", "Function", "SocialSupport"), 
+    p.crit = 0.05, method="D1")
+pool_lr$predictors_in
+
+```
+
+Now apply model stability analysis. For the example 10 bootstrap samples are used, but these can easily increased to 1000. Note that this may take a while when the predictors are selected in several steps.
+
+```{r }
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, nimp=3, impvar="Impnr", Outcome="Chronic",
+    predictors=c("Gender", "Smoking", "Function", "SocialSupport"), 
+    p.crit = 0.05, method="D1")
+
+psfmi_stab(pool_lr, boot_method = "single", nboot=10)
+
+```
