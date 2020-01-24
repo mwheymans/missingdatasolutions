@@ -11,10 +11,6 @@ On this page you will find news about missing data and applied biostatistical me
 
 On this [website](https://rmisstastic.netlify.com/) you will find all kind of information on missing data. See also the [news & links site](https://rmisstastic.netlify.com/misc/). 
 
-# Calibration belt
-
-New [paper](https://www.stata-journal.com/article.html?article=gr0071) in Stata journal about new method to assess the calibration of dichotomous outcome models with the calibration belt, including as author Stanley Lemeshow. This as a reaction to the shortcomings of the Hosmer and Lemeshow test, that has as limitation that the test may become significant in large datasets, although predicted and observed probabilities agree well. Method only available in Stata (probably availability for R will arrive soon).
-
 # Package naniar
 
 Package [`naniar`](http://naniar.njtierney.com/index.html){target="_blank"} provides tidy ways to summarise, visualise, and manipulate missing data. 
