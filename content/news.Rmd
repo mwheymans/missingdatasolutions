@@ -2,9 +2,8 @@
 title: "Missing Data News"
 description: News
 date: "`r Sys.Date()`"
-tags:
-- news
-- calibration belt
+tags: ["news", "calibration"]
+
 ---
 
 On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
