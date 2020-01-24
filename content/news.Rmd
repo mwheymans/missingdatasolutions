@@ -2,14 +2,10 @@
 title: "Missing Data News"
 description: News
 date: "`r Sys.Date()`"
-
+tags: ["News"]
 ---
 
 On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
-
-# rmisstastic
-
-On this [website](https://rmisstastic.netlify.com/) you will find all kind of information on missing data. See also the [news & links site](https://rmisstastic.netlify.com/misc/). 
 
 # Package naniar
 
