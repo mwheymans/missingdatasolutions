@@ -43,22 +43,22 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
 <pre class="r"><code>pool_lr$RR_Model</code></pre>
 <pre><code>## $`Step 1`
 ##                   est std.err signif   lower   upper     OR   L.OR     U.OR
-## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365 280.8649
-## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952   1.4568
-## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234 0.5761   2.1907
-## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644 0.7959   0.9387
-## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021 0.9652   1.0404
-## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913 0.9243   1.0632
-## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252 0.9222   1.1397</code></pre>
+## (Intercept)   -0.0215  2.4949 0.9931 -4.9246  4.8817 0.9788 0.0073 131.8530
+## Gender        -0.3545  0.4181 0.3966 -1.1741  0.4652 0.7016 0.3091   1.5923
+## Smoking        0.0757  0.3408 0.8244 -0.5924  0.7437 1.0786 0.5530   2.1037
+## Function      -0.1419  0.0434 0.0011 -0.2270 -0.0568 0.8677 0.7969   0.9448
+## JobControl     0.0069  0.0205 0.7370 -0.0335  0.0473 1.0069 0.9670   1.0485
+## JobDemands     0.0023  0.0387 0.9532 -0.0738  0.0784 1.0023 0.9288   1.0815
+## SocialSupport  0.0443  0.0575 0.4408 -0.0685  0.1572 1.0453 0.9338   1.1702</code></pre>
 <pre class="r"><code>pool_lr$multiparm</code></pre>
 <pre><code>## $`Step 1`
 ##               Chi_sq p-value D1 &amp; RR
-## Gender         1.074          0.3001
-## Smoking        0.117          0.7327
-## Function      11.984          0.0005
-## JobControl     0.012          0.9145
-## JobDemands     0.060          0.8065
-## SocialSupport  0.212          0.6449</code></pre>
+## Gender         0.719          0.3966
+## Smoking        0.049          0.8244
+## Function      10.698          0.0011
+## JobControl     0.113          0.7370
+## JobDemands     0.003          0.9532
+## SocialSupport  0.594          0.4408</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="pooling-with-bws-and-method-d3" class="section level3">
@@ -69,95 +69,95 @@ using a p-value of 0.05 and as method D3 (Meng and Rubin likelihood ratio statis
 pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), p.crit = 0.05, method=&quot;D3&quot;)</code></pre>
-<pre><code>## Variable excluded at Step 1 is - JobControl</code></pre>
-<pre><code>## Variable excluded at Step 2 is - JobDemands</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 1 is - JobDemands</code></pre>
+<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
+<pre><code>## Variable excluded at Step 3 is - JobControl</code></pre>
 <pre><code>## Variable excluded at Step 4 is - SocialSupport</code></pre>
 <pre><code>## Variable excluded at Step 5 is - Gender</code></pre>
 <pre class="r"><code>pool_lr$RR_Model</code></pre>
 <pre><code>## $`Step 1`
 ##                   est std.err signif   lower   upper     OR   L.OR     U.OR
-## (Intercept)    1.1637  2.2828 0.6102 -3.3104  5.6379 3.2018 0.0365 280.8649
-## Gender        -0.4220  0.4073 0.3001 -1.2202  0.3762 0.6557 0.2952   1.4568
-## Smoking        0.1164  0.3407 0.7327 -0.5515  0.7842 1.1234 0.5761   2.1907
-## Function      -0.1457  0.0421 0.0005 -0.2282 -0.0632 0.8644 0.7959   0.9387
-## JobControl     0.0021  0.0191 0.9145 -0.0355  0.0396 1.0021 0.9652   1.0404
-## JobDemands    -0.0087  0.0357 0.8065 -0.0787  0.0612 0.9913 0.9243   1.0632
-## SocialSupport  0.0249  0.0540 0.6449 -0.0810  0.1308 1.0252 0.9222   1.1397
+## (Intercept)   -0.0215  2.4949 0.9931 -4.9246  4.8817 0.9788 0.0073 131.8530
+## Gender        -0.3545  0.4181 0.3966 -1.1741  0.4652 0.7016 0.3091   1.5923
+## Smoking        0.0757  0.3408 0.8244 -0.5924  0.7437 1.0786 0.5530   2.1037
+## Function      -0.1419  0.0434 0.0011 -0.2270 -0.0568 0.8677 0.7969   0.9448
+## JobControl     0.0069  0.0205 0.7370 -0.0335  0.0473 1.0069 0.9670   1.0485
+## JobDemands     0.0023  0.0387 0.9532 -0.0738  0.0784 1.0023 0.9288   1.0815
+## SocialSupport  0.0443  0.0575 0.4408 -0.0685  0.1572 1.0453 0.9338   1.1702
 ## 
 ## $`Step 2`
-##                   est std.err signif   lower   upper     OR   L.OR     U.OR
-## (Intercept)    1.3088  1.8407 0.4770 -2.2988  4.9164 3.7019 0.1004 136.5169
-## Gender        -0.4296  0.4012 0.2843 -1.2158  0.3567 0.6508 0.2965   1.4286
-## Smoking        0.1173  0.3406 0.7305 -0.5502  0.7849 1.1245 0.5768   2.1922
-## Function      -0.1450  0.0415 0.0005 -0.2262 -0.0637 0.8651 0.7975   0.9383
-## JobDemands    -0.0089  0.0357 0.8019 -0.0788  0.0610 0.9911 0.9242   1.0628
-## SocialSupport  0.0239  0.0532 0.6532 -0.0804  0.1282 1.0242 0.9228   1.1367
+##                   est std.err signif   lower   upper     OR   L.OR    U.OR
+## (Intercept)    0.0664  1.9997 0.9735 -3.8606  3.9935 1.0687 0.0211 54.2427
+## Gender        -0.3568  0.4099 0.3841 -1.1602  0.4467 0.6999 0.3134  1.5631
+## Smoking        0.0746  0.3407 0.8266 -0.5931  0.7424 1.0775 0.5526  2.1009
+## Function      -0.1420  0.0434 0.0011 -0.2271 -0.0569 0.8676 0.7969  0.9447
+## JobControl     0.0068  0.0205 0.7397 -0.0336  0.0472 1.0068 0.9670  1.0483
+## SocialSupport  0.0442  0.0574 0.4410 -0.0684  0.1569 1.0452 0.9339  1.1699
 ## 
 ## $`Step 3`
 ##                   est std.err signif   lower   upper     OR   L.OR    U.OR
-## (Intercept)    0.9989  1.3631 0.4637 -1.6728  3.6705 2.7152 0.1877 39.2713
-## Gender        -0.4128  0.3955 0.2966 -1.1880  0.3624 0.6618 0.3048  1.4367
-## Smoking        0.1177  0.3406 0.7298 -0.5499  0.7852 1.1249 0.5770  2.1929
-## Function      -0.1448  0.0414 0.0005 -0.2260 -0.0636 0.8652 0.7977  0.9384
-## SocialSupport  0.0236  0.0532 0.6575 -0.0806  0.1278 1.0239 0.9225  1.1363
+## (Intercept)    0.0933  1.9957 0.9627 -3.8259  4.0125 1.0978 0.0218 55.2826
+## Gender        -0.3554  0.4098 0.3858 -1.1587  0.4478 0.7009 0.3139  1.5649
+## Function      -0.1412  0.0431 0.0011 -0.2257 -0.0567 0.8683 0.7980  0.9449
+## JobControl     0.0069  0.0205 0.7358 -0.0334  0.0473 1.0069 0.9671  1.0484
+## SocialSupport  0.0439  0.0574 0.4442 -0.0686  0.1565 1.0449 0.9337  1.1694
 ## 
 ## $`Step 4`
 ##                   est std.err signif   lower   upper     OR   L.OR    U.OR
-## (Intercept)    1.0465  1.3564 0.4404 -1.6119  3.7050 2.8477 0.1995 40.6483
-## Gender        -0.4113  0.3954 0.2982 -1.1861  0.3636 0.6628 0.3054  1.4385
-## Function      -0.1432  0.0411 0.0005 -0.2237 -0.0627 0.8666 0.7996  0.9393
-## SocialSupport  0.0231  0.0531 0.6644 -0.0811  0.1272 1.0233 0.9221  1.1356
+## (Intercept)    0.5793  1.3846 0.6757 -2.1359  3.2945 1.7848 0.1181 26.9638
+## Gender        -0.3903  0.3991 0.3281 -1.1726  0.3920 0.6769 0.3096  1.4800
+## Function      -0.1378  0.0423 0.0012 -0.2209 -0.0547 0.8713 0.8018  0.9467
+## SocialSupport  0.0398  0.0561 0.4781 -0.0702  0.1498 1.0406 0.9322  1.1616
 ## 
 ## $`Step 5`
 ##                 est std.err signif   lower   upper     OR   L.OR    U.OR
-## (Intercept)  1.5889  0.5348 0.0030  0.5407  2.6371 4.8983 1.7172 13.9725
-## Gender      -0.4196  0.3943 0.2872 -1.1924  0.3531 0.6573 0.3035  1.4235
-## Function    -0.1430  0.0411 0.0005 -0.2235 -0.0625 0.8668 0.7997  0.9394
+## (Intercept)  1.4947  0.5340 0.0051  0.4480  2.5414 4.4579 1.5651 12.6974
+## Gender      -0.4112  0.3965 0.2997 -1.1884  0.3660 0.6629 0.3047  1.4420
+## Function    -0.1354  0.0421 0.0013 -0.2181 -0.0528 0.8733 0.8041  0.9486
 ## 
 ## $`Step 6`
 ##                 est std.err signif   lower   upper     OR   L.OR   U.OR
-## (Intercept)  1.3143  0.4622 0.0045  0.4084  2.2203 3.7222 1.5043 9.2097
-## Function    -0.1471  0.0408 0.0003 -0.2272 -0.0671 0.8632 0.7968 0.9351</code></pre>
+## (Intercept)  1.2290  0.4696  9e-03  0.3079  2.1501 3.4178 1.3605 8.5858
+## Function    -0.1399  0.0420  9e-04 -0.2222 -0.0575 0.8695 0.8007 0.9441</code></pre>
 <pre class="r"><code>pool_lr$multiparm</code></pre>
 <pre><code>## $`Step 1`
 ##               D3 p-values
-## Gender             0.3001
-## Smoking            0.7327
-## Function           0.0005
-## JobControl         0.9145
-## JobDemands         0.8065
-## SocialSupport      0.6449
+## Gender             0.3966
+## Smoking            0.8244
+## Function           0.0011
+## JobControl         0.7370
+## JobDemands         0.9532
+## SocialSupport      0.4408
 ## 
 ## $`Step 2`
 ##               D3 p-values
-## Gender             0.2843
-## Smoking            0.7305
-## Function           0.0005
-## JobDemands         0.8019
-## SocialSupport      0.6532
+## Gender             0.3841
+## Smoking            0.8266
+## Function           0.0011
+## JobControl         0.7397
+## SocialSupport      0.4410
 ## 
 ## $`Step 3`
 ##               D3 p-values
-## Gender             0.2966
-## Smoking            0.7298
-## Function           0.0005
-## SocialSupport      0.6575
+## Gender             0.3858
+## Function           0.0011
+## JobControl         0.7358
+## SocialSupport      0.4442
 ## 
 ## $`Step 4`
 ##               D3 p-values
-## Gender             0.2982
-## Function           0.0005
-## SocialSupport      0.6644
+## Gender             0.3281
+## Function           0.0012
+## SocialSupport      0.4781
 ## 
 ## $`Step 5`
 ##          D3 p-values
-## Gender        0.2872
-## Function      0.0005
+## Gender        0.2997
+## Function      0.0013
 ## 
 ## $`Step 6`
 ##          D3 p-values
-## Function       3e-04</code></pre>
+## Function       9e-04</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
