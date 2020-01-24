@@ -1,11 +1,21 @@
 ---
 title: "Missing Data News"
-description: "News"
+description: News
 date: "`r Sys.Date()`"
-tags: ["news"]
+tags:
+- news
+- calibration belt
 ---
 
 On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
+
+# rmisstastic
+
+On this [website](https://rmisstastic.netlify.com/) you will find all kind of information on missing data. See also the [news & links site](https://rmisstastic.netlify.com/misc/). 
+
+# Calibration belt
+
+New [paper](https://www.stata-journal.com/article.html?article=gr0071) in Stata journal about new method to assess the calibration of dichotomous outcome models with the calibration belt, including as author Stanley Lemeshow. This as a reaction to the shortcomings of the Hosmer and Lemeshow test, that has as limitation that the test may become significant in large datasets, although predicted and observed probabilities agree well. Method only available in Stata (probably availability for R will arrive soon).
 
 # Package naniar
 
@@ -14,3 +24,4 @@ Package [`naniar`](http://naniar.njtierney.com/index.html){target="_blank"} prov
 # Package missCompare
 
 You can compare different missing data imputation algorithms with package [`missCompare`](https://cran.r-project.org/web/packages/missCompare/vignettes/misscompare.html){target="_blank"}.  
+
