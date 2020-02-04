@@ -9,11 +9,18 @@ On this page you will find news about missing data and applied biostatistical me
 
 # Calibration belt
 
+With [package givitiR](https://cran.r-project.org/web/packages/givitiR/vignettes/givitiR.html) a calibration belt can be
+plotted to assess the calibration of dichotomous outcome models. This is assumed a better procedure compared to the
+shortcomings of the Hosmer and Lemeshow test, that may become significant in large datasets, although predicted and 
+observed probabilities agree well. 
+
 # Package naniar
 
-Package [`naniar`](http://naniar.njtierney.com/index.html){target="_blank"} provides tidy ways to summarise, visualise, and manipulate missing data. 
+Package [`naniar`](http://naniar.njtierney.com/index.html){target="_blank"} provides tidy ways to summarise, visualise, and
+manipulate missing data. 
 
 # Package missCompare
 
-You can compare different missing data imputation algorithms with package [`missCompare`](https://cran.r-project.org/web/packages/missCompare/vignettes/misscompare.html){target="_blank"}.  
+You can compare different missing data imputation algorithms with package
+[`missCompare`](https://cran.r-project.org/web/packages/missCompare/vignettes/misscompare.html){target="_blank"}.  
 
