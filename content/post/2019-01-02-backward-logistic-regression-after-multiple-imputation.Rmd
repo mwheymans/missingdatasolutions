@@ -8,7 +8,7 @@ output:
 tags: ["psfmi", "Multiple Imputation", "backward selection"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/different_selection_criteria.jpg"
-description: With the [psfmi](/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+description: With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
 
 ---
 

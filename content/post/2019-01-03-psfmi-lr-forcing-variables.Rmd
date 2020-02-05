@@ -7,7 +7,7 @@ categories: []
 tags: ["psfmi", "force variables", "keep predictors", "interaction terms"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/forcing.png"
-description: With the [psfmi](/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
+description: With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
 
 ---
 
