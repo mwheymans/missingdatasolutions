@@ -34,8 +34,8 @@ The cross-validation methods are adjustments of the methods described in the
 paper of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289)  and [Miles A](https://journals.sagepub.com/doi/abs/10.1177/0049124115610345).
 
 The methods are implemented in the function `psfmi_perform` and are called:
-`cv_MI`, `cv_MI_RR` and `MI_cv_RR`. An explanation and examples of how to use the
-methods can be found below.
+`cv_MI`, `cv_MI_RR` and `MI_cv_naive`. An explanation and examples of how to use the
+methods can be found below. See also this these Vignettes for more explanation of the methods [Vignettes](https://mwheymans.github.io/psfmi/).
 
 # Methods
 
