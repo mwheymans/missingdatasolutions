@@ -3,7 +3,7 @@ title: "Multiple Imputation and Cross-validation"
 author: "Martijn Heymans"
 date: '2020-02-07'
 output:
-    bookdown::html_document2:
+  bookdown::html_document2
 categories: []
 tags:
 - Multiple Imputation
@@ -66,8 +66,10 @@ the original data, that contains the missing values has to be included.
 
 How this method works is visualized in Figure \@ref(fig:fig1) 
 
+![Test](cv_mi.jpg)
+
 ```{r fig1, echo = FALSE, fig.cap="\\label{fig:fig1} Schematic overview of the cv_MI method", out.width='100%', fig.align='center'}
-knitr::include_graphics("cv_MI.png")
+knitr::include_graphics("cv_MI.jpg")
 ```
 
 Back to [Methods]
@@ -125,7 +127,7 @@ The method can only be performed when the outcome data is complete.
 How these steps work is visualized in figure (Figure \@ref(fig:fig2)) 
 
 ```{r fig2, echo = FALSE, fig.cap="\\label{fig:fig2} Schematic overview of the cv_MI_RR method", out.width='100%', fig.align='center'}
-knitr::include_graphics("cv_mi_RR.png")
+knitr::include_graphics("cv_mi_RR.jpg")
 
 ```
 
@@ -181,7 +183,7 @@ selection during cross-validation. How this method works is visualized
 in the figure (Figure \@ref(fig:fig3)) 
 
 ```{r fig3, echo = FALSE, fig.cap="\\label{fig:fig3} Schematic overview of the MI_cv_naive method", out.width='100%', fig.align='center'}
-knitr::include_graphics("MI_cv_naive.png")
+knitr::include_graphics("MI_cv_naive.jpg")
 
 ```
 
