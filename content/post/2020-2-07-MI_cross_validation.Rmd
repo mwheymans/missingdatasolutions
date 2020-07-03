@@ -35,7 +35,7 @@ paper of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.2018
 
 The methods are implemented in the function `psfmi_perform` and are called:
 `cv_MI`, `cv_MI_RR` and `MI_cv_naive`. An explanation and examples of how to use the
-methods can be found below. See also this these Vignettes for more explanation of the methods [Vignettes](https://mwheymans.github.io/psfmi/).
+methods can be found below. See also these Vignettes for more explanation of the methods [Vignettes](https://mwheymans.github.io/psfmi/).
 
 # Methods
 
