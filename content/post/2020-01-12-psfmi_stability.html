@@ -34,123 +34,127 @@ obtained from the predictors that were selected in the model at each selection s
 <pre class="r"><code>library(psfmi)
 pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
-    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
-##   method                          from
-##   influence.merMod                lme4
-##   cooks.distance.influence.merMod lme4
-##   dfbeta.influence.merMod         lme4
-##   dfbetas.influence.merMod        lme4</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
 <pre class="r"><code>pool_lr$predictors_in</code></pre>
-<pre><code>##        Gender Smoking Function SocialSupport
-## Step 1      1       1        1             1
-## Step 2      1       0        1             1
-## Step 3      1       0        1             0
-## Step 4      0       0        1             0</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   value   
+##   &lt;chr&gt;   
+## 1 Function</code></pre>
 <p>Now apply model stability analysis. For the example 10 bootstrap samples are used, but these can easily increased to 1000. Note that this may take a while when the predictors are selected in several steps.</p>
 <pre class="r"><code>library(psfmi)
 pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
-    p.crit = 0.05, method=&quot;D1&quot;)</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
-<pre class="r"><code>psfmi_stab(pool_lr, boot_method = &quot;single&quot;, nboot=10)</code></pre>
+    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre class="r"><code>stab_res &lt;- psfmi_stab(pool_lr, direction=&quot;BW&quot;, start_model = TRUE,
+      boot_method = &quot;single&quot;, nboot=10, p.crit=0.05)</code></pre>
 <pre><code>## 
 ## Boot 1</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 2</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## Model is empty after last step</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 3</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
-## Model is empty after last step</code></pre>
+## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 4</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 5</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
+<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 6</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Function</code></pre>
-<pre><code>## Variable excluded at Step 4 is - SocialSupport</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## Model is empty after last step</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 7</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 8</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Smoking</code></pre>
-<pre><code>## 
-## Boot 9</code></pre>
-<pre><code>## Variable excluded at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Boot 10</code></pre>
-<pre><code>## Variable excluded at Step 1 is - Gender</code></pre>
-<pre><code>## Variable excluded at Step 2 is - Smoking</code></pre>
-<pre><code>## Variable excluded at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Variable excluded at Step 4 is - Function</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
-## Model is empty after last step</code></pre>
+## No more variables removed from the model</code></pre>
+<pre><code>## 
+## Boot 9</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Boot 10</code></pre>
+<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre class="r"><code>stab_res</code></pre>
 <pre><code>## $bif
 ##         Gender Smoking Function SocialSupport
-## boot 1       0       0        1             0
+## boot 1       0       0        0             0
 ## boot 2       0       0        0             0
-## boot 3       0       0        0             0
+## boot 3       0       0        1             0
 ## boot 4       0       0        1             0
-## boot 5       0       0        1             0
+## boot 5       0       0        0             0
 ## boot 6       0       0        0             0
-## boot 7       0       0        1             0
+## boot 7       0       0        0             0
 ## boot 8       0       0        1             0
-## boot 9       0       0        1             0
-## boot 10      0       0        0             0
+## boot 9       0       0        0             0
+## boot 10      0       0        1             0
 ## 
 ## $bif_total
 ##        Gender       Smoking      Function SocialSupport 
-##             0             0             6             0 
+##             0             0             4             0 
 ## 
 ## $bif_perc
 ##        Gender       Smoking      Function SocialSupport 
-##             0             0            60             0 
+##             0             0            40             0 
 ## 
 ## $model_stab
 ##   Gender Smoking Function SocialSupport freq bif_pat_perc
-## 1      0       0        1             0    6           60
-## 2      0       0        0             0    4           40
+## 1      0       0        0             0    6           60
+## 2      0       0        1             0    4           40
 ## 
 ## $call
-## psfmi_stab(pobj = pool_lr, boot_method = &quot;single&quot;, nboot = 10)</code></pre>
+## psfmi_stab(pobj = pool_lr, boot_method = &quot;single&quot;, nboot = 10, 
+##     p.crit = 0.05, start_model = TRUE, direction = &quot;BW&quot;)</code></pre>
 </div>

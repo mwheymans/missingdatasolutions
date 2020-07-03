@@ -1,0 +1,227 @@
+---
+title: "Multiple Imputation and Cross-validation"
+author: "Martijn Heymans"
+date: '2020-02-07'
+output:
+    bookdown::html_document2:
+categories: []
+tags:
+- Multiple Imputation
+- Cross-validation
+thumbnailImagePosition: left
+thumbnailImage: /images/vignette_MI_cv.png
+description: With the function `psfmi_perform` of the [psfmi](https://mwheymans.github.io/psfmi/)
+  package it is possible to combine Cross-validation with Multiple Imputation for
+  internal validation.
+slug: MI-cross-validation
+---
+
+# Introduction
+
+This page contains information of three methods that are implemented 
+in the [`psfmi`](https://github.com/mwheymans/psfmi) package and that combine Multiple Imputation with Cross-validation for the validation of logistic prediction models. Currently the methods are only available via downloading the 
+`psfmi` package via Github. Do this:
+
+ install.packages("devtools")
+ 
+ library(devtools)
+ 
+ devtools::install_github("mwheymans/psfmi")
+ 
+ library(psfmi)
+
+The cross-validation methods are adjustments of the methods described in the 
+paper of [Mertens BJ](https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289)  and [Miles A](https://journals.sagepub.com/doi/abs/10.1177/0049124115610345).
+
+The methods are implemented in the function `psfmi_perform` and are called:
+`cv_MI`, `cv_MI_RR` and `MI_cv_RR`. An explanation and examples of how to use the
+methods can be found below.
+
+# Methods
+
+* [Method cv_MI]
+* [Method cv_MI_RR]
+* [Method MI_cv_naive]
+
+# Examples
+
+* [Method cv_MI - Example 1]
+* [Method cv_MI including BW selection - Example 2]
+* [Method cv_MI_RR - Example 1]
+* [Method cv_MI_RR including BW selection - Example 2]
+* [Method MI_cv_naive - Example 1]
+* [Method MI_cv_naive including BW selection - Example 2]
+
+## Method cv_MI
+
+With this method imputations are implemented as part of the cross-validation
+procedure. Within each cross-validation fold, imputation
+is done once. By repeating this process over multiple imputation runs,
+multiply imputed training and test sets are generated. Model performance 
+is evaluated and tested in the training and test sets respectively.
+The method can be performed in combination with backward selection
+in the training set and subsequently testing the performance in the test set.
+The method can only be performed when the outcome data is complete and
+the original data, that contains the missing values has to be included. 
+
+How this method works is visualized in Figure \@ref(fig:fig1) 
+
+```{r fig1, echo = FALSE, fig.cap="\\label{fig:fig1} Schematic overview of the cv_MI method", out.width='100%', fig.align='center'}
+knitr::include_graphics("cv_MI.png")
+```
+
+Back to [Methods]
+
+### Method cv_MI - Example 1
+
+To run the cv_MI method use:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
+                     nimp_cv = 2, p.crit=0.2, BW=TRUE, anova_test = "LRT",
+                     miceImp = miceImp, printFlag = FALSE)
+
+res_cv
+
+```
+
+Back to [Examples]
+
+### Method cv_MI including BW selection - Example 2
+
+To run the cv_MI method including BW selection use:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI", data_orig = lbp_orig, folds=3,
+                     nimp_cv = 2, p.crit=0.2, BW=TRUE, anova_test = "LRT",
+                     miceImp = miceImp, printFlag = FALSE)
+res_cv
+
+```
+
+Back to [Examples]
+
+## Method cv_MI_RR
+
+The method cv_MI_RR uses multiple imputation within the cross-validation 
+definition. The pooled model is analyzed in the training data and 
+subsequently tested in the test data. The method can be performed 
+in combination with backward selection of the pooled model in the training set 
+and subsequently testing the performance of the pooled model in the test set. 
+The method can only be performed when the outcome data is complete.
+
+How these steps work is visualized in figure (Figure \@ref(fig:fig2)) 
+
+```{r fig2, echo = FALSE, fig.cap="\\label{fig:fig2} Schematic overview of the cv_MI_RR method", out.width='100%', fig.align='center'}
+knitr::include_graphics("cv_mi_RR.png")
+
+```
+
+Back to [Methods]
+
+### Method cv_MI_RR - Example 1 
+
+To run the cv_MI method use:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI_RR", data_orig = lbp_orig, 
+                        folds = 4, nimp_mice = 5, p.crit=0.2, BW=TRUE, 
+                        miceImp = miceImp, printFlag = FALSE)
+
+res_cv
+
+```
+
+Back to [Examples]
+
+### Method cv_MI_RR including BW selection - Example 2
+
+To run the cv_MI_RR method including backward selection:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "cv_MI_RR", data_orig = lbp_orig, 
+                        folds = 4, nimp_mice = 5, p.crit=0.2, BW=TRUE, 
+                        miceImp = miceImp, printFlag = FALSE)
+
+res_cv
+
+```
+
+Back to [Examples]
+
+## Method MI_cv_naive
+      
+This method applies cross-validation after Multiple Imputation. The same folds
+are used in each multiply imputed dataset. Is is possible to do backward 
+selection during cross-validation. How this method works is visualized 
+in the figure (Figure \@ref(fig:fig3)) 
+
+```{r fig3, echo = FALSE, fig.cap="\\label{fig:fig3} Schematic overview of the MI_cv_naive method", out.width='100%', fig.align='center'}
+knitr::include_graphics("MI_cv_naive.png")
+
+```
+
+Back to [Methods]
+
+### Method MI_cv_naive - Example 1
+
+To run the MI_cv_naive method use:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "MI_cv_naive", folds=3, p.crit=1, BW=FALSE)
+
+res_cv
+
+  
+```
+
+Back to [Examples]
+
+### Method MI_cv_naive including BW selection - Example 2
+
+To run the MI_cv_naive method by implementing backward variable selection during cross-validation use:
+
+```{r}
+
+library(psfmi)
+pool_lr <- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs(Tampascale, 3) +
+                   factor(Satisfaction) + Smoking, p.crit = 1, direction="FW",
+                 nimp=5, impvar="Impnr", method="D1")
+
+res_cv <- psfmi_perform(pool_lr, val_method = "MI_cv_naive", folds=3, p.crit=0.05, BW=TRUE)
+
+res_cv
+  
+```
+
+Back to [Examples]

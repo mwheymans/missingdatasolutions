@@ -37,7 +37,8 @@ obtained from the predictors that were selected in the model at each selection s
 library(psfmi)
 pool_lr <- psfmi_lr(data=lbpmilr, nimp=5, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "SocialSupport"), 
-    p.crit = 0.05, method="D1")
+    p.crit = 0.05, method="D1", direction="BW")
+
 pool_lr$predictors_in
 
 ```
@@ -49,8 +50,11 @@ Now apply model stability analysis. For the example 10 bootstrap samples are use
 library(psfmi)
 pool_lr <- psfmi_lr(data=lbpmilr, nimp=3, impvar="Impnr", Outcome="Chronic",
     predictors=c("Gender", "Smoking", "Function", "SocialSupport"), 
-    p.crit = 0.05, method="D1")
+    p.crit = 0.05, method="D1", direction="BW")
 
-psfmi_stab(pool_lr, boot_method = "single", nboot=10)
+stab_res <- psfmi_stab(pool_lr, direction="BW", start_model = TRUE,
+      boot_method = "single", nboot=10, p.crit=0.05)
+
+stab_res
 
 ```
