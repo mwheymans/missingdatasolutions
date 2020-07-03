@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apps on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/apps/</link>
+    <description>Recent content in Apps on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/apps/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Shiny apps</title>
+      <link>https://missingdatasolutions.rbind.io/shiny/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/shiny/</guid>
+      <description>On this page you will find interactive learning tools of missing data methods
+Simple Imputation methodsThis app shows the effect of applying single imputation methods in the case of one outcome variable and one covariate with missing data.Go to the app
+Multiple ImputationThis app shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm.</description>
+    </item>
+    
+  </channel>
+</rss>

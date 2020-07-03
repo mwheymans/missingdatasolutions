@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cran on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/cran/</link>
+    <description>Recent content in Cran on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/cran/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Package psfmi</title>
+      <link>https://missingdatasolutions.rbind.io/2019/05/psfmi/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/05/psfmi/</guid>
+      <description>More information about the package can be found on the Cran website.
+You can easily install the package by running install.packages(&#34;psfmi&#34;) in the Console window in Rstudio or R. The development version can be installed from Github by using:install.packages(&#34;devtools&#34;)
+library(devtools)
+devtools::install_github(&#34;mwheymans/psfmi&#34;)
+library(psfmi)
+If you have questions about the psfmi package send an email to mw.heymans@amsterdamumc.nl or leave a message below. Enjoy using the package!</description>
+    </item>
+    
+  </channel>
+</rss>

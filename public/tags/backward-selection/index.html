@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="author" content="Martijn W Heymans">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Backward Selection">
+<meta name="twitter:title" content="Backward Selection">
+<meta property="og:url" content="https://missingdatasolutions.rbind.io/tags/backward-selection/">
+<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/tags/backward-selection/">
+<meta property="og:site_name" content="Missing Data Solutions">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+
+
+    <title>Backward Selection</title>
+
+    <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
+    
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://missingdatasolutions.rbind.io/tags/backward-selection/index.xml">
+    
+
+    
+
+    <link rel="canonical" href="https://missingdatasolutions.rbind.io/tags/backward-selection/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/style-nnm2spxvve8onlujjlegkkytaehyadd4ksxc1hyzzq9a2wvtrgbljqyulomn.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-127301719-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://missingdatasolutions.rbind.io/">Missing Data Solutions</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://missingdatasolutions.rbind.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://missingdatasolutions.rbind.io/#about">
+          <img class="sidebar-profile-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Martijn W Heymans</h4>
+        
+          <h5 class="sidebar-profile-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: <a href="https://epidm.nl/en/courses/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://epidm.nl/en/courses/clinical-prediction-models/">Prediction Models</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: mw.heymans@amsterdamumc.nl</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/post/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Posts</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://bookdown.org/mwheymans/bookmi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Missing Data Book</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/shiny/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-play"></i>
+      
+      <span class="sidebar-button-desc">Learning Apps</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/news/">
+    
+      <i class="sidebar-button-icon fa fa-newspaper-o fa-lg"></i>
+      
+      <span class="sidebar-button-desc">News</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/tags/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/mwheymans" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+        
+
+      
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        
+          <section class="postShorten-group main-content-wrap">
+            
+            
+              
+  
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/">
+          Logistic Regression after Multiple Imputation - different selection criteria
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2019-01-02T00:00:00Z">
+        
+  January 2, 2019
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+  
+
+With the <a href="https://mwheymans.github.io/psfmi/">psfmi</a> package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+      <p>
+        <a href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+    <a href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/">
+      <div class="postShorten-thumbnailimg">
+        <img alt="" itemprop="image" src="https://missingdatasolutions.rbind.io/images/different_selection_criteria.jpg"/>
+      </div>
+    </a>
+  
+</article>
+
+            
+            
+
+          </section>
+        
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Martijn W Heymans. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Martijn W Heymans</h4>
+    
+      <div id="about-card-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: <a href="https://epidm.nl/en/courses/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://epidm.nl/en/courses/clinical-prediction-models/">Prediction Models</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: mw.heymans@amsterdamumc.nl</div>
+    
+    
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/">
+                <h3 class="media-heading">Welcome to Missing Data Solutions</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
+Examples are provided for applied researchers and frequenly in RStudio.
+RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/">
+                <h3 class="media-heading">Multiple Imputation and Cross-validation</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">IntroductionThis page contains information of three methods that are implementedin the psfmi package and that combine Multiple Imputation with Cross-validation for the validation of logistic prediction models. Currently the methods are only available via downloading thepsfmi package via Github. Do this:
+install.packages(“devtools”)
+library(devtools)
+devtools::install_github(“mwheymans/psfmi”)
+library(psfmi)
+The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
+The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_RR.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
+                <h3 class="media-heading">Model Stability analysis after Multiple Imputation</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Model Stability analysisTo build a prediction model you can reliably use backward selection in a data situation wherethere are enough persons that are positive and negative on the outcome compared to the numberof potential predictors when you combine it with internal validation and model stability analysis.
+You can find more about model stability analysis in the papers of Royston and Sauerbrei, Sauerbrei and Schumacher, Heymans et al.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/01/psfmi/">
+                <h3 class="media-heading">psfmi package update</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">With the psfmi_mm function pooling and selection of (generalized) linear mixed models, i.e linear and logistic mixed models, is possible. With the psfmi_stab function the stability of models after using psfmi_lr, psfmi_coxr and psfmi_mm can be evaluated. The latter function uses (single) bootstrapping for the psfmi_lr and psfmi_coxr functions and cluster bootstrapping for the psfmi_mm function. With the function the bootstrap inclusion frequency of predictors and models can be estimated.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/05/psfmi/">
+                <h3 class="media-heading">Package psfmi</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">More information about the package can be found on the Cran website.
+You can easily install the package by running install.packages("psfmi") in the Console window in Rstudio or R. The development version can be installed from Github by using:install.packages("devtools")
+library(devtools)
+devtools::install_github("mwheymans/psfmi")
+library(psfmi)
+If you have questions about the psfmi package send an email to mw.heymans@amsterdamumc.nl or leave a message below. Enjoy using the package!</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/bookmi/">
+                <h3 class="media-heading">Applied Missing Data analysis Book</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The book can be found here.I have written that book with my colleague Iris Eekhout.It is a first draft and it will be continuously updated and improved. For comments and suggestions leave a comment below or email me at: mw.heymans@vumc.nl. Thank you.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+                <h3 class="media-heading">Backward Logistic Regression after MI - forcing variables in model</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Forcing predictors in the model can be applied by using the keep.predictors option inthe psfmi_lr function. These variables can be continuous, dichotomous orcategorical variables. Also more than one variable can be forced in the modelduring backward selection. Examples will be given below.
+ExamplesPooling with BS and forcing dichotomous variable in the modelPooling with BS and forcing categorical variable in the modelPooling with BS and forcing dichotomous and categorical variable in the modelPooling with BS and forcing dichotomous variable in the modelPooling Logistic regression models over 5 imputed datasets with backward selectionusing a p-value of 0.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/">
+                <h3 class="media-heading">Logistic Regression after Multiple Imputation - different selection criteria</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The different methods are described in the papers of Marshall et al and Eekhout, vd Wiel and Heymans.
+Be aware that backward selection may result in overfitted and optimistic prediction models, see TRIPOD. Backward selection should therefore be followed by internal validation of the model.
+ExamplesPooling without BW and method D1Pooling with BW and method D3Logistic RegressionPooling without BW and method D1library(psfmi)pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,&quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)pool_lr$RR_model## $`Step 1 - no variables removed -`## term estimate std.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/">
+                <h3 class="media-heading">Steps to externally validate a prediction model</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Original prediction modelWe will externally validate the following prediction model:
+library(foreign)dat.orig &lt;- read.spss(file=&quot;Hipstudy.sav&quot;, to.data.frame=T)## re-encoding from UTF-8library(rms)dd &lt;- datadist(dat.orig)options(datadist=&#39;dd&#39;)dat.orig$Mobility &lt;- factor(dat.orig$Mobility)fit.orig &lt;- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.orig) fit.orig## Logistic Regression Model## ## lrm(formula = Mortality ~ Gender + Mobility + Age + ASA, data = dat.orig, ## x = T, y = T)## ## Model Likelihood Discrimination Rank Discrim.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2018/12/missing-data-guideline/">
+                <h3 class="media-heading">Missing Data Guideline</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The Missing Data guideline can be found here</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         10 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('https://missingdatasolutions.rbind.io/images/cover_mountain.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://missingdatasolutions.rbind.io/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+
+    
+  </body>
+</html>
+

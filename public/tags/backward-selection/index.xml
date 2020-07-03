@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Backward Selection on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/backward-selection/</link>
+    <description>Recent content in Backward Selection on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/backward-selection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Logistic Regression after Multiple Imputation - different selection criteria</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</guid>
+      <description>The different methods are described in the papers of Marshall et al and Eekhout, vd Wiel and Heymans.
+Be aware that backward selection may result in overfitted and optimistic prediction models, see TRIPOD. Backward selection should therefore be followed by internal validation of the model.
+ExamplesPooling without BW and method D1Pooling with BW and method D3Logistic RegressionPooling without BW and method D1library(psfmi)pool_lr &amp;lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&amp;quot;Impnr&amp;quot;, Outcome=&amp;quot;Chronic&amp;quot;,predictors=c(&amp;quot;Gender&amp;quot;, &amp;quot;Smoking&amp;quot;, &amp;quot;Function&amp;quot;, &amp;quot;JobControl&amp;quot;,&amp;quot;JobDemands&amp;quot;, &amp;quot;SocialSupport&amp;quot;), method=&amp;quot;D1&amp;quot;)pool_lr$RR_model## $`Step 1 - no variables removed -`## term estimate std.</description>
+    </item>
+    
+  </channel>
+</rss>

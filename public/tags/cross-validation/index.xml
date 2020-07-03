@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cross Validation on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/cross-validation/</link>
+    <description>Recent content in Cross Validation on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/cross-validation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Multiple Imputation and Cross-validation</title>
+      <link>https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/</guid>
+      <description>IntroductionThis page contains information of three methods that are implementedin the psfmi package and that combine Multiple Imputation with Cross-validation for the validation of logistic prediction models. Currently the methods are only available via downloading thepsfmi package via Github. Do this:
+install.packages(“devtools”)
+library(devtools)
+devtools::install_github(“mwheymans/psfmi”)
+library(psfmi)
+The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
+The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_RR.</description>
+    </item>
+    
+  </channel>
+</rss>

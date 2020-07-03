@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>External Validation on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
+    <description>Recent content in External Validation on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/external-validation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Steps to externally validate a prediction model</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/</guid>
+      <description>Original prediction modelWe will externally validate the following prediction model:
+library(foreign)dat.orig &amp;lt;- read.spss(file=&amp;quot;Hipstudy.sav&amp;quot;, to.data.frame=T)## re-encoding from UTF-8library(rms)dd &amp;lt;- datadist(dat.orig)options(datadist=&amp;#39;dd&amp;#39;)dat.orig$Mobility &amp;lt;- factor(dat.orig$Mobility)fit.orig &amp;lt;- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.orig) fit.orig## Logistic Regression Model## ## lrm(formula = Mortality ~ Gender + Mobility + Age + ASA, data = dat.orig, ## x = T, y = T)## ## Model Likelihood Discrimination Rank Discrim.</description>
+    </item>
+    
+  </channel>
+</rss>

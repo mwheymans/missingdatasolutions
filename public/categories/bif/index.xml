@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bif on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/categories/bif/</link>
+    <description>Recent content in Bif on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/categories/bif/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Model Stability analysis after Multiple Imputation</title>
+      <link>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</guid>
+      <description>Model Stability analysisTo build a prediction model you can reliably use backward selection in a data situation wherethere are enough persons that are positive and negative on the outcome compared to the numberof potential predictors when you combine it with internal validation and model stability analysis.
+You can find more about model stability analysis in the papers of Royston and Sauerbrei, Sauerbrei and Schumacher, Heymans et al.</description>
+    </item>
+    
+  </channel>
+</rss>

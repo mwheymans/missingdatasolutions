@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interaction Terms on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/interaction-terms/</link>
+    <description>Recent content in Interaction Terms on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/interaction-terms/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Backward Logistic Regression after MI - forcing variables in model</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</guid>
+      <description>Forcing predictors in the model can be applied by using the keep.predictors option inthe psfmi_lr function. These variables can be continuous, dichotomous orcategorical variables. Also more than one variable can be forced in the modelduring backward selection. Examples will be given below.
+ExamplesPooling with BS and forcing dichotomous variable in the modelPooling with BS and forcing categorical variable in the modelPooling with BS and forcing dichotomous and categorical variable in the modelPooling with BS and forcing dichotomous variable in the modelPooling Logistic regression models over 5 imputed datasets with backward selectionusing a p-value of 0.</description>
+    </item>
+    
+  </channel>
+</rss>

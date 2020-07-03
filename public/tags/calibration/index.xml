@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Calibration on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/calibration/</link>
+    <description>Recent content in Calibration on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/calibration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Missing Data News</title>
+      <link>https://missingdatasolutions.rbind.io/news/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/news/</guid>
+      <description>On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
+rmisstasticOn this website you will find all kind of information on missing data. See also the news &amp;amp; links site.
+Calibration beltNew paper in Stata journal about new method to assess the calibration of dichotomous outcome models with the calibration belt, including as author Stanley Lemeshow.</description>
+    </item>
+    
+  </channel>
+</rss>

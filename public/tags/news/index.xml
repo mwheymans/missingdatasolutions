@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>News on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/news/</link>
+    <description>Recent content in News on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://missingdatasolutions.rbind.io/tags/news/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Missing Data News</title>
+      <link>https://missingdatasolutions.rbind.io/news/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/news/</guid>
+      <description>On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
+Calibration beltWith package givitiR a calibration belt can beplotted to assess the calibration of dichotomous outcome models. This is assumed a better procedure compared to theshortcomings of the Hosmer and Lemeshow test, that may become significant in large datasets, although predicted andobserved probabilities agree well.</description>
+    </item>
+    
+  </channel>
+</rss>
