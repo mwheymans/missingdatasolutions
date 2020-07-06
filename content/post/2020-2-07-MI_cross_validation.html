@@ -30,8 +30,8 @@ in the <a href="https://github.com/mwheymans/psfmi"><code>psfmi</code></a> packa
 <p>The cross-validation methods are adjustments of the methods described in the
 paper of <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/bimj.201800289">Mertens BJ</a> and <a href="https://journals.sagepub.com/doi/abs/10.1177/0049124115610345">Miles A</a>.</p>
 <p>The methods are implemented in the function <code>psfmi_perform</code> and are called:
-<code>cv_MI</code>, <code>cv_MI_RR</code> and <code>MI_cv_RR</code>. An explanation and examples of how to use the
-methods can be found below.</p>
+<code>cv_MI</code>, <code>cv_MI_RR</code> and <code>MI_cv_naive</code>. An explanation and examples of how to use the
+methods can be found below. See also these Vignettes for more explanation of the methods <a href="https://mwheymans.github.io/psfmi/">Vignettes</a>.</p>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
@@ -83,14 +83,14 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 <pre><code>## 
 ## fold 1</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## fold 2</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -98,6 +98,7 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 ## fold 3</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -105,9 +106,7 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 ## Imp run 2</code></pre>
 <pre><code>## 
 ## fold 1</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -121,24 +120,23 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 <pre><code>## 
 ## fold 3</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $pool_stats
 ##                  Train      Test
-## AUC          0.8932326 0.8452000
-## Scaled Brier 0.4607152 0.3407753
-## R2           0.5724773 0.4965201
+## AUC          0.9028874 0.8267000
+## Scaled Brier 0.4937784 0.2986295
+## R2           0.5992756 0.4539320
 ## 
 ## $LP_val
 ## (Intercept)     lp_test 
-##   0.1342076   0.9398944 
+## -0.02736062  0.73372685 
 ## 
 ## $auc_test
 ##             95% Low    AUC 95% Up
-## AUC (logit)   0.738 0.8452 0.9137</code></pre>
+## AUC (logit)  0.7604 0.8267 0.8776</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-cv_mi-including-bw-selection---example-2" class="section level3">
@@ -163,8 +161,8 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## fold 2</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -194,26 +192,25 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI&quot;, data_orig = 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## fold 3</code></pre>
-<pre><code>## Removed at Step 1 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $pool_stats
 ##                  Train      Test
-## AUC          0.8976796 0.8439000
-## Scaled Brier 0.4812091 0.3487675
-## R2           0.5875715 0.4903575
+## AUC          0.8903286 0.8274000
+## Scaled Brier 0.4604895 0.2837805
+## R2           0.5709079 0.4320180
 ## 
 ## $LP_val
 ## (Intercept)     lp_test 
-##   0.2358649   1.0619036 
+##  -0.1191937   0.7129821 
 ## 
 ## $auc_test
 ##             95% Low    AUC 95% Up
-## AUC (logit)  0.8011 0.8439 0.8789</code></pre>
+## AUC (logit)  0.7388 0.8274 0.8904</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -243,8 +240,8 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
                         miceImp = miceImp, printFlag = FALSE)</code></pre>
 <pre><code>## 
 ## fold 1</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -278,8 +275,8 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
 <pre><code>## 
 ## fold 3</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -295,8 +292,9 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
 ## Imputation 5</code></pre>
 <pre><code>## 
 ## fold 4</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - JobDemands</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -313,13 +311,13 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $stats
 ##                  Train      Test
-## AUC          0.8920730 0.8521326
-## Brier scaled 0.4689561 0.3408192
-## Rsq          0.5760742 0.4845755
+## AUC          0.8924200 0.8407912
+## Brier scaled 0.4660435 0.2337756
+## Rsq          0.5726065 0.4677645
 ## 
 ## $slope
 ##  Intercept      Slope 
-## 0.03864813 0.85568168</code></pre>
+## -0.1737403  0.8711208</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-cv_mi_rr-including-bw-selection---example-2" class="section level3">
@@ -335,9 +333,8 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
                         miceImp = miceImp, printFlag = FALSE)</code></pre>
 <pre><code>## 
 ## fold 1</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -388,9 +385,9 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
 ## Imputation 5</code></pre>
 <pre><code>## 
 ## fold 4</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -407,13 +404,13 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;cv_MI_RR&quot;, data_orig
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $stats
 ##                  Train      Test
-## AUC          0.8862083 0.8495499
-## Brier scaled 0.4600335 0.3184288
-## Rsq          0.5560206 0.5380225
+## AUC          0.8927878 0.8543780
+## Brier scaled 0.4714735 0.3210035
+## Rsq          0.5760114 0.5464868
 ## 
 ## $slope
 ##  Intercept      Slope 
-## -0.1841903  0.8201604</code></pre>
+## -0.4232102  0.8723599</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>
@@ -449,17 +446,17 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;MI_cv_naive&quot;, folds=
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $cv_stats
 ##                  Train      Test
-## AUC          0.8926438 0.8681000
-## Brier scaled 0.4592047 0.4116173
-## R-squared    0.5705834 0.5349892
+## AUC          0.8956054 0.8546000
+## Brier scaled 0.4692834 0.3649496
+## R-squared    0.5803901 0.4911484
 ## 
 ## $auc_test
 ##             95% Low    AUC 95% Up
-## AUC (logit)  0.8272 0.8681 0.9005
+## AUC (logit)  0.8054 0.8546  0.893
 ## 
 ## $test_coef
 ##  Intercept      Slope 
-## 0.05609952 0.98732205</code></pre>
+## 0.01032237 0.86179568</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 <div id="method-mi_cv_naive-including-bw-selection---example-2" class="section level3">
@@ -473,56 +470,53 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, formula = Chronic ~ Pain + JobDemands + rcs
 res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;MI_cv_naive&quot;, folds=3, p.crit=0.05, BW=TRUE)</code></pre>
 <pre><code>## 
 ## Imputation 1</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Imputation 2</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## Removed at Step 4 is - factor(Satisfaction)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Imputation 3</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -539,52 +533,50 @@ res_cv &lt;- psfmi_perform(pool_lr, val_method = &quot;MI_cv_naive&quot;, folds=
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## Removed at Step 1 is - JobDemands</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Imputation 5</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - rcs(Tampascale,3)</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre class="r"><code>res_cv</code></pre>
 <pre><code>## $cv_stats
 ##                  Train      Test
-## AUC          0.8757465 0.8550000
-## Brier scaled 0.4452814 0.3968619
-## R-squared    0.5329636 0.5181687
+## AUC          0.8851980 0.8473000
+## Brier scaled 0.4590869 0.3735926
+## R-squared    0.5557243 0.4832368
 ## 
 ## $auc_test
-##             95% Low   AUC 95% Up
-## AUC (logit)  0.7987 0.855 0.8975
+##             95% Low    AUC 95% Up
+## AUC (logit)   0.793 0.8473 0.8893
 ## 
 ## $test_coef
 ## Intercept     Slope 
-##  0.108571  1.025195</code></pre>
+## 0.0329237 0.9450087</code></pre>
 <p>Back to <a href="#examples">Examples</a></p>
 </div>
 </div>

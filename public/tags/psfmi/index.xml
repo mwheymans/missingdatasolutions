@@ -6,7 +6,7 @@
     <description>Recent content in Psfmi on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://missingdatasolutions.rbind.io/tags/psfmi/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Welcome to Missing Data Solutions</title>
       <link>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</guid>
       <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
@@ -25,7 +25,7 @@ RStudio is an open source free package with a lot of possibilities,making it ea
     <item>
       <title>the R psfmi package</title>
       <link>https://missingdatasolutions.rbind.io/psfmi/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/psfmi/</guid>
       <description>IntroductionOn this page you will find information about the psfmi package.The package contains functions to pool logistic (psfmi_lr), Coxregression (psfmi_coxr) and linear and logistic mixed models (psfmi_mm)in multiply imputed datasets. It is also possible to apply backward variableselection in multiple imputed datasets (Be aware that backward selectionmay result in overfitted and optimistic prediction models, see TRIPOD). Backward selection should therefore be followed by internal validation of the model.</description>

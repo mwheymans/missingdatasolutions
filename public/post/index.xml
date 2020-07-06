@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://missingdatasolutions.rbind.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Welcome to Missing Data Solutions</title>
       <link>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</guid>
       <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
@@ -34,7 +34,7 @@ library(devtools)
 devtools::install_github(“mwheymans/psfmi”)
 library(psfmi)
 The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
-The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_RR.</description>
+The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_naive.</description>
     </item>
     
     <item>

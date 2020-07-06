@@ -6,7 +6,7 @@
     <description>Recent content in Shiny on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://missingdatasolutions.rbind.io/tags/shiny/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Shiny apps</title>
       <link>https://missingdatasolutions.rbind.io/shiny/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/shiny/</guid>
       <description>On this page you will find interactive learning tools of missing data methods

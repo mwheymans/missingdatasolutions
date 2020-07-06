@@ -6,7 +6,7 @@
     <description>Recent content in Multiple Imputation on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://missingdatasolutions.rbind.io/tags/multiple-imputation/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>the R psfmi package</title>
       <link>https://missingdatasolutions.rbind.io/psfmi/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/psfmi/</guid>
       <description>IntroductionOn this page you will find information about the psfmi package.The package contains functions to pool logistic (psfmi_lr), Coxregression (psfmi_coxr) and linear and logistic mixed models (psfmi_mm)in multiply imputed datasets. It is also possible to apply backward variableselection in multiple imputed datasets (Be aware that backward selectionmay result in overfitted and optimistic prediction models, see TRIPOD). Backward selection should therefore be followed by internal validation of the model.</description>
@@ -32,7 +32,7 @@ library(devtools)
 devtools::install_github(“mwheymans/psfmi”)
 library(psfmi)
 The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
-The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_RR.</description>
+The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_naive.</description>
     </item>
     
     <item>

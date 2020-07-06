@@ -4,22 +4,22 @@
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/news/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/shiny/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/psfmi/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -73,7 +73,7 @@
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/apps/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,7 +156,7 @@
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/interactive-learning/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -172,13 +172,7 @@
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/model-stability/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -189,48 +183,54 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/model-stability/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/missingdata/</loc>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/multiple-imputation/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/news/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/post/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/psfmi/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/psfmi/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/shiny/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://missingdatasolutions.rbind.io/tags/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

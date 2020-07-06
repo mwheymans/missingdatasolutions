@@ -370,7 +370,10 @@ coef.orig # Coefficients of original model</code></pre>
 <div id="transport-the-original-regression-coefficients-to-the-external-dataset-and-calculate-the-linear-predictor." class="section level4">
 <h4>2. Transport the original regression coefficients to the external dataset and calculate the linear predictor.</h4>
 <pre class="r"><code>fit.ext &lt;- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.ext) 
-lp.ext &lt;- model.matrix(fit.ext) %*% coef.orig # model.matrix extracts predictor values of external dataset, including dummy coded variables. </code></pre>
+lp.ext &lt;- model.matrix(fit.ext) %*% coef.orig # model.matrix extracts predictor values of external dataset, including dummy coded variables. 
+
+# The same as above. Use for newdata the external dataset
+lp.ext &lt;- predict(fit.orig, newdata=dat.ext) </code></pre>
 </div>
 <div id="determine-the-amount-of-miscalibration-in-intercept-and-calibration-slope." class="section level4">
 <h4>3. Determine the amount of miscalibration in intercept and calibration slope.</h4>
@@ -392,8 +395,8 @@ fit.ext.lp</code></pre>
 ##  Intercept -0.6594 0.1567 -4.21  &lt;0.0001 
 ##  lp.ext     0.8767 0.1554  5.64  &lt;0.0001 
 ## </code></pre>
-<p>The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively
-indicate thje amount of miscalibration in the intercept ansd slope value.
+<p>The coefficient values of -0.6594 and 0.8767 for the intercept and slope respectively
+indicate the amount of miscalibration in the intercept ansd slope value.
 Without miscalibration these values are 0 and 1 respectively.</p>
 </div>
 <div id="deterimne-discrimination-and-calibration-in-the-external-dataset" class="section level4">
@@ -402,6 +405,7 @@ Without miscalibration these values are 0 and 1 respectively.</p>
 <div id="discrimination" class="section level4">
 <h4>Discrimination</h4>
 <pre class="r"><code>pred.ext &lt;-  1/(1+exp(-lp.ext))
+
 roc(fit.ext$y, pred.ext, ci=TRUE, plot = TRUE)</code></pre>
 <pre><code>## Setting levels: control = 0, case = 1</code></pre>
 <pre><code>## Setting direction: controls &lt; cases</code></pre>
@@ -413,7 +417,7 @@ roc(fit.ext$y, pred.ext, ci=TRUE, plot = TRUE)</code></pre>
 ## Data: pred.ext in 230 controls (fit.ext$y 0) &lt; 70 cases (fit.ext$y 1).
 ## Area under the curve: 0.7496
 ## 95% CI: 0.6893-0.8098 (DeLong)</code></pre>
-<p>The AUC drops from 0.774 to 0.748.</p>
+<p>The AUC drops from 0.774 to 0.7496.</p>
 </div>
 <div id="calibration" class="section level4">
 <h4>Calibration</h4>
@@ -740,7 +744,7 @@ library(devtools)
 devtools::install_github(“mwheymans/psfmi”)
 library(psfmi)
 The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
-The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_RR.</div>
+The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_naive.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>

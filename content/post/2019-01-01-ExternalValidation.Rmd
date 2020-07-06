@@ -105,12 +105,16 @@ dat.ext <- dat.orig[id, ]
 fit.ext <- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.ext) 
 lp.ext <- model.matrix(fit.ext) %*% coef.orig # model.matrix extracts predictor values of external dataset, including dummy coded variables. 
 
+# The same as above. Use for newdata the external dataset
+lp.ext <- predict(fit.orig, newdata=dat.ext) 
+
 ``` 
 
 ```{r , echo=FALSE}
 
 lp.ext <- as.numeric(lp.ext + 0.7)
 P <- 1/(1+exp(-lp.ext))
+set.seed(100)
 y <- ifelse(runif(300)<=P, 1, 0)
 dat.ext$Mortality <- y # dat.ext is the external dataset
 
@@ -125,8 +129,8 @@ fit.ext.lp
 
 ``` 
 
-The coefficient values of -0.7751 and 0.8631 for the intercept and slope respectively 
-indicate thje amount of miscalibration in the intercept ansd slope value. 
+The coefficient values of -0.6594 and 0.8767 for the intercept and slope respectively 
+indicate the amount of miscalibration in the intercept ansd slope value. 
 Without miscalibration these values are 0 and 1 respectively.
 
 #### 4. Deterimne Discrimination and Calibration in the external dataset  
@@ -136,11 +140,12 @@ Without miscalibration these values are 0 and 1 respectively.
 ```{r }
 
 pred.ext <-  1/(1+exp(-lp.ext))
+
 roc(fit.ext$y, pred.ext, ci=TRUE, plot = TRUE)
 
 ``` 
 
-The AUC drops from 0.774 to 0.748.
+The AUC drops from 0.774 to 0.7496.
 
 #### Calibration 
 
