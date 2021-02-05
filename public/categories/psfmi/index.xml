@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Psfmi on Missing Data Solutions</title>
+    <title>psfmi on Missing Data Solutions</title>
     <link>https://missingdatasolutions.rbind.io/categories/psfmi/</link>
-    <description>Recent content in Psfmi on Missing Data Solutions</description>
+    <description>Recent content in psfmi on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://missingdatasolutions.rbind.io/categories/psfmi/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/categories/psfmi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>the R psfmi package</title>
       <link>https://missingdatasolutions.rbind.io/psfmi/</link>

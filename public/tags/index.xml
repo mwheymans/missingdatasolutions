@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Missing Data Solutions</title>
@@ -6,13 +6,9 @@
     <description>Recent content in Tags on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://missingdatasolutions.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Apps</title>
+      <title>apps</title>
       <link>https://missingdatasolutions.rbind.io/tags/apps/</link>
       <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
@@ -21,110 +17,11 @@
     </item>
     
     <item>
-      <title>Backward Selection</title>
-      <link>https://missingdatasolutions.rbind.io/tags/backward-selection/</link>
-      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/backward-selection/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Book</title>
-      <link>https://missingdatasolutions.rbind.io/tags/book/</link>
-      <pubDate>Sun, 20 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/book/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bootstrap Inclusion Frequency</title>
-      <link>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</link>
-      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cran</title>
-      <link>https://missingdatasolutions.rbind.io/tags/cran/</link>
-      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/cran/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cross Validation</title>
-      <link>https://missingdatasolutions.rbind.io/tags/cross-validation/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/cross-validation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>External Validation</title>
-      <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
-      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/external-validation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Force Variables</title>
-      <link>https://missingdatasolutions.rbind.io/tags/force-variables/</link>
-      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/force-variables/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Guideline</title>
-      <link>https://missingdatasolutions.rbind.io/tags/guideline/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/guideline/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Interaction Terms</title>
-      <link>https://missingdatasolutions.rbind.io/tags/interaction-terms/</link>
-      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/interaction-terms/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Interactive Learning</title>
+      <title>Interactive learning</title>
       <link>https://missingdatasolutions.rbind.io/tags/interactive-learning/</link>
       <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/tags/interactive-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Keep Predictors</title>
-      <link>https://missingdatasolutions.rbind.io/tags/keep-predictors/</link>
-      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/keep-predictors/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Model Stability</title>
-      <link>https://missingdatasolutions.rbind.io/tags/model-stability/</link>
-      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/model-stability/</guid>
       <description></description>
     </item>
     
@@ -147,7 +44,7 @@
     </item>
     
     <item>
-      <title>Psfmi</title>
+      <title>psfmi</title>
       <link>https://missingdatasolutions.rbind.io/tags/psfmi/</link>
       <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       
@@ -165,11 +62,110 @@
     </item>
     
     <item>
-      <title>Update</title>
+      <title>Cross-validation</title>
+      <link>https://missingdatasolutions.rbind.io/tags/cross-validation/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/cross-validation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bootstrap Inclusion Frequency</title>
+      <link>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Model Stability</title>
+      <link>https://missingdatasolutions.rbind.io/tags/model-stability/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/model-stability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>update</title>
       <link>https://missingdatasolutions.rbind.io/tags/update/</link>
       <pubDate>Tue, 07 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/tags/update/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cran</title>
+      <link>https://missingdatasolutions.rbind.io/tags/cran/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/cran/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>book</title>
+      <link>https://missingdatasolutions.rbind.io/tags/book/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/book/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>backward selection</title>
+      <link>https://missingdatasolutions.rbind.io/tags/backward-selection/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/backward-selection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>force variables</title>
+      <link>https://missingdatasolutions.rbind.io/tags/force-variables/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/force-variables/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>interaction terms</title>
+      <link>https://missingdatasolutions.rbind.io/tags/interaction-terms/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/interaction-terms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>keep predictors</title>
+      <link>https://missingdatasolutions.rbind.io/tags/keep-predictors/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/keep-predictors/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>external validation</title>
+      <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/external-validation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>guideline</title>
+      <link>https://missingdatasolutions.rbind.io/tags/guideline/</link>
+      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/guideline/</guid>
       <description></description>
     </item>
     

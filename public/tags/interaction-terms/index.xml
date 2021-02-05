@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Interaction Terms on Missing Data Solutions</title>
+    <title>interaction terms on Missing Data Solutions</title>
     <link>https://missingdatasolutions.rbind.io/tags/interaction-terms/</link>
-    <description>Recent content in Interaction Terms on Missing Data Solutions</description>
+    <description>Recent content in interaction terms on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://missingdatasolutions.rbind.io/tags/interaction-terms/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 02 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/interaction-terms/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backward Logistic Regression after MI - forcing variables in model</title>
       <link>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</link>

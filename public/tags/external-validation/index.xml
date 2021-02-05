@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>External Validation on Missing Data Solutions</title>
+    <title>external validation on Missing Data Solutions</title>
     <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
-    <description>Recent content in External Validation on Missing Data Solutions</description>
+    <description>Recent content in external validation on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://missingdatasolutions.rbind.io/tags/external-validation/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/external-validation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Steps to externally validate a prediction model</title>
       <link>https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/</link>

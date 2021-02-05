@@ -1,9 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/apps/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/interactive-learning/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/news/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/multiple-imputation/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/news/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/post/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/psfmi/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/shiny/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -13,7 +63,7 @@
   </url>
   
   <url>
-    <loc>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</loc>
+    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -23,8 +73,43 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
+    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/</loc>
     <lastmod>2020-02-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/bif/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/bootstrapping/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/model-stability/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/categories/model-stability/</loc>
+    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -38,6 +123,16 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/update/</loc>
+    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/cran/</loc>
+    <lastmod>2019-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/2019/05/psfmi/</loc>
     <lastmod>2019-05-20T00:00:00+00:00</lastmod>
   </url>
@@ -48,7 +143,32 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/book/</loc>
+    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/backward-selection/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/force-variables/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/interaction-terms/</loc>
+    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/keep-predictors/</loc>
     <lastmod>2019-01-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -58,8 +178,18 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/external-validation/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/</loc>
     <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/guideline/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -72,98 +202,7 @@
   </url>
   
   <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/apps/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://missingdatasolutions.rbind.io/archives/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/backward-selection/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/bif/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/book/</loc>
-    <lastmod>2019-01-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/bootstrapping/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/cran/</loc>
-    <lastmod>2019-05-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
-    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/external-validation/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/force-variables/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/guideline/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/interaction-terms/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/interactive-learning/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/keep-predictors/</loc>
-    <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -171,73 +210,7 @@
   </url>
   
   <url>
-    <loc>https://missingdatasolutions.rbind.io/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/model-stability/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/model-stability/</loc>
-    <lastmod>2020-01-11T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://missingdatasolutions.rbind.io/missingdata/</loc>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/multiple-imputation/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/news/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/post/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/categories/psfmi/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/shiny/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/update/</loc>
-    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
