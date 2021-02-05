@@ -2,15 +2,16 @@
 title: "Model Stability analysis after Multiple Imputation"
 author: "Martijn Heymans"
 date: '2020-01-11'
-description: With the psfmi_stab function of the psfmi package it is possible to do
-  important stability analyses of the models and predictors selected during backward
-  selection after multiple imputation.
 slug: 
 tags: ["psfmi", "Model Stability", "Bootstrap Inclusion Frequency"]
 thumbnailImage: /images/Model_Stability.png
 thumbnailImagePosition: left
 categories: ["Model Stability", "Bootstrapping", "BIF"]
 ---
+
+With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
+<!--more-->
+
 
 ### Model Stability analysis
 

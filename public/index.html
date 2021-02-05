@@ -249,7 +249,7 @@ if (!doNotTrack) {
 <article class="postShorten postShorten--thumbnailimg-top" itemscope itemType="http://schema.org/BlogPosting">
   <div class="postShorten-wrap">
     
-      <a href="https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/">
+      <a href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
         <div class="postShorten-thumbnailimg">
           <img alt="" itemprop="image" src="https://missingdatasolutions.rbind.io/images/Cover_small.jpg"/>
         </div>
@@ -257,16 +257,16 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/">
+        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
           Welcome to Missing Data Solutions
         </a>
       </h1>
       
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-07-06T00:00:00Z">
+      <time itemprop="datePublished" datetime="2021-02-05T00:00:00Z">
         
-  July 6, 2020
+  February 5, 2021
 
       </time>
     
@@ -281,7 +281,7 @@ Examples are provided for applied researchers and frequenly in RStudio.
 RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.
       
       <p>
-        <a href="https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -303,16 +303,16 @@ RStudio is an open source free package with a lot of possibilities,making it ea
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/">
+        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/">
           Multiple Imputation and Cross-validation
         </a>
       </h1>
       
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-02-07T00:00:00Z">
+      <time itemprop="datePublished" datetime="2021-02-04T00:00:00Z">
         
-  February 7, 2020
+  February 4, 2021
 
       </time>
     
@@ -322,22 +322,21 @@ RStudio is an open source free package with a lot of possibilities,making it ea
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        IntroductionThis page contains information of three methods that are implementedin the psfmi package and that combine Multiple Imputation with Cross-validation for the validation of logistic prediction models. Currently the methods are only available via downloading thepsfmi package via Github. Do this:
-install.packages(“devtools”)
-library(devtools)
-devtools::install_github(“mwheymans/psfmi”)
-library(psfmi)
-The cross-validation methods are adjustments of the methods described in thepaper of Mertens BJ and Miles A.
-The methods are implemented in the function psfmi_perform and are called:cv_MI, cv_MI_RR and MI_cv_naive.
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>With the function <code>psfmi_perform</code> of the <a href="https://mwheymans.github.io/psfmi/">psfmi</a> package it is possible to combine Cross-validation with Multiple Imputation for internal validation.
+
       
       <p>
-        <a href="https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
   </div>
   
-    <a href="https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/">
+    <a href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/">
       <div class="postShorten-thumbnailimg">
         <img alt="" itemprop="image" src="https://missingdatasolutions.rbind.io/images/vignette_MI_cv.png"/>
       </div>
@@ -390,8 +389,12 @@ The methods are implemented in the function psfmi_perform and are called:cv_MI,
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        Model Stability analysisTo build a prediction model you can reliably use backward selection in a data situation wherethere are enough persons that are positive and negative on the outcome compared to the numberof potential predictors when you combine it with internal validation and model stability analysis.
-You can find more about model stability analysis in the papers of Royston and Sauerbrei, Sauerbrei and Schumacher, Heymans et al.
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
+
       
       <p>
         <a href="https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/" class="postShorten-excerpt_link link">Continue reading</a>

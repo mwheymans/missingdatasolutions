@@ -1,7 +1,7 @@
 ---
 title: "Multiple Imputation and Cross-validation"
 author: "Martijn Heymans"
-date: '2020-02-07'
+date: '2021-02-04'
 output:
   blogdown::html_page
 categories: []
@@ -10,11 +10,12 @@ tags:
 - Cross-validation
 thumbnailImagePosition: left
 thumbnailImage: /images/vignette_MI_cv.png
-description: With the function `psfmi_perform` of the [psfmi](https://mwheymans.github.io/psfmi/)
-  package it is possible to combine Cross-validation with Multiple Imputation for
-  internal validation.
 slug: MI-cross-validation
 ---
+
+With the function `psfmi_perform` of the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to combine Cross-validation with Multiple Imputation for internal validation.
+<!--more-->
+
 
 # Introduction
 

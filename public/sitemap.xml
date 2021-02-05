@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/</loc>
+    <lastmod>2021-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/post/</loc>
+    <lastmod>2021-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
+    <lastmod>2021-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
+    <lastmod>2021-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/</loc>
+    <lastmod>2021-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/multiple-imputation/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/tags/apps/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
@@ -23,27 +63,7 @@
   </url>
   
   <url>
-    <loc>https://missingdatasolutions.rbind.io/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/multiple-imputation/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://missingdatasolutions.rbind.io/tags/news/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/post/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -63,28 +83,8 @@
   </url>
   
   <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://missingdatasolutions.rbind.io/psfmi/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/2020/07/welcome-to-missing-data-solutions/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
-    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/2020/02/mi-cross-validation/</loc>
-    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>

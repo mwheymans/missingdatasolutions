@@ -7,64 +7,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.80.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Martijn W Heymans">
-<meta name="keywords" content="">
-<meta name="description" content="
+<meta name="keywords" content="predictor selection, psfmi">
+<meta name="description" content="Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.">
 
 
-
-With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
-">
-
-
-<meta property="og:description" content="
-
-
-
-With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
-">
+<meta property="og:description" content="Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Model Stability analysis after Multiple Imputation">
-<meta name="twitter:title" content="Model Stability analysis after Multiple Imputation">
-<meta property="og:url" content="https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
-<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
+<meta property="og:title" content="Welcome to Missing Data Solutions">
+<meta name="twitter:title" content="Welcome to Missing Data Solutions">
+<meta property="og:url" content="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
+<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
 <meta property="og:site_name" content="Missing Data Solutions">
-<meta property="og:description" content="
-
-
-
-With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
-">
-<meta name="twitter:description" content="
-
-
-
-With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
-">
+<meta property="og:description" content="Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.">
+<meta name="twitter:description" content="Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-01-11T00:00:00">
+    <meta property="article:published_time" content="2021-02-05T00:00:00">
   
   
-    <meta property="article:modified_time" content="2020-01-11T00:00:00">
+    <meta property="article:modified_time" content="2021-02-05T00:00:00">
   
   
-  
-    
-      <meta property="article:section" content="Model Stability">
-    
-      <meta property="article:section" content="Bootstrapping">
-    
-      <meta property="article:section" content="BIF">
-    
   
   
     
       <meta property="article:tag" content="psfmi">
-    
-      <meta property="article:tag" content="Model Stability">
-    
-      <meta property="article:tag" content="Bootstrap Inclusion Frequency">
     
   
 
@@ -77,9 +45,12 @@ With the psfmi_stab function of the psfmi package it is possible to do important
 
 
 
-  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/Model_Stability.png">
-  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Model_Stability.png">
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/Cover_small.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Cover_small.jpg">
 
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/cover_mountain.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/cover_mountain.jpg">
 
 
 
@@ -88,14 +59,14 @@ With the psfmi_stab function of the psfmi package it is possible to do important
   <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
 
 
-    <title>Model Stability analysis after Multiple Imputation</title>
+    <title>Welcome to Missing Data Solutions</title>
 
     <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
+    <link rel="canonical" href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -277,206 +248,59 @@ if (!doNotTrack) {
 </nav>
 
       
-
-      <div id="main" data-behavior="5"
-        class="
-               hasCoverMetaIn
-               ">
-        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
-          
-          
-            <div class="post-header main-content-wrap text-left">
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('/images/cover_mountain.jpg')"
+       data-behavior="5">
+    
+      <div class="post-header main-content-wrap text-center">
   
     <h1 class="post-title" itemprop="headline">
-      Model Stability analysis after Multiple Imputation
+      Welcome to Missing Data Solutions
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-01-11T00:00:00Z">
+      <time itemprop="datePublished" datetime="2021-02-05T00:00:00Z">
         
-  January 11, 2020
+  February 5, 2021
 
       </time>
     
     
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://missingdatasolutions.rbind.io/categories/model-stability">Model Stability</a>, 
-    
-      <a class="category-link" href="https://missingdatasolutions.rbind.io/categories/bootstrapping">Bootstrapping</a>, 
-    
-      <a class="category-link" href="https://missingdatasolutions.rbind.io/categories/bif">BIF</a>
-    
-  
-
   </div>
 
 </div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="5"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              </p>
-<div id="model-stability-analysis" class="section level3">
-<h3>Model Stability analysis</h3>
-<p>To build a prediction model you can reliably use backward selection in a data situation where
-there are enough persons that are positive and negative on the outcome compared to the number
-of potential predictors when you combine it with internal validation and model stability analysis.</p>
-<p>You can find more about model stability analysis in the papers of <a href="https://journals.sagepub.com/doi/10.1177/1536867X0900900403">Royston and Sauerbrei</a>, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.4780111607">Sauerbrei and Schumacher</a>, <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-7-33">Heymans et al.</a> and <a href="https://onlinelibrary.wiley.com/doi/10.1002/bimj.201700067">Heinze et al.</a></p>
-<p>With model stability analysis the selection of models and predictors can be evaluated. Bootstrapping
-is used to evaluate the selected models and predictors in the resampled datasets. With the
-<code>psfmi_stab</code> function this evaluation of model stability can be done in multiply imputed datasets.
-For normal (single) datasets, bootstrapping is applied in these datasets. For multilevel data, cluster
-bootstrapping is used <a href="https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1467-9868.2007.00593.x">(Field)</a>.</p>
-</div>
-<div id="example-of-model-stability-analysis" class="section level3">
-<h3>Example of Model Stability analysis</h3>
-<p>First start with backward selection over 5 imputed datasets using a p-value of 0.05
-and method D1. With the line of code, <code>pool_lr$predictors_in</code>, information can be
-obtained from the predictors that were selected in the model at each selection step.</p>
-<pre class="r"><code>library(psfmi)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
-##   method                          from
-##   influence.merMod                lme4
-##   cooks.distance.influence.merMod lme4
-##   dfbeta.influence.merMod         lme4
-##   dfbetas.influence.merMod        lme4</code></pre>
-<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
-    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
-    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre class="r"><code>pool_lr$predictors_in</code></pre>
-<pre><code>## # A tibble: 1 x 1
-##   value   
-##   &lt;chr&gt;   
-## 1 Function</code></pre>
-<p>Now apply model stability analysis. For the example 10 bootstrap samples are used, but these can easily increased to 1000. Note that this may take a while when the predictors are selected in several steps.</p>
-<pre class="r"><code>library(psfmi)
-pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
-    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
-    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre class="r"><code>stab_res &lt;- psfmi_stab(pool_lr, direction=&quot;BW&quot;, start_model = TRUE,
-      boot_method = &quot;single&quot;, nboot=10, p.crit=0.05)</code></pre>
-<pre><code>## 
-## Boot 1</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 2</code></pre>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 4 is - Function</code></pre>
-<pre><code>## 
-## Boot 3</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Smoking</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 4</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 5</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 6</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 7</code></pre>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 4 is - Function</code></pre>
-<pre><code>## 
-## Boot 8</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 9</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 3 is - Function</code></pre>
-<pre><code>## 
-## Selection correctly terminated, 
-## No more variables removed from the model</code></pre>
-<pre><code>## 
-## Boot 10</code></pre>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 4 is - Function</code></pre>
-<pre class="r"><code>stab_res</code></pre>
-<pre><code>## $bif
-##         Gender Smoking Function SocialSupport
-## boot 1       0       0        1             0
-## boot 2       0       0        0             0
-## boot 3       0       0        1             0
-## boot 4       0       0        1             0
-## boot 5       0       0        1             0
-## boot 6       0       0        1             0
-## boot 7       0       0        0             0
-## boot 8       0       0        1             0
-## boot 9       1       0        0             0
-## boot 10      0       0        0             0
-## 
-## $bif_total
-##        Gender       Smoking      Function SocialSupport 
-##             1             0             6             0 
-## 
-## $bif_perc
-##        Gender       Smoking      Function SocialSupport 
-##            10             0            60             0 
-## 
-## $model_stab
-##   Gender Smoking Function SocialSupport freq bif_pat_perc
-## 1      0       0        1             0    6           60
-## 2      0       0        0             0    3           30
-## 3      1       0        0             0    1           10
-## 
-## $call
-## psfmi_stab(pobj = pool_lr, boot_method = &quot;single&quot;, nboot = 10, 
-##     p.crit = 0.05, start_model = TRUE, direction = &quot;BW&quot;)</code></pre>
-</div>
+              
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.</p>
+<p>Examples are provided for applied researchers and frequenly in RStudio.<br />
+RStudio is an open source free package with a lot of possibilities,
+making it easy to share code so that you can use the code example
+and adjust it to your own needs. Applied researchers also use
+other packages as SPSS, examples using that package will also be provided.</p>
+<p>An R package that I wrote is the <a href="https://cran.r-project.org/web/packages/psfmi/index.html">psfmi</a>. With the psfmi package it is possible to pool logistic (function psfmi_lr), Cox (function psfmi_coxr) and Multilevel (psfmi_mm) regression models using different pooling methods, i.e. Rubin’s Rules and D1, D2, D3 and a median pooling method. It is also possible to apply backward variable selection using these different pooling procedures. These methods are not implemented in standard packages as SPSS, Stata or SAS! The package can be downloaded from CRAN and a development version can be downloaded from github by using:</p>
+<p>install.packages(“devtools”)</p>
+<p>library(devtools)</p>
+<p>devtools::install_github(“mwheymans/psfmi”)</p>
+<p>library(psfmi)</p>
 
               
             </div>
@@ -491,10 +315,6 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
                     
   <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/psfmi/">psfmi</a>
 
-  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/model-stability/">Model Stability</a>
-
-  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/bootstrap-inclusion-frequency/">Bootstrap Inclusion Frequency</a>
-
                   </div>
                 
               
@@ -506,7 +326,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -514,7 +334,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2020/01/psfmi/" data-tooltip="psfmi package update">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -532,7 +352,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -580,7 +400,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -588,7 +408,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2020/01/psfmi/" data-tooltip="psfmi package update">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -606,7 +426,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -636,7 +456,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fmissingdatasolutions.rbind.io%2F2020%2F01%2Fmodel-stability-analysis-after-multiple-imputation%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fmissingdatasolutions.rbind.io%2F2021%2F02%2Fwelcome-to-missing-data-solutions%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
@@ -717,9 +537,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/missingdatasolutions.rbind.io\/2020\/01\/model-stability-analysis-after-multiple-imputation\/';
+          this.page.url = 'https:\/\/missingdatasolutions.rbind.io\/2021\/02\/welcome-to-missing-data-solutions\/';
           
-            this.page.identifier = '\/2020\/01\/model-stability-analysis-after-multiple-imputation\/'
+            this.page.identifier = '\/2021\/02\/welcome-to-missing-data-solutions\/'
           
         };
         (function() {

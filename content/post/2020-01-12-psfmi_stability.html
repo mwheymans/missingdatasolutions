@@ -2,9 +2,6 @@
 title: "Model Stability analysis after Multiple Imputation"
 author: "Martijn Heymans"
 date: '2020-01-11'
-description: With the psfmi_stab function of the psfmi package it is possible to do
-  important stability analyses of the models and predictors selected during backward
-  selection after multiple imputation.
 slug: 
 tags: ["psfmi", "Model Stability", "Bootstrap Inclusion Frequency"]
 thumbnailImage: /images/Model_Stability.png
@@ -12,8 +9,11 @@ thumbnailImagePosition: left
 categories: ["Model Stability", "Bootstrapping", "BIF"]
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
+<!--more--></p>
 <div id="model-stability-analysis" class="section level3">
 <h3>Model Stability analysis</h3>
 <p>To build a prediction model you can reliably use backward selection in a data situation where
@@ -31,8 +31,14 @@ bootstrapping is used <a href="https://rss.onlinelibrary.wiley.com/doi/10.1111/j
 <p>First start with backward selection over 5 imputed datasets using a p-value of 0.05
 and method D1. With the line of code, <code>pool_lr$predictors_in</code>, information can be
 obtained from the predictors that were selected in the model at each selection step.</p>
-<pre class="r"><code>library(psfmi)
-pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;SocialSupport&quot;), 
     p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
@@ -61,21 +67,23 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
       boot_method = &quot;single&quot;, nboot=10, p.crit=0.05)</code></pre>
 <pre><code>## 
 ## Boot 1</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Gender</code></pre>
-<pre><code>## Removed at Step 3 is - Smoking</code></pre>
-<pre><code>## Removed at Step 4 is - Function</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 2</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - Function</code></pre>
-<pre><code>## Removed at Step 4 is - Gender</code></pre>
-<pre><code>## 
-## Boot 3</code></pre>
 <pre><code>## Removed at Step 1 is - Gender</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
+<pre><code>## 
+## Boot 3</code></pre>
+<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - Smoking</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -89,29 +97,31 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 5</code></pre>
-<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
 <pre><code>## 
 ## Boot 6</code></pre>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
-<pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 4 is - Function</code></pre>
-<pre><code>## 
-## Boot 7</code></pre>
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - Gender</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre><code>## 
+## Boot 7</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
 <pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
 <pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre><code>## 
 ## Boot 8</code></pre>
-<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 1 is - SocialSupport</code></pre>
 <pre><code>## Removed at Step 2 is - Smoking</code></pre>
-<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 3 is - Gender</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
@@ -120,41 +130,42 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=3, impvar=&quot;Impnr&quot;, Outcome=&
 <pre><code>## Removed at Step 1 is - Smoking</code></pre>
 <pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
 <pre><code>## Removed at Step 3 is - Function</code></pre>
-<pre><code>## Removed at Step 4 is - Gender</code></pre>
-<pre><code>## 
-## Boot 10</code></pre>
-<pre><code>## Removed at Step 1 is - Smoking</code></pre>
-<pre><code>## Removed at Step 2 is - SocialSupport</code></pre>
-<pre><code>## Removed at Step 3 is - Gender</code></pre>
 <pre><code>## 
 ## Selection correctly terminated, 
 ## No more variables removed from the model</code></pre>
+<pre><code>## 
+## Boot 10</code></pre>
+<pre><code>## Removed at Step 1 is - Gender</code></pre>
+<pre><code>## Removed at Step 2 is - Smoking</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Function</code></pre>
 <pre class="r"><code>stab_res</code></pre>
 <pre><code>## $bif
 ##         Gender Smoking Function SocialSupport
-## boot 1       0       0        0             0
+## boot 1       0       0        1             0
 ## boot 2       0       0        0             0
 ## boot 3       0       0        1             0
 ## boot 4       0       0        1             0
 ## boot 5       0       0        1             0
-## boot 6       0       0        0             0
+## boot 6       0       0        1             0
 ## boot 7       0       0        0             0
 ## boot 8       0       0        1             0
-## boot 9       0       0        0             0
-## boot 10      0       0        1             0
+## boot 9       1       0        0             0
+## boot 10      0       0        0             0
 ## 
 ## $bif_total
 ##        Gender       Smoking      Function SocialSupport 
-##             0             0             5             0 
+##             1             0             6             0 
 ## 
 ## $bif_perc
 ##        Gender       Smoking      Function SocialSupport 
-##             0             0            50             0 
+##            10             0            60             0 
 ## 
 ## $model_stab
 ##   Gender Smoking Function SocialSupport freq bif_pat_perc
-## 1      0       0        0             0    5           50
-## 2      0       0        1             0    5           50
+## 1      0       0        1             0    6           60
+## 2      0       0        0             0    3           30
+## 3      1       0        0             0    1           10
 ## 
 ## $call
 ## psfmi_stab(pobj = pool_lr, boot_method = &quot;single&quot;, nboot = 10, 
