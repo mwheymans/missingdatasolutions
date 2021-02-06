@@ -7,12 +7,15 @@ categories: []
 tags: ["psfmi", "force variables", "keep predictors", "interaction terms"]
 thumbnailImagePosition: left
 thumbnailImage: "/images/forcing.png"
-description: With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.
 
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>With the <a href="https://mwheymans.github.io/psfmi/">psfmi</a> package it is possible to force variables in the model during backward selection.
+<!--more--></p>
+<p>Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
 <p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in
 the psfmi_lr function. These variables can be continuous, dichotomous or
 categorical variables. Also more than one variable can be forced in the model
@@ -29,8 +32,14 @@ during backward selection. Examples will be given below.</p>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models
 during backward selection with method D3 (Meng and Rubin likelihood ratio statistics method).</p>
-<pre class="r"><code>library(psfmi)
-pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
     &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
     p.crit = 0.05, method=&quot;D3&quot;, direction=&quot;BW&quot;)</code></pre>

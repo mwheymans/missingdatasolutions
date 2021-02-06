@@ -1,0 +1,68 @@
+---
+title: "External validation of a Cox prognostic model"
+author: "Martijn Heymans"
+date: '2021-02-04'
+output:
+  blogdown::html_page
+categories: []
+tags:
+- External validation
+- Cox regression
+thumbnailImagePosition: left
+thumbnailImage: /images/vignette_MI_cv.png
+slug: MI-cross-validation
+---
+
+This blog shows you how to externally validate a Cox regression prognostic model according to all steps in the paper of [`Royston & Altman`](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-13-33). R code is available! <!--more-->
+
+# Data preparation
+
+First we start with activating the survival package and do some data preparation.
+
+```{r}
+
+library(survival)
+
+df_dev <- survival::rotterdam # assign rotterdam data to development dataset
+df_dev <- subset(df_dev, nodes>0) # select patients with positive nodes
+df_dev$rfstime <- pmin(df_dev$rtime, df_dev$dtime) # determine outcome
+df_dev$status  <- pmax(df_dev$recur, df_dev$death)
+
+df_dev$rfstime <- df_dev$rfstime/365 # convert time to years
+df_dev$status[df_dev$rfstime>=7] <- 0 # censor events after 7 years (84 months)
+
+df_dev$rfstime[df_dev$rfstime>7] <- 7 # truncate survival time at 7 years
+
+df_dev$size <- factor(df_dev$size) # define variables
+df_dev$age <- df_dev$age/100
+df_dev$er <- df_dev$er/1000
+
+fit_dev <- coxph(Surv(rfstime, status) ~ I(age^3) + I(age^3 * log(age)) + meno +
+                   factor(size) +  I((nodes)^-0.5) + er + hormon, data=df_dev)
+summary(fit_dev) # fit model as in Table 2
+
+library(sjPlot)
+tab_model(fit_dev, transform=NULL, show.r2 = FALSE)
+
+```
+
+It is not possible to 100% replicate the results from the paper from the description of the 
+used data. As a consequence some results are different (but very close) from the results in the paper. 
+
+# Methods
+
+* [Method 1: Regression on PI in validation data]
+* [Method 2: Check model misspecification/fit]
+* [Method 3: Measures of discrimination]
+* [Method 4: Kaplan-Meier curves for risk groups]
+* [Method 5: Logrank or Cox P-values]
+* [Method 6: Hazard ratios between risk groups]
+* [Method 7: Calibration and the baseline hazard function]
+
+## Method 1: Regression on PI in validation data
+
+Back to [Methods]
+
+## Method 2: Check model misspecification/fit
+
+To run the cv_MI method use:

@@ -1,23 +1,21 @@
 ---
 title: "Steps to externally validate a prediction model"
-description: External validation means that the performance of a prediction model
-  is studied in a new (external) patient dataset that is not used to develop the model.
-  To study the performance of the model measures for discrimination (e.g. Area Under
-  the Curve) and calibration (e.g. Calibration curve, Hosmer and Lemeshow test (H&L))
-  are used.
-date: '2019-01-01'
+date: '2021-01-01'
 thumbnailImage: /images/external.png
 thumbnailImagePosition: left
 tags: ["external validation"]
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<div id="original-prediction-model" class="section level2">
-<h2>Original prediction model</h2>
+<p>External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. It is important to use the correct predicted probabilities to evaluate if the external validation of the model is successful!<br />
+<!--more--></p>
+<div id="prediction-model" class="section level2">
+<h2>Prediction model</h2>
 <p>We will externally validate the following prediction model:</p>
 <pre class="r"><code>library(foreign)
-dat.orig &lt;- read.spss(file=&quot;Hipstudy.sav&quot;, to.data.frame=T)</code></pre>
+dat.orig &lt;- read.spss(file=&quot;Hipstudy.sav&quot;, to.data.frame=TRUE)</code></pre>
 <pre><code>## re-encoding from UTF-8</code></pre>
 <pre class="r"><code>library(rms)
 dd &lt;- datadist(dat.orig)
@@ -90,7 +88,7 @@ hoslem.test(fit.orig$y, pred.orig) # Hosmer and Lemeshow test from package Resou
 ## 
 ## data:  fit.orig$y, pred.orig
 ## X-squared = 4.6762, df = 8, p-value = 0.7916</code></pre>
-<p>This model has an <strong>C-index (ROC) value of 0.774</strong> and an <strong>R2 of 0.234</strong>. <strong>The Hosmer and Lemeshow test is not significant</strong> indicating that the model calibrates well.</p>
+<p>This model has an <strong>C-index (ROC) value of 0.774</strong> and an <strong>R2 of 0.234</strong>. <strong>The Hosmer and Lemeshow test is not significant</strong> (for now we use it as a quick test) indicating that the model calibrates well.</p>
 </div>
 </div>
 <div id="steps-to-externally-validate-a-prediction-model" class="section level2">
@@ -186,15 +184,35 @@ on the calibration curve.</p>
 <p>When you externally validate a prediction model you have to use<br />
 <em>uncalibrated</em> predictions. Otherwise the external validation
 procedure is incorrect.</p>
-<p>The uncalibrated predictions were used above and were calculated
-“outside” the model by using the formula to calculated predicted probabilities:</p>
+<p>The <em>correct</em> uncalibrated predictions were used in the calibration curve above and were
+calculated “outside” the model to detect miscalibration by using the following formula
+to calculate predicted probabilities:</p>
 <pre class="r"><code>pred.ext &lt;-  1/(1+exp(-lp.ext))</code></pre>
-<p>Calibrated predictions are calculated via the prediction model, using:</p>
+<p><em>Incorrect</em> Calibrated predictions are calculated via the prediction model, when you use:</p>
 <pre class="r"><code>fit.ext.lp &lt;- lrm(fit.ext$y ~ lp.ext) # the coefficient values reflect the amount of miscalibration 
-pred.ext.recal &lt;- predict(fit.ext.lp, type=&quot;fitted&quot;)</code></pre>
+fit.ext.lp</code></pre>
+<pre><code>## Logistic Regression Model
+##  
+##  lrm(formula = fit.ext$y ~ lp.ext)
+##  
+##                         Model Likelihood    Discrimination    Rank Discrim.    
+##                               Ratio Test           Indexes          Indexes    
+##  Obs           300    LR chi2      43.89    R2       0.205    C       0.750    
+##   0            230    d.f.             1    g        1.271    Dxy     0.499    
+##   1             70    Pr(&gt; chi2) &lt;0.0001    gr       3.564    gamma   0.501    
+##  max |deriv| 2e-10                          gp       0.178    tau-a   0.179    
+##                                             Brier    0.156                     
+##  
+##            Coef    S.E.   Wald Z Pr(&gt;|Z|)
+##  Intercept -0.6594 0.1567 -4.21  &lt;0.0001 
+##  lp.ext     0.8767 0.1554  5.64  &lt;0.0001 
+## </code></pre>
+<pre class="r"><code>pred.ext.recal &lt;- predict(fit.ext.lp, type=&quot;fitted&quot;)</code></pre>
 <p>These predictions are calibrated in the model by using the intercept and slope
-coefficient values as correction factors. These values are -0.7751 and 0.8631 for the intercept
-and slope respectively. Without miscalibration these intercept and slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following result for discrimination and calibration.</p>
+coefficient values as correction factors. These values are -0.6594 and 0.8631 for the intercept
+and slope respectively (equal to the values of step 3). Without miscalibration these intercept and
+slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following results
+for discrimination and calibration.</p>
 <div id="discrimination-1" class="section level4">
 <h4>Discrimination</h4>
 <pre class="r"><code>roc(fit.ext$y, pred.ext.recal, ci=TRUE, plot = TRUE)</code></pre>
@@ -234,8 +252,9 @@ plot(cal.plot)</code></pre>
 ## X-squared = 5.9383, df = 8, p-value = 0.6541</code></pre>
 <p>The Hosmer and Lemeshow test is not significant and the calibration
 curve looks as if the model calibrates well in the external dataset.
-This is incorrect and the result of working with calibrated predictions.
-These calibrated predictions do not influence the ROC curve and AUC.</p>
+This is <em>incorrect</em> and the result of working with calibrated predictions.
+As you may have noticed, these calibrated predictions do not influence
+the ROC curve and AUC.</p>
 </div>
 <div id="for-external-validation-in-multiple-imputed-datasets-see-httpmissingdatasolutions.rbind.iopsfmi." class="section level4">
 <h4>For external validation in Multiple Imputed datasets see <a href="http://missingdatasolutions.rbind.io/psfmi/" class="uri">http://missingdatasolutions.rbind.io/psfmi/</a>.</h4>

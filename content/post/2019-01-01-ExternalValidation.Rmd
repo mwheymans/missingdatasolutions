@@ -1,21 +1,19 @@
 ---
 title: "Steps to externally validate a prediction model"
-description: External validation means that the performance of a prediction model
-  is studied in a new (external) patient dataset that is not used to develop the model.
-  To study the performance of the model measures for discrimination (e.g. Area Under
-  the Curve) and calibration (e.g. Calibration curve, Hosmer and Lemeshow test (H&L))
-  are used.
-date: '2019-01-01'
+date: '2021-01-01'
 thumbnailImage: /images/external.png
 thumbnailImagePosition: left
 tags: ["external validation"]
 ---
 
+External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. It is important to use the correct predicted probabilities to evaluate if the external validation of the model is successful!  
+<!--more-->
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Original prediction model
+## Prediction model
 
 We will externally validate the following prediction model:
 
@@ -30,7 +28,7 @@ suppressWarnings(suppressMessages(library(pROC)))
 ```{r }
 
 library(foreign)
-dat.orig <- read.spss(file="Hipstudy.sav", to.data.frame=T)
+dat.orig <- read.spss(file="Hipstudy.sav", to.data.frame=TRUE)
 
 library(rms)
 dd <- datadist(dat.orig)
@@ -79,7 +77,7 @@ library(ResourceSelection)
 hoslem.test(fit.orig$y, pred.orig) # Hosmer and Lemeshow test from package ResourceSelection
 ```
 
-This model has an **C-index (ROC) value of 0.774** and an **R2 of 0.234**. **The Hosmer and Lemeshow test is not significant** indicating that the model calibrates well.
+This model has an **C-index (ROC) value of 0.774** and an **R2 of 0.234**. **The Hosmer and Lemeshow test is not significant** (for now we use it as a quick test) indicating that the model calibrates well.
 
 ## Steps to externally validate a prediction model 
 
@@ -193,25 +191,29 @@ When you externally validate a prediction model you have to use
 *uncalibrated* predictions. Otherwise the external validation 
 procedure is incorrect.
 
-The uncalibrated predictions were used above and were calculated
-"outside" the model by using the formula to calculated predicted probabilities:
+The *correct* uncalibrated predictions were used in the calibration curve above and were 
+calculated "outside" the model to detect miscalibration by using the following formula 
+to calculate predicted probabilities:
 
 ```{r }
 pred.ext <-  1/(1+exp(-lp.ext))
 ``` 
 
-Calibrated predictions are calculated via the prediction model, using:
+*Incorrect* Calibrated predictions are calculated via the prediction model, when you use:
 
 ```{r }
 
 fit.ext.lp <- lrm(fit.ext$y ~ lp.ext) # the coefficient values reflect the amount of miscalibration 
+fit.ext.lp
 pred.ext.recal <- predict(fit.ext.lp, type="fitted")
 
 ``` 
 
 These predictions are calibrated in the model by using the intercept and slope 
-coefficient values as correction factors. These values are -0.7751 and 0.8631 for the intercept 
-and slope respectively. Without miscalibration these intercept and slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following result for discrimination and calibration.
+coefficient values as correction factors. These values are -0.6594 and 0.8631 for the intercept 
+and slope respectively (equal to the values of step 3). Without miscalibration these intercept and 
+slope coefficient values would be 0 and 1. These recalibrated predictions lead to the following results 
+for discrimination and calibration.
 
 #### Discrimination
 
@@ -257,7 +259,8 @@ hoslem.test(fit.ext$y, pred.ext.recal)
 
 The Hosmer and Lemeshow test is not significant and the calibration
 curve looks as if the model calibrates well in the external dataset.
-This is incorrect and the result of working with calibrated predictions.
-These calibrated predictions do not influence the ROC curve and AUC.
+This is *incorrect* and the result of working with calibrated predictions.
+As you may have noticed, these calibrated predictions do not influence 
+the ROC curve and AUC.
 
 #### For external validation in Multiple Imputed datasets see <http://missingdatasolutions.rbind.io/psfmi/>.
