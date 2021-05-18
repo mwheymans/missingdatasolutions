@@ -8,18 +8,38 @@
 <meta name="generator" content="Hugo 0.80.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Martijn W Heymans">
 <meta name="keywords" content="">
-<meta name="description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.">
+<meta name="description" content="
 
 
-<meta property="og:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.">
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+
+
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Backward Logistic Regression after MI - forcing variables in model">
 <meta name="twitter:title" content="Backward Logistic Regression after MI - forcing variables in model">
 <meta property="og:url" content="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
 <meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
 <meta property="og:site_name" content="Missing Data Solutions">
-<meta property="og:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.">
-<meta name="twitter:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to force variables in the model during backward selection. Be aware that backward selection may result in overfitted and optimistic prediction models, see [TRIPOD](http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation). Backward selection should therefore be followed by internal validation of the model.">
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+<meta name="twitter:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
 <meta property="og:locale" content="en-us">
 
   
@@ -281,9 +301,8 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              
-
-
+              </p>
+<p>Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
 <p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in
 the psfmi_lr function. These variables can be continuous, dichotomous or
 categorical variables. Also more than one variable can be forced in the model
@@ -300,8 +319,14 @@ during backward selection. Examples will be given below.</p>
 <p>Pooling Logistic regression models over 5 imputed datasets with backward selection
 using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models
 during backward selection with method D3 (Meng and Rubin likelihood ratio statistics method).</p>
-<pre class="r"><code>library(psfmi)
-pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
     predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
     &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
     p.crit = 0.05, method=&quot;D3&quot;, direction=&quot;BW&quot;)</code></pre>

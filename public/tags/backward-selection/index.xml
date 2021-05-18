@@ -13,9 +13,12 @@
       <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</guid>
-      <description>The different methods are described in the papers of Marshall et al and Eekhout, vd Wiel and Heymans.
-Be aware that backward selection may result in overfitted and optimistic prediction models, see TRIPOD. Backward selection should therefore be followed by internal validation of the model.
-ExamplesPooling without BW and method D1Pooling with BW and method D3Logistic RegressionPooling without BW and method D1library(psfmi)pool_lr &amp;lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&amp;quot;Impnr&amp;quot;, Outcome=&amp;quot;Chronic&amp;quot;,predictors=c(&amp;quot;Gender&amp;quot;, &amp;quot;Smoking&amp;quot;, &amp;quot;Function&amp;quot;, &amp;quot;JobControl&amp;quot;,&amp;quot;JobDemands&amp;quot;, &amp;quot;SocialSupport&amp;quot;), method=&amp;quot;D1&amp;quot;)pool_lr$RR_model## $`Step 1 - no variables removed -`## term estimate std.</description>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+</description>
     </item>
     
   </channel>

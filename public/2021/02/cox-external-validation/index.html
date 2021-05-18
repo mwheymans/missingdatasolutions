@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.80.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Martijn W Heymans">
+<meta name="keywords" content="">
+<meta name="description" content="
+
+
+
+This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of Royston &amp; Altman. R code available.
+">
+
+
+<meta property="og:description" content="
+
+
+
+This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of Royston &amp; Altman. R code available.
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="External validation of a Cox prognostic model">
+<meta name="twitter:title" content="External validation of a Cox prognostic model">
+<meta property="og:url" content="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+<meta property="og:site_name" content="Missing Data Solutions">
+<meta property="og:description" content="
+
+
+
+This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of Royston &amp; Altman. R code available.
+">
+<meta name="twitter:description" content="
+
+
+
+This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of Royston &amp; Altman. R code available.
+">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-02-04T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-02-04T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="External validation">
+    
+      <meta property="article:tag" content="Cox regression">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/Cox_external.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Cox_external.jpg">
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+
+
+    <title>External validation of a Cox prognostic model</title>
+
+    <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-127301719-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://missingdatasolutions.rbind.io/">Missing Data Solutions</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://missingdatasolutions.rbind.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://missingdatasolutions.rbind.io/#about">
+          <img class="sidebar-profile-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Martijn W Heymans</h4>
+        
+          <h5 class="sidebar-profile-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: <a href="https://epidm.nl/en/courses/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://epidm.nl/en/courses/clinical-prediction-models/">Prediction Models</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/post/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Posts</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://bookdown.org/mwheymans/bookmi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Missing Data Book</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/shiny/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-play"></i>
+      
+      <span class="sidebar-button-desc">Learning Apps</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/news/">
+    
+      <i class="sidebar-button-icon fa fa-newspaper-o fa-lg"></i>
+      
+      <span class="sidebar-button-desc">News</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/tags/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/mwheymans" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      External validation of a Cox prognostic model
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-02-04T00:00:00Z">
+        
+  February 4, 2021
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              </p>
+<div id="data-preparation" class="section level1">
+<h1>Data preparation</h1>
+<p>First start by activating the survival package and do some data preparation.</p>
+<pre class="r"><code>library(survival)
+
+df_dev &lt;- survival::rotterdam # assign rotterdam data to development dataset
+df_dev &lt;- subset(df_dev, nodes&gt;0) # select patients with positive nodes
+df_dev$rfstime &lt;- pmin(df_dev$rtime, df_dev$dtime) # determine outcome
+df_dev$status  &lt;- pmax(df_dev$recur, df_dev$death)
+
+df_dev$rfstime &lt;- df_dev$rfstime/365 # convert time to years
+df_dev$status[df_dev$rfstime&gt;=7] &lt;- 0 # censor events after 7 years (84 months)
+
+df_dev$rfstime[df_dev$rfstime&gt;7] &lt;- 7 # truncate survival time at 7 years
+
+df_dev$size &lt;- factor(df_dev$size) # define variables
+df_dev$age &lt;- df_dev$age/100
+df_dev$er &lt;- df_dev$er/1000</code></pre>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<ul>
+<li><a href="#method-1-regression-on-pi-in-validation-data">Method 1: Regression on PI in validation data</a></li>
+<li><a href="#method-2-check-model-misspecificationfit">Method 2: Check model misspecification/fit</a></li>
+<li><a href="#method-3-measures-of-discrimination">Method 3: Measures of discrimination</a></li>
+<li><a href="#method-4-kaplan-meier-curves-for-risk-groups">Method 4: Kaplan-Meier curves for risk groups</a></li>
+<li><a href="#method-5-logrank-or-cox-p-values">Method 5: Logrank or Cox P-values</a></li>
+<li><a href="#method-6-hazard-ratios-between-risk-groups">Method 6: Hazard ratios between risk groups</a></li>
+<li><a href="#method-7-calibration-and-the-baseline-hazard-function">Method 7: Calibration and the baseline hazard function</a></li>
+</ul>
+<div id="method-1-regression-on-pi-in-validation-data" class="section level2">
+<h2>Method 1: Regression on PI in validation data</h2>
+<p>Fit the model that was developed in the development dataset in the validation dataset to extract
+the predictor values.</p>
+<pre class="r"><code>fit_dev &lt;- 
+  coxph(Surv(rfstime, status) ~ I(age^3) + I(age^3 * log(age)) + meno +
+   factor(size) +  I((nodes)^-0.5) + er + hormon, data=df_dev) # fit model as in Table 2
+
+library(sjPlot)
+tab_model(fit_dev, transform=NULL, show.r2 = FALSE)</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Surv(rfstime, status)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+I(age^3)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.14
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.36 – 1.92
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.004</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+I(age^3 * log(age))
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+9.29
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.11 – 14.48
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+pre/post meno
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.46
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.22 – 0.71
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+factor(size)20-50
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.24
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.09 – 0.40
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.002</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+factor(size)&gt;50
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.55
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.36 – 0.75
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+I((nodes)^-0.5)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-1.70
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-1.98 – -1.42
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+er
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.58 – -0.06
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.015</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Hormonal therapy
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.35
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.51 – -0.18
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1546
+</td>
+</tr>
+</table>
+<p>From the description of the development and validation on Page 2 and 3, it is not possible to 100% replicate the results from the paper. As a consequence some results are different
+(but very close) from the results in the paper.</p>
+<p>Next, define the PI of the development dataset in the validation dataset. Than center the PI in the validation dataset by using the same value to center the PI in the development dataset (page 5, under example). In our example that value is <code>-1.290544</code> (in the paper that value is <code>-1.32</code>,
+page 5, under example).</p>
+<pre class="r"><code>Xb_dev &lt;- model.matrix(fit_dev) %*% coef(fit_dev)
+Xbavg_dev &lt;- sum(coef(fit_dev)*fit_dev$means) 
+PI_dev &lt;- Xb_dev - Xbavg_dev # centered PI in development dataset (for discrimination later)
+df_dev$PI_dev &lt;- PI_dev
+
+df_val &lt;- survival::gbsg # validation data
+
+df_val$size &lt;- factor(cut(df_val$size, breaks = c(0, 20, 50, 125), labels = c(1,2,3)))
+df_val$age &lt;- df_val$age/100
+df_val$er &lt;- df_val$er/1000
+df_val$rfstime &lt;- df_val$rfstime/365 # convert to years
+
+# fit model in validation data
+fit_val &lt;- coxph(Surv(rfstime, status) ~  I(age^3) + I(age^3*log(age)) + meno +
+                   factor(size) +  I(nodes^-0.5) + er + hormon, data=df_val) 
+
+Xb_val &lt;- model.matrix(fit_val) %*% coef(fit_dev) # determine Xb in validation data 
+                                                  # by using coefficients of development data 
+PI_val &lt;- Xb_val - Xbavg_dev # center PI by using mean of PI of development data 
+
+df_val$PI_val &lt;- PI_val
+
+fit_val &lt;- coxph(Surv(rfstime, status) ~ PI_val, data=df_val)
+tab_model(fit_val, transform=NULL, show.r2 = FALSE)</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Surv(rfstime, status)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+PI_val
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.98
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.76 – 1.20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+686
+</td>
+</tr>
+</table>
+<p>The PI in the validation dataset is 0.9833 (SE 0.11). In the paper this value is (0.97 (SE 0.11)).</p>
+<pre class="r"><code>fit_val_test &lt;- coxph(Surv(rfstime, status) ~ PI_val + offset(PI_val), data=df_val) 
+tab_model(fit_val_test, transform=NULL, show.r2 = FALSE)</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Surv(rfstime, status)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+PI_val
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.02
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.24 – 0.20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.881
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+686
+</td>
+</tr>
+</table>
+<p>The test if the slope deviates from one results in a p-value of (0.881) (Page 10, under Method 1
+gives p-value of 0.8 or see for method Steyerberg, 2nd ed 15.3.3).</p>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+<div id="method-2-check-model-misspecificationfit" class="section level2">
+<h2>Method 2: Check model misspecification/fit</h2>
+<p>Apply a Jointed test to evaluate if the regression coefficients from the derivation dataset
+differ when estimated in the validation dataset (page 7 under Check model misspecification/fit).</p>
+<pre class="r"><code>fit_val &lt;- coxph(Surv(rfstime, status) ~ I(age^3) + I(age^3*log(age)) + meno +
+            factor(size) +  I((nodes)^-0.5) + er + hormon + offset(PI_val), data=df_val)
+
+round(2*(diff(fit_val$loglik)), 2) # Chi-squared value</code></pre>
+<pre><code>## [1] 6.04</code></pre>
+<pre class="r"><code>round(1-pchisq(2*(diff(fit_val$loglik)), 8), 3) # p-value</code></pre>
+<pre><code>## [1] 0.643</code></pre>
+<p>The Chi-sqaured value of the Likelihood Ratio test is 6.04 and the p-value 0.643.
+This means no lack of fit of the coefficients in the validation dataset
+(page 10, under Method 2, reported Chi-sqaured value is 6.08 and p-value 0.6)</p>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+<div id="method-3-measures-of-discrimination" class="section level2">
+<h2>Method 3: Measures of discrimination</h2>
+<p>Calculate measures of discrimination in the derivation and validation
+dataset (page 9, Table 4).</p>
+<pre class="r"><code># Derivation
+library(rms)
+library(survAUC)
+rcorr.cens(-1*PI_dev, Surv(df_dev$rfstime, df_dev$status))[1] # Harrell&#39;s c-index</code></pre>
+<pre><code>##   C Index 
+## 0.6724282</code></pre>
+<pre class="r"><code>GHCI(PI_dev) # Gonen and Heller</code></pre>
+<pre><code>## [1] 0.6539831</code></pre>
+<pre class="r"><code># Validation
+rcorr.cens(-1*PI_val, Surv(df_val$rfstime, df_val$status))[1] # Harrell&#39;s c-index</code></pre>
+<pre><code>##   C Index 
+## 0.6578093</code></pre>
+<pre class="r"><code>GHCI(df_val$PI_val) # Gonen and Heller</code></pre>
+<pre><code>## [1] 0.647129</code></pre>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+<div id="method-4-kaplan-meier-curves-for-risk-groups" class="section level2">
+<h2>Method 4: Kaplan-Meier curves for risk groups</h2>
+<p>Determine risk groups by categorizing the PI in four groups at the 16th, 50th and 84th
+centiles (page 5, under Example). Use the quantile function for that in the development
+and validation dataset. Create figure 2 on page 10.</p>
+<pre class="r"><code># KM curve development data
+quant_PI_dev &lt;- quantile(PI_dev, probs=c(0, 0.16, 0.5, 0.84, 1)) # Determine risk groups
+df_dev$Risk_group_dev &lt;- cut(PI_dev, breaks = quant_PI_dev, include.lowest = TRUE,
+                                 labels = c(1,2,3,4))
+fit_dev &lt;- survfit(Surv(rfstime, status) ~ Risk_group_dev, data = df_dev)
+library(survminer)
+p1 &lt;- ggsurvplot(fit_dev) # survival curve in development dataset
+p1</code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2021-2-05-Cox_external_validation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>quant_PI_val &lt;- quantile(PI_val, probs=c(0, 0.16, 0.5, 0.84, 1))
+df_val$Risk_group_val &lt;- cut(PI_val, breaks = quant_PI_val,
+                                include.lowest = TRUE,  labels = c(1,2,3,4))
+
+# KM curve validation data
+fit_val &lt;- survfit(Surv(rfstime, status) ~ Risk_group_val, data = df_val)
+p2 &lt;- ggsurvplot(fit_val) # survival curve in validation dataset
+
+library(dplyr)
+df_val_KM &lt;- df_val %&gt;%
+  group_split(Risk_group_val)
+surv_val &lt;- lapply(df_val_KM, function(x){
+  obj_surv &lt;- survfit(Surv(rfstime, status) ~ 1, data = x)
+  data.frame(time=obj_surv$time, surv=obj_surv$surv)
+})
+
+p1$plot +
+  geom_step(data=surv_val[[1]], aes(x = time, y = surv), linetype=2) +
+  geom_step(data=surv_val[[2]], aes(x = time, y = surv), linetype=2) +
+  geom_step(data=surv_val[[3]], aes(x = time, y = surv), linetype=2) +
+  geom_step(data=surv_val[[4]], aes(x = time, y = surv), linetype=2)</code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2021-2-05-Cox_external_validation_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+<div id="method-5-logrank-or-cox-p-values" class="section level2">
+<h2>Method 5: Logrank or Cox P-values</h2>
+<p>This method was deprecated in the paper. So no results are presented here.</p>
+</div>
+<div id="method-6-hazard-ratios-between-risk-groups" class="section level2">
+<h2>Method 6: Hazard ratios between risk groups</h2>
+<p>These are comparable to those presented in Table 4 (page 9).</p>
+<pre class="r"><code>fit_dev_hr &lt;- coxph(Surv(rfstime, status) ~ factor(Risk_group_dev), data=df_dev)
+tab_model(fit_dev_hr, show.r2 = FALSE)</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Surv(rfstime, status)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_dev [2]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.57
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.23 – 1.99
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_dev [3]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.33
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.65 – 4.18
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_dev [4]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.76
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.72 – 6.11
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1546
+</td>
+</tr>
+</table>
+<pre class="r"><code>fit_val_hr &lt;- coxph(Surv(rfstime, status) ~ factor(Risk_group_val), data=df_val)
+tab_model(fit_val_hr, show.r2 = FALSE)</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Surv(rfstime, status)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_val [2]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.69
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.06 – 2.68
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.026</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_val [3]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.14
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.01 – 4.92
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Risk_group_val [4]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.08
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.17 – 8.13
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+686
+</td>
+</tr>
+</table>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+<div id="method-7-calibration-and-the-baseline-hazard-function" class="section level2">
+<h2>Method 7: Calibration and the baseline hazard function</h2>
+<p>Start by modeling the baseline hazard function in the derivation data (Page 10,
+under Method 7 and continues on Page 11, and as result Figure 3).</p>
+<pre class="r"><code># Fit the model in the derivation data
+fit_dev &lt;- coxph(Surv(rfstime, status) ~ I(age^3) + I(age^3 * log(age)) + meno +
+                   factor(size) +  I((nodes)^-0.5) + er + hormon, data=df_dev) 
+
+bh &lt;- basehaz(fit_dev) # Determine baseline hazard
+baseh.all &lt;- bh[match(df_dev$rfstime, bh[, 2]), 1] # match baseline hazard to all survival times
+df_dev &lt;- data.frame(df_dev, baseh.all)
+# take log of baseline hazard and use as outcome for next step
+df_dev$ln_bh &lt;- log(df_dev$baseh.all) 
+
+# Model the log cumulative baseline hazard function (ln H0(t)) (Page 10, under Method 7)
+fit_bh &lt;- glm(ln_bh ~ I(rfstime^-0.5) +
+                 I(rfstime^-0.5 * log(rfstime)) , data=df_dev)
+
+tab_model(fit_bh, show.r2 = FALSE) # result of model fit</code></pre>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+ln_bh
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.74
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.73 – 1.76
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+I(rfstime^-0.5)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-3.77
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-3.79 – -3.76
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+I(rfstime^-0.5 * log(rfstime))
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.36
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.37 – -0.35
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1546
+</td>
+</tr>
+</table>
+<pre class="r"><code>log_H0_dev &lt;- predict(fit_bh)
+bh_pred &lt;- exp(log_H0_dev)
+gr &lt;- factor(rep(1:2, each=1546), labels = c(&quot;Observed&quot;, &quot;Predicted&quot;))
+df_plot &lt;- data.frame(bh=c(df_dev$baseh.all, bh_pred), time=c(df_dev$rfstime, df_dev$rfstime), gr=gr)
+
+p &lt;- ggplot(df_plot, aes(x = time, y = bh, group=gr)) +
+  geom_line(aes(color=gr)) + geom_rug(data = df_plot, aes(x = time), sides = &quot;b&quot;)
+p</code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2021-2-05-Cox_external_validation_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>When the baseline hazard has been determined in the validation dataset continue with the calibration steps
+on Page 9, right column.</p>
+<ol style="list-style-type: decimal">
+<li>Calculate S0(t) in the validation dataset</li>
+</ol>
+<pre class="r"><code>log_H0_val &lt;- predict(fit_bh, newdata = df_val)
+s0_val &lt;- exp(-exp(log_H0_val)) # derive baseline survival function</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>For a given PI value compute the predicted survival function for each individual</li>
+</ol>
+<pre class="r"><code>pred_surv_val &lt;- matrix(NA, nrow(df_val), nrow(df_val))
+for(i in 1:nrow(df_val)){
+  pred_surv_val[i, ] &lt;- s0_val^exp(df_val$PI_val[i])
+}
+df_surv_val &lt;- data.frame(LP_val=df_val$Risk_group_val, pred_surv_val)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Average the curves over all members of each risk group (add them to development dataset)</li>
+</ol>
+<pre class="r"><code>library(dplyr)
+df_surv_mean_val &lt;- df_surv_val %&gt;%
+  group_by(LP_val) %&gt;%
+  summarise_all(&quot;mean&quot;)
+
+df_surv_mean_val &lt;- t(df_surv_mean_val[, -1])
+df_val &lt;- data.frame(df_val, df_surv_mean_val)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Plot curves in validation data (Figure 4, page 11)</li>
+</ol>
+<pre class="r"><code>library(survminer)
+fit&lt;- survfit(Surv(rfstime, status) ~ Risk_group_val, data = df_val)
+p1 &lt;- ggsurvplot(fit)
+p1$plot + geom_line(data=df_val, aes(x = rfstime, y = X1)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X2)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X3)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X4)) </code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2021-2-05-Cox_external_validation_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>In figure 4 also the predicted survival curves in the development dataset are added. So,
+also add them to the Figure by applying the same steps in the development dataset as in the
+validation data set.</p>
+<pre class="r"><code># Step 1: determine So(t) in development dataset
+s0_dev &lt;- exp(-exp(log_H0_dev)) # derive baseline survival function
+
+# Step 2: determine predicted survival function for each individual
+pred_surv_dev &lt;- matrix(NA, nrow(df_dev), nrow(df_dev))
+for(i in 1:nrow(df_dev)){
+  pred_surv_dev[i, ] &lt;- s0_dev^exp(df_dev$PI_dev[i])
+}
+df_surv_dev &lt;- data.frame(LP_dev=df_dev$Risk_group_dev, pred_surv_dev)
+
+# Step 3: average the curves over all members of each risk group
+library(dplyr)
+df_surv_mean_dev &lt;- df_surv_dev %&gt;%
+  group_by(LP_dev) %&gt;%
+  summarise_all(&quot;mean&quot;)
+
+df_surv_mean_dev &lt;- t(df_surv_mean_dev[, -1])
+df_dev &lt;- data.frame(df_dev, df_surv_mean_dev)
+
+# Step 4: Plot curves
+library(survminer)
+fit&lt;- survfit(Surv(rfstime, status) ~ Risk_group_val, data = df_val)
+p1 &lt;- ggsurvplot(fit)
+p1$plot + geom_line(data=df_val, aes(x = rfstime, y = X1)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X2)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X3)) +
+  geom_line(data=df_val, aes(x = rfstime, y = X4)) +
+  geom_line(data=df_dev, aes(x = rfstime, y = X1), linetype=2) +
+  geom_line(data=df_dev, aes(x = rfstime, y = X2), linetype=2) +
+  geom_line(data=df_dev, aes(x = rfstime, y = X3), linetype=2) +
+  geom_line(data=df_dev, aes(x = rfstime, y = X4), linetype=2)</code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2021-2-05-Cox_external_validation_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Back to <a href="#methods">Methods</a></p>
+</div>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/external-validation/">External validation</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/cox-regression/">Cox regression</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/" data-tooltip="Welcome to Missing Data Solutions">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 Martijn W Heymans. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/welcome-to-missing-data-solutions/" data-tooltip="Welcome to Missing Data Solutions">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/" data-tooltip="Multiple Imputation and Cross-validation">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fmissingdatasolutions.rbind.io%2F2021%2F02%2Fcox-external-validation%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Martijn W Heymans</h4>
+    
+      <div id="about-card-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: <a href="https://epidm.nl/en/courses/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://epidm.nl/en/courses/clinical-prediction-models/">Prediction Models</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></div>
+    
+    
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://missingdatasolutions.rbind.io/images/cover_mountain.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://missingdatasolutions.rbind.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/missingdatasolutions.rbind.io\/2021\/02\/cox-external-validation\/';
+          
+            this.page.identifier = '\/2021\/02\/cox-external-validation\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'http-missingdatasolutions-rbind-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

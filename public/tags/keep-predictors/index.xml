@@ -13,8 +13,12 @@
       <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</guid>
-      <description>Forcing predictors in the model can be applied by using the keep.predictors option inthe psfmi_lr function. These variables can be continuous, dichotomous orcategorical variables. Also more than one variable can be forced in the modelduring backward selection. Examples will be given below.
-ExamplesPooling with BS and forcing dichotomous variable in the modelPooling with BS and forcing categorical variable in the modelPooling with BS and forcing dichotomous and categorical variable in the modelPooling with BS and forcing dichotomous variable in the modelPooling Logistic regression models over 5 imputed datasets with backward selectionusing a p-value of 0.</description>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to force variables in the model during backward selection.
+</description>
     </item>
     
   </channel>

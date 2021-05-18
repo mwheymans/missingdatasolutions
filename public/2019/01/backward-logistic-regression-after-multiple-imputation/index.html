@@ -8,18 +8,38 @@
 <meta name="generator" content="Hugo 0.80.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Martijn W Heymans">
 <meta name="keywords" content="">
-<meta name="description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).">
+<meta name="description" content="
 
 
-<meta property="og:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).">
+
+With the psfmi package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+">
+
+
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Logistic Regression after Multiple Imputation - different selection criteria">
 <meta name="twitter:title" content="Logistic Regression after Multiple Imputation - different selection criteria">
 <meta property="og:url" content="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/">
 <meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/">
 <meta property="og:site_name" content="Missing Data Solutions">
-<meta property="og:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).">
-<meta name="twitter:description" content="With the [psfmi](https://mwheymans.github.io/psfmi/) package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).">
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+">
+<meta name="twitter:description" content="
+
+
+
+With the psfmi package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+">
 <meta property="og:locale" content="en-us">
 
   
@@ -279,9 +299,7 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              
-
-
+              </p>
 <p>The different methods are described in the papers of <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-9-57">Marshall et al</a> and <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-017-0404-7">Eekhout, vd Wiel and Heymans</a>.</p>
 <p>Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
 <div id="examples" class="section level2">
@@ -295,8 +313,14 @@ if (!doNotTrack) {
 <h2>Logistic Regression</h2>
 <div id="pooling-without-bw-and-method-d1" class="section level3">
 <h3>Pooling without BW and method D1</h3>
-<pre class="r"><code>library(psfmi)
-pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
          predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
                       &quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)
 pool_lr$RR_model</code></pre>
@@ -310,13 +334,13 @@ pool_lr$RR_model</code></pre>
 ## 6    JobDemands  0.00227508 0.03872846  0.058744401 103.72259 0.953268722
 ## 7 SocialSupport  0.04434046 0.05750883  0.771019941 126.70867 0.442130487
 ##          OR   lower.EXP   upper.EXP
-## 1 0.9787776 0.007362449 130.1205053
-## 2 0.7015581 0.309165955   1.5919729
-## 3 1.0785854 0.552994262   2.1037224
-## 4 0.8677214 0.796994613   0.9447246
-## 5 1.0069274 0.967206964   1.0482791
-## 6 1.0022777 0.929012848   1.0813204
-## 7 1.0453382 0.933908457   1.1700632</code></pre>
+## 1 0.9787776 0.006951596 137.8108760
+## 2 0.7015581 0.306989710   1.6032584
+## 3 1.0785854 0.549958398   2.1153353
+## 4 0.8677214 0.796369271   0.9454664
+## 5 1.0069274 0.966670925   1.0488604
+## 6 1.0022777 0.928182101   1.0822882
+## 7 1.0453382 0.932895897   1.1713332</code></pre>
 <pre class="r"><code>pool_lr$multiparm</code></pre>
 <pre><code>## $`Step 1 - no variables removed -`
 ##               p-values D1  F-statistic
@@ -355,8 +379,8 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
 ## 1 (Intercept)  1.2289920 0.46958952  2.617162 133.9118 0.009885997 3.4177826
 ## 2    Function -0.1398865 0.04195767 -3.333991 125.0844 0.001126680 0.8694569
 ##   lower.EXP upper.EXP
-## 1 1.3615129 8.5796013
-## 2 0.8008164 0.9439808</code></pre>
+## 1 1.3501560  8.651769
+## 2 0.8001745  0.944738</code></pre>
 <pre class="r"><code>pool_lr$multiparm_final</code></pre>
 <pre><code>## $`Step 6`
 ##           p-values D3 F-statistic
@@ -401,7 +425,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/" data-tooltip="Steps to externally validate a prediction model">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -475,7 +499,7 @@ pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/" data-tooltip="Steps to externally validate a prediction model">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>

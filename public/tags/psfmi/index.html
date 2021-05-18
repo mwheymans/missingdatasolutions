@@ -497,8 +497,12 @@ If you have questions about the psfmi package send an email to mw.heymans@amster
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        Forcing predictors in the model can be applied by using the keep.predictors option inthe psfmi_lr function. These variables can be continuous, dichotomous orcategorical variables. Also more than one variable can be forced in the modelduring backward selection. Examples will be given below.
-ExamplesPooling with BS and forcing dichotomous variable in the modelPooling with BS and forcing categorical variable in the modelPooling with BS and forcing dichotomous and categorical variable in the modelPooling with BS and forcing dichotomous variable in the modelPooling Logistic regression models over 5 imputed datasets with backward selectionusing a p-value of 0.
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>With the <a href="https://mwheymans.github.io/psfmi/">psfmi</a> package it is possible to force variables in the model during backward selection.
+
       
       <p>
         <a href="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -548,9 +552,12 @@ ExamplesPooling with BS and forcing dichotomous variable in the modelPooling 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        The different methods are described in the papers of Marshall et al and Eekhout, vd Wiel and Heymans.
-Be aware that backward selection may result in overfitted and optimistic prediction models, see TRIPOD. Backward selection should therefore be followed by internal validation of the model.
-ExamplesPooling without BW and method D1Pooling with BW and method D3Logistic RegressionPooling without BW and method D1library(psfmi)pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,&quot;JobDemands&quot;, &quot;SocialSupport&quot;), method=&quot;D1&quot;)pool_lr$RR_model## $`Step 1 - no variables removed -`## term estimate std.
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>With the <a href="https://mwheymans.github.io/psfmi/">psfmi</a> package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+
       
       <p>
         <a href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/" class="postShorten-excerpt_link link">Continue reading</a>

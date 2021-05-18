@@ -254,16 +254,16 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/">
-          Steps to externally validate a prediction model
+        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+          External validation of a Cox prognostic model
         </a>
       </h1>
       
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2019-01-01T00:00:00Z">
+      <time itemprop="datePublished" datetime="2021-02-04T00:00:00Z">
         
-  January 1, 2019
+  February 4, 2021
 
       </time>
     
@@ -273,17 +273,76 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        Original prediction modelWe will externally validate the following prediction model:
-library(foreign)dat.orig &lt;- read.spss(file=&quot;Hipstudy.sav&quot;, to.data.frame=T)## re-encoding from UTF-8library(rms)dd &lt;- datadist(dat.orig)options(datadist=&#39;dd&#39;)dat.orig$Mobility &lt;- factor(dat.orig$Mobility)fit.orig &lt;- lrm(Mortality ~ Gender + Mobility + Age + ASA, x = T, y = T, data = dat.orig) fit.orig## Logistic Regression Model## ## lrm(formula = Mortality ~ Gender + Mobility + Age + ASA, data = dat.orig, ## x = T, y = T)## ## Model Likelihood Discrimination Rank Discrim.
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-13-33"><code>Royston &amp; Altman</code></a>. R code available.
+
       
       <p>
-        <a href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
   </div>
   
-    <a href="https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/">
+    <a href="https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/">
+      <div class="postShorten-thumbnailimg">
+        <img alt="" itemprop="image" src="https://missingdatasolutions.rbind.io/images/Cox_external.jpg"/>
+      </div>
+    </a>
+  
+</article>
+
+            
+              
+  
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/">
+          Steps to externally validate a prediction model
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-01-01T00:00:00Z">
+        
+  January 1, 2021
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        
+<script src="https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. It is important to use the correct predicted probabilities to evaluate if the external validation of the model is successful!<br />
+
+      
+      <p>
+        <a href="https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+    <a href="https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/">
       <div class="postShorten-thumbnailimg">
         <img alt="" itemprop="image" src="https://missingdatasolutions.rbind.io/images/external.png"/>
       </div>

@@ -28,7 +28,22 @@
   </url>
   
   <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/cox-regression/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/tags/external-validation/</loc>
+    <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/</loc>
     <lastmod>2021-02-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -40,6 +55,11 @@
   <url>
     <loc>https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/</loc>
     <lastmod>2021-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -175,26 +195,6 @@
   <url>
     <loc>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</loc>
     <lastmod>2019-01-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/external-validation/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/2019/01/steps-to-externally-validate-a-prediction-model/</loc>
-    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/tags/guideline/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://missingdatasolutions.rbind.io/2018/12/missing-data-guideline/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>

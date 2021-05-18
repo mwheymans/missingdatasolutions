@@ -17,11 +17,29 @@
     </item>
     
     <item>
+      <title>Cox regression</title>
+      <link>https://missingdatasolutions.rbind.io/tags/cox-regression/</link>
+      <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/cox-regression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Cross-validation</title>
       <link>https://missingdatasolutions.rbind.io/tags/cross-validation/</link>
       <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/tags/cross-validation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>external validation</title>
+      <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
+      <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/tags/external-validation/</guid>
       <description></description>
     </item>
     
@@ -148,24 +166,6 @@
       <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/tags/keep-predictors/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>external validation</title>
-      <link>https://missingdatasolutions.rbind.io/tags/external-validation/</link>
-      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/external-validation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>guideline</title>
-      <link>https://missingdatasolutions.rbind.io/tags/guideline/</link>
-      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/tags/guideline/</guid>
       <description></description>
     </item>
     

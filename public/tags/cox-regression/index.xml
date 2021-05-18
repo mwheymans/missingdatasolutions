@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cox regression on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/cox-regression/</link>
+    <description>Recent content in Cox regression on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/cox-regression/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>External validation of a Cox prognostic model</title>
+      <link>https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/</link>
+      <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of &lt;a href=&#34;https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-13-33&#34;&gt;&lt;code&gt;Royston &amp;amp; Altman&lt;/code&gt;&lt;/a&gt;. R code available.
+</description>
+    </item>
+    
+  </channel>
+</rss>
