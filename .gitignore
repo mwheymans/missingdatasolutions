@@ -4,4 +4,6 @@
 .Ruserdata
 blogdown
 .DS_Store 
-public
+/public/, /resources/
+/blogdown
+/public
