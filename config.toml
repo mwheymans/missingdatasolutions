@@ -44,7 +44,7 @@ canonifyurls = true
 
 [author]
   name = "Martijn W Heymans"
-  bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: [Missing Data](https://epidm.nl/en/courses/missing-data-consequences-and-solutions/) and [Prediction Models](https://epidm.nl/en/courses/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m) | email: mw.heymans@amsterdamumc.nl"
+  bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: [Missing Data](https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/) and [Prediction Models and Machine Learning](https://www.epidm.nl/en/course/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m) | email: mw.heymans@amsterdamumc.nl"
   
   #job = "mw.heymans@amsterdamumc.nl"
   #location = "Amsterdam UMC | The Netherlands"
