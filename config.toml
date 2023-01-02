@@ -44,7 +44,7 @@ canonifyurls = true
 
 [author]
   name = "Martijn W Heymans"
-  bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Biostatistics | Courses: [Missing Data](https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/) and [Prediction Models and Machine Learning](https://www.epidm.nl/en/course/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m) | email: mw.heymans@amsterdamumc.nl"
+  bio = "Assistant Professor of Applied Biostatistics | Department of Epidemiology and Data Science | Courses: [Missing Data](https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/) and [Prediction Models and Machine Learning](https://www.epidm.nl/en/course/clinical-prediction-models/) | [Publications](https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m) | email: mw.heymans@amsterdamumc.nl"
   
   #job = "mw.heymans@amsterdamumc.nl"
   #location = "Amsterdam UMC | The Netherlands"
@@ -181,6 +181,10 @@ canonifyurls = true
   # Set this value to `true` if you have old posts that use the cover image or the first photo as the thumbnail image
   # and set `autoThumbnailImage` to `false` on a post to overwrite this setting
   autoThumbnailImage = true
+
+  # Enable LaTeX math rendering? yes/no
+  # If false, you can enable math on a per page basis as needed.
+  math = true
 
   # Your favicon path, default is "/favicon.png"
   # favicon = "/favicon.png"

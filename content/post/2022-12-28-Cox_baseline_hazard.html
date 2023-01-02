@@ -24,7 +24,7 @@ slug: Cox-baseline-hazard
 <div id="how-is-the-baseline-hazard-function-calculated-and-where-can-i-use-it-for" class="section level3">
 <h3>How is the baseline hazard function calculated and where can I use it for?</h3>
 <p>The Cox model can be defined as follows,</p>
-<p><span class="math display">\[h(t) = h_0(t) \times exp(b_1x_1 + b_2x_2 + ... + b_px_p)\]</span>
+<p><span class="math display">\[ h(t) = h_0(t) \times exp(b_1x_1 + b_2x_2 + ... + b_px_p) \]</span>
 You could say that it consists of two separate parts, <span class="math inline">\(h_0(t)\)</span> and <span class="math inline">\(exp(b_1x_1 + b_2x_2 + ... + b_px_p)\)</span>. The first part is called the baseline hazard function and the second part consists of the coefficients and predictor values (also called linear predictor, LP in short). If you know both of these parts you can produce the same results as the <code>basehaz</code>, <code>survfit</code>, <code>predict.coxph</code> and <code>termplot</code> functions and get a better understanding of what these functions do.</p>
 <p>the Cox model can be applied in R using the <code>coxph</code> function. When you apply it you only get information about the <span class="math inline">\(exp(b_1x_1 + b_2x_2 + ... + b_px_p)\)</span> part and not about the <span class="math inline">\(h_0(t)\)</span> part as we will see when we fit a Cox model.</p>
 <p>We generate a dataset with some example data that has no further meaning but is more used to compare results.</p>

@@ -30,7 +30,7 @@ Did you regularly ask yourself the following questions as, how is the baseline h
 
 The Cox model can be defined as follows,
 
-$$h(t) = h_0(t) \times exp(b_1x_1 + b_2x_2 + ... + b_px_p)$$
+$$ h(t) = h_0(t) \times exp(b_1x_1 + b_2x_2 + ... + b_px_p) $$
 You could say that it consists of two separate parts, $h_0(t)$ and $exp(b_1x_1 + b_2x_2 + ... + b_px_p)$. The first part is called the baseline hazard function and the second part consists of the coefficients and predictor values (also called linear predictor, LP in short). If you know both of these parts you can produce the same results as the `basehaz`, `survfit`, `predict.coxph` and `termplot` functions and get a better understanding of what these functions do. 
 
 the Cox model can be applied in R using the `coxph` function. When you apply it you only get information about the $exp(b_1x_1 + b_2x_2 + ... + b_px_p)$ part and not about the $h_0(t)$ part as we will see when we fit a Cox model.
