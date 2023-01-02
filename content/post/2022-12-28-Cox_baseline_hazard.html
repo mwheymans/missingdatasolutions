@@ -168,7 +168,7 @@ fit_cox$means</code></pre>
 fit_cox &lt;- 
   coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
 
-breslow_est &lt;- function(time, status, X, B){
+breslow_est_adj &lt;- function(time, status, X, B){
 data &lt;- 
   data.frame(time,status,X)
 data &lt;- 
@@ -193,7 +193,7 @@ h    &lt;-
 res &lt;- cumsum(h)
 return(res)
 }
-H0 &lt;- breslow_est(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
+H0 &lt;- breslow_est_adj(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
 H0</code></pre>
 <pre><code>## [1] 2.780815e-02 4.800566e-01 4.800566e-01 8.858118e+00 1.532636e+02
 ## [6] 1.532636e+02 5.369326e+03 7.641106e+04</code></pre>
@@ -217,12 +217,12 @@ basehaz(fit_cox, centered = TRUE)</code></pre>
 <pre class="r"><code>fit_cox &lt;- 
   coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
 
-X_centered &lt;- fit_cox$x - fit_cox$means
+X_centered &lt;- sweep(fit_cox$x, 2, fit_cox$means, &quot;-&quot;)
 
 H0 &lt;- breslow_est(time=df$time, status=df$status, X=X_centered, B=fit_cox$coef)
 H0</code></pre>
-<pre><code>## [1] 2.584053e-120 1.161899e-118 1.161899e-118 9.086483e-118 5.032771e-115
-## [6] 5.032771e-115 1.005646e-114  7.104174e+04</code></pre>
+<pre><code>## [1] 2.780808e-02 4.800556e-01 4.800556e-01 8.858100e+00 1.532633e+02
+## [6] 1.532633e+02 5.369320e+03 7.641099e+04</code></pre>
 </div>
 <div id="when-provide-the-basehaz-and-survfit-functions-the-same-results" class="section level3">
 <h3>When provide the basehaz and survfit functions the same results?</h3>

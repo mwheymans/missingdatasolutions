@@ -193,7 +193,7 @@ df <- data.frame(time, status, sex, age)
 fit_cox <- 
   coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = "breslow")
 
-breslow_est <- function(time, status, X, B){
+breslow_est_adj <- function(time, status, X, B){
 data <- 
   data.frame(time,status,X)
 data <- 
@@ -218,7 +218,7 @@ h    <-
 res <- cumsum(h)
 return(res)
 }
-H0 <- breslow_est(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
+H0 <- breslow_est_adj(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
 H0
 
 ```
@@ -245,7 +245,7 @@ In the Cox model centering is done to generate estimates against some kind of sa
 fit_cox <- 
   coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = "breslow")
 
-X_centered <- fit_cox$x - fit_cox$means
+X_centered <- sweep(fit_cox$x, 2, fit_cox$means, "-")
 
 H0 <- breslow_est(time=df$time, status=df$status, X=X_centered, B=fit_cox$coef)
 H0
