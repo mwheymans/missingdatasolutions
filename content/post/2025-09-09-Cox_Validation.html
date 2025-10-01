@@ -1,0 +1,522 @@
+---
+title: "Prediction Modeling with the Cox model - all about the baseline hazard"
+author: "Martijn W Heymans"
+date: '2025-09-09'
+output:
+  blogdown::html_page
+categories: []
+tags:
+- Baseline hazard
+- Cox regression
+- Internal Validation
+- Shrinkage
+- Offset
+thumbnailImagePosition: left
+thumbnailImage: /images/Cox_baseline.jpg
+slug: Cox-internal-validation
+---
+
+
+
+<p>This post is about the internal and external validation
+of Cox regression models and how to adjust the
+baseline hazard function.</p>
+<!--more-->
+<div id="questions-about-the-cox-model-you-were-afraid-to-ask" class="section level3">
+<h3>Questions about the Cox model you were afraid to ask</h3>
+<p>Did you regularly ask yourself the following questions as, how is the baseline hazard function calculated and where can I use it for? What is the difference between <code>centered=TRUE</code> and <code>centered=FALSE</code> in the <code>basehaz</code> function? What is the result of the <code>predict.coxph</code> function and what is the difference between the options <code>type=c("lp", "risk", "expected", "terms", "survival")</code> in this function? What is the difference between <code>predict.coxph</code> and <code>survfit</code>? Where can I use the <code>termplot</code> function for and what is the difference between <code>terms=1</code> and <code>terms=2</code> in this function? These questions and more will be answered here!</p>
+</div>
+<div id="how-is-the-baseline-hazard-function-calculated-and-where-can-i-use-it-for" class="section level3">
+<h3>How is the baseline hazard function calculated and where can I use it for?</h3>
+<p>The Cox model can be defined as follows,</p>
+<p><span class="math display">\[ h(t) = h_0(t) \times exp(b_1x_1 + b_2x_2 + ... + b_px_p) \]</span>
+You could say that it consists of two separate parts, <span class="math inline">\(h_0(t)\)</span> and <span class="math inline">\(exp(b_1x_1 + b_2x_2 + ... + b_px_p)\)</span>. The first part is called the baseline hazard function and the second part consists of the coefficients and predictor values (also called linear predictor, LP in short). If you know both of these parts you can produce the same results as the <code>basehaz</code>, <code>survfit</code>, <code>predict.coxph</code> and <code>termplot</code> functions and get a better understanding of what these functions do.</p>
+<p>the Cox model can be applied in R using the <code>coxph</code> function. When you apply it you only get information about the <span class="math inline">\(exp(b_1x_1 + b_2x_2 + ... + b_px_p)\)</span> part and not about the <span class="math inline">\(h_0(t)\)</span> part as we will see when we fit a Cox model.</p>
+<p>We generate a dataset with some example data that has no further meaning but is more used to compare results.</p>
+<pre class="r"><code>time &lt;- c(1, 3, 5, 6, 2, 7, 9, 11)
+status &lt;- c(1, 0, 1, 1, 1, 0, 1, 1)
+sex &lt;- c(1, 1, 1, 1, 0, 0, 0, 0)
+age &lt;- c(57, 52, 48, 42, 39, 31, 26, 22)
+
+df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+summary(fit_cox)</code></pre>
+<pre><code>## Call:
+## coxph(formula = Surv(time, status) ~ age + sex, data = df, method = &quot;breslow&quot;)
+## 
+##   n= 8, number of events= 6 
+## 
+##           coef  exp(coef)   se(coef)      z Pr(&gt;|z|)
+## age  0.6338168  1.8847908  0.3917450  1.618    0.106
+## sex -7.4935992  0.0005566  5.1135367 -1.465    0.143
+## 
+##     exp(coef) exp(-coef) lower .95 upper .95
+## age 1.8847908     0.5306 8.746e-01     4.062
+## sex 0.0005566  1796.5065 2.471e-08    12.538
+## 
+## Concordance= 0.905  (se = 0.076 )
+## Likelihood ratio test= 10.62  on 2 df,   p=0.005
+## Wald test            = 2.72  on 2 df,   p=0.3
+## Score (logrank) test = 7  on 2 df,   p=0.03</code></pre>
+<p>Information about the the <span class="math inline">\(h_0(t)\)</span> part is missing. However, this part is needed to produce e.g. predictions or generate survival curves. This can automatically be done with functions as <code>survfit</code> <code>predict.coxph</code> and <code>termplot</code>, but it is not always clear how they generate their results. That is exactly what this post will bring you hopefully, clarity about what these functions provide . To start from the beginning we will start with the <code>basehaz</code> function.</p>
+<p><strong>It all starts with the cumulative baseline hazard</strong></p>
+<p>When you look at the R Documentation file of the <code>basehaz</code> function (<code>?basehaz</code>) you can read that this function is an Alias for the <code>survfit</code> function (which means that either the <code>basehaz</code> or <code>survfit</code> function produce the same result. I will show that below) and you can read that <code>basehaz</code> produces the cumulative hazard (function).</p>
+<p>The cumulative <em>baseline</em> hazard function can be calculated in two ways, when you apply an empty Cox model (or by using the observed data, i.e. no model), <code>basehaz</code> will give the same result as the Nelson-Aalen estimator and when we derive it from the Cox model including predictors <code>basehaz</code> will use the Breslow estimator.</p>
+<p>I will show you how to calculate the cumulative baseline hazard manually for observed data and an empty Cox model and subsequently the Breslow estimator for a Cox model including predictors.</p>
+<p><strong>The Nelson-Aalen estimator</strong></p>
+<p>The formula for the Nelson-Aalen estimator is,</p>
+<p><span class="math display">\[\widetilde{H}(t)= \sum_{t_i\le t}\frac{d_i}{n_i}\]</span></p>
+<p>where <span class="math inline">\(d_i\)</span> are the number of events of interest at time t, and <span class="math inline">\(n_i\)</span> is the number of observations at risk.
+When we apply this formula manually we get,</p>
+<pre class="r"><code>time &lt;- c(1,3,5,6, 2, 7, 9, 11)
+status &lt;- c(1, 0, 1, 1, 1, 0, 1, 1)
+df &lt;- data.frame(time, status)
+
+df &lt;- df[order(time), ] # order on time and events
+d &lt;- df$status                               
+n &lt;- length(d):1
+
+H0 &lt;- cumsum(d / n)
+H0</code></pre>
+<pre><code>## [1] 0.1250000 0.2678571 0.2678571 0.4678571 0.7178571 0.7178571 1.2178571
+## [8] 2.2178571</code></pre>
+<p>and the same result is provided by the <code>basehaz</code> function after we have fitted an empty Cox model.</p>
+<pre class="r"><code>time &lt;- c(1,3,5,6, 2, 7, 9, 11)
+status &lt;- c(1, 0, 1, 1, 1, 0, 1, 1)
+
+df &lt;- data.frame(time, status)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ 1 , data=df, method = &quot;breslow&quot;)
+basehaz(fit_cox)</code></pre>
+<pre><code>##      hazard time
+## 1 0.1250000    1
+## 2 0.2678571    2
+## 3 0.2678571    3
+## 4 0.4678571    5
+## 5 0.7178571    6
+## 6 0.7178571    7
+## 7 1.2178571    9
+## 8 2.2178571   11</code></pre>
+<p><strong>The Breslow estimator</strong></p>
+<p>The Breslow estimator for the baseline cumulative hazard is defined as (Hosmer and Lemeshow, 1999),</p>
+<p><span class="math display">\[\widetilde{H_0}(t)=\sum_{t_i\leq t} \frac{d_i}{\sum e^{(X\beta)}}\]</span>
+where <span class="math inline">\(d_i\)</span> stands for the number of events of interest at time t and <span class="math inline">\(X\beta\)</span> for the linear predictor scores (LP) .</p>
+<p>When we apply this formula manually we get,</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+breslow_est &lt;- function(time, status, X, B){
+data &lt;- 
+  data.frame(time, status, X)
+data &lt;- 
+  data[order(data$time), ]
+t   &lt;- 
+  unique(data$time)
+k    &lt;- 
+  length(t)
+h    &lt;- 
+  rep(0,k)
+
+  for(i in 1:k) {
+    lp &lt;- (data.matrix(data[,-c(1:2)]) %*% B)[data$time&gt;=t[i]]
+    risk &lt;- exp(lp)
+    h[i] &lt;- sum(data$status[data$time==t[i]]) / sum(risk)
+  }
+
+res &lt;- cumsum(h)
+return(res)
+}
+H0 &lt;- breslow_est(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
+H0</code></pre>
+<pre><code>## [1] 3.442456e-13 5.942770e-12 5.942770e-12 1.096574e-10 1.897298e-09
+## [6] 1.897298e-09 6.646862e-08 9.459174e-07</code></pre>
+<p>This gives the same result as when the <code>basehaz</code> function is used after a Cox model is fitted and when we set <code>centered=FALSE</code>.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+basehaz(fit_cox, centered = FALSE)</code></pre>
+<pre><code>##         hazard time
+## 1 3.442456e-13    1
+## 2 5.942770e-12    2
+## 3 5.942770e-12    3
+## 4 1.096574e-10    5
+## 5 1.897298e-09    6
+## 6 1.897298e-09    7
+## 7 6.646862e-08    9
+## 8 9.459174e-07   11</code></pre>
+<p>This is not a surprise, because the cumulative baseline hazard is calculated when the predictors are zero, i.e. when sex=0 and age=0 (more about this below under “When provide the <code>basehaz</code> and <code>survfit</code> functions the same results?”)</p>
+<p>As a result of the <code>basehaz</code> function we get a dataframe with two columns, hazard and time. The column that is called hazard is the cumulative baseline hazard function <span class="math inline">\(H_0(t)\)</span>. Let’s take a closer look a the <code>basehaz</code> function.</p>
+</div>
+<div id="what-is-the-difference-between-centeredtrue-and-centeredfalse-in-basehaz" class="section level3">
+<h3>What is the difference between centered=TRUE and centered=FALSE in basehaz?</h3>
+<p>We saw above that the manual version of the Breslow estimator and the <code>basehaz</code> function give the same results when <code>centered=FALSE</code>. When we choose for <code>centered=TRUE</code> the results are different. But of course we can make them equal. Than we have to mean center the linear predictor values.</p>
+<p>If we look at the documentation of the <code>basehaz</code>function under centered it says “if TRUE return data from a predicted survival curve at the mean values of the covariates <code>fit$mean</code>, if FALSE return a prediction for all covariates equal to zero”. Centering means that we calculate values against a sample reference value, and that reference value are the values we find under <code>fit$mean</code>.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+fit_cox$means</code></pre>
+<pre><code>##    age    sex 
+## 39.625  0.000</code></pre>
+<p>We see that the “means” are 39.625 and 0 respectively. Here we see that for the binary covariate sex, the reference value 0 is chosen. If we take a look at the R documentation for the <code>coxph</code> function and we look further at the documentation for the <code>coxph.object</code> (This class of objects is returned by the coxph class of functions to represent a fitted proportional hazards model) and look under means we find the following explanation <code>vector of values used as the reference for each covariate</code> and that is exactly what we get.</p>
+<p><strong>Mean centering the linear predictor values</strong></p>
+<p>Now we re-estimate the cumulative baseline hazard but now use the centered version of the linear predictor values, i.e. those calculated using <code>fit$mean</code> and subtracting these from the individual linear predictor values.</p>
+<p>in formula form.</p>
+<p><span class="math display">\[ LP_{sample} = \sum fit_{mean}*\beta&#39;s\]</span>
+<span class="math display">\[ LP_{indiv} = \sum X_i*\beta&#39;s\]</span></p>
+<p><span class="math display">\[ LP_{centered} = LP_{indiv} - LP{sample}\]</span></p>
+<p>To implement this we adjust the <code>breslow_est</code> function a little bit and include the LP_sample and LP_indiv objects that calculate the linear predictor values at the sample and individual values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+breslow_est_adj &lt;- function(time, status, X, B){
+data &lt;- 
+  data.frame(time,status,X)
+data &lt;- 
+  data[order(data$time), ]
+t   &lt;- 
+  unique(data$time)
+k    &lt;- 
+  length(t)
+h    &lt;- 
+  rep(0,k)
+
+  for(i in 1:k) {
+    
+    LP_sample &lt;- sum(fit_cox$means * coef(fit_cox)) 
+    LP_indiv &lt;- c((0.6338168*(data$age)) + (-7.4935992*data$sex) ) 
+
+    lp_centered &lt;- (LP_indiv - LP_sample)[data$time&gt;=t[i]]
+    risk &lt;- exp(lp_centered)
+    h[i] &lt;- sum(data$status[data$time==t[i]]) / sum(risk)
+  }
+
+res &lt;- cumsum(h)
+return(res)
+}
+H0 &lt;- breslow_est_adj(time=df$time, status=df$status, X=fit_cox$x, B=fit_cox$coef)
+H0</code></pre>
+<pre><code>## [1] 2.780815e-02 4.800566e-01 4.800566e-01 8.858118e+00 1.532636e+02
+## [6] 1.532636e+02 5.369326e+03 7.641106e+04</code></pre>
+<p>Taking their difference is the same as using <code>centered=TRUE</code> in the <code>basehaz</code> function (the default).</p>
+<p>When we apply that you can seethat we get the same result!</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+basehaz(fit_cox, centered = TRUE)</code></pre>
+<pre><code>##         hazard time
+## 1 2.780808e-02    1
+## 2 4.800556e-01    2
+## 3 4.800556e-01    3
+## 4 8.858100e+00    5
+## 5 1.532633e+02    6
+## 6 1.532633e+02    7
+## 7 5.369320e+03    9
+## 8 7.641099e+04   11</code></pre>
+<p><strong>Mean centering the covariate values</strong></p>
+<p>In the Cox model centering is done to generate estimates against some kind of sample reference values (to represent some kind of reference population). For this the mean values of covariates are used as we have seen when we centered the linear predictor values. This seems a little bit awkward for categorical and binary variables like “sex” in our example. Sex represents male and female persons and taking the mean would say that we represent a population containing “average” sex persons. Therefore, for binary variables also the reference value of the binary variable is used and that is what is chosen for in the <code>survival</code> package. Mean centering the covariate values is the same as subtracting the mean of the covariate values from each person’s covariate value. When we do that we get the same result as mean centering the linear predictor values.</p>
+<pre class="r"><code>fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+X_centered &lt;- sweep(fit_cox$x, 2, fit_cox$means, &quot;-&quot;)
+
+H0 &lt;- breslow_est(time=df$time, status=df$status, X=X_centered, B=fit_cox$coef)
+H0</code></pre>
+<pre><code>## [1] 2.780808e-02 4.800556e-01 4.800556e-01 8.858100e+00 1.532633e+02
+## [6] 1.532633e+02 5.369320e+03 7.641099e+04</code></pre>
+</div>
+<div id="when-provide-the-basehaz-and-survfit-functions-the-same-results" class="section level3">
+<h3>When provide the basehaz and survfit functions the same results?</h3>
+<p>I have already mentioned that the <code>basehaz</code> function is an alias for the <code>survfit</code> function. That means that we can produce the same results for the cumulative baseline hazard function with the <code>survfit</code> function as with the <code>basehaz</code> function. Let’s explore that a little bit.</p>
+<p>In the description of the centered term in the basehaz function it says <code>if TRUE return data from a predicted survival curve at the mean values of the covariates fit$mean, if FALSE return a prediction for all covariates equal to zero.</code> This latter means that we have to set all covariates to 0 in the <code>survfit</code> function to get the same results as the <code>basehaz</code> function with <code>centered=FALSE</code>. Let’s do that.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+fit_surv &lt;- survfit(fit_cox, newdata = data.frame(age=0, sex=0))
+fit_surv$cumhaz</code></pre>
+<pre><code>## [1] 3.442456e-13 5.942770e-12 5.942770e-12 1.096574e-10 1.897298e-09
+## [6] 1.897298e-09 6.646862e-08 9.459174e-07</code></pre>
+<p>And that is indeed the case!</p>
+<p>Now let’s see what we get when we use the default settings in the <code>survfit</code> function.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+fit_surv &lt;- survfit(fit_cox)
+fit_surv$cumhaz</code></pre>
+<pre><code>## [1] 2.780808e-02 4.800556e-01 4.800556e-01 8.858100e+00 1.532633e+02
+## [6] 1.532633e+02 5.369320e+03 7.641099e+04</code></pre>
+<p>Now we see that We get the same result as the <code>basehaz</code> function with <code>centered=TRUE</code>. This means that as default the <code>survfit</code> function uses the mean centered variables with mean values that are stored under <code>fit_cox$means</code>.</p>
+<p>We can check that when we give the values of the covariates to same value as under <code>fit_cox$means</code>.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+fit_surv &lt;- survfit(fit_cox, newdata = data.frame(age=39.625, sex=0))
+fit_surv$cumhaz</code></pre>
+<pre><code>## [1] 2.780808e-02 4.800556e-01 4.800556e-01 8.858100e+00 1.532633e+02
+## [6] 1.532633e+02 5.369320e+03 7.641099e+04</code></pre>
+<p>We see that we indeed get the same results as for <code>survfit(fit_cox)</code> that we previously used!</p>
+<p>The survfit function can not only be used to calculate the cumulative baseline hazard function, i.e. the cumulative hazard for a reference group, but also for other groups, depending on the values of the covariates. Eventually it can be used to produce survival curves for all kind of values for the covariates. I will show that later in another post.</p>
+</div>
+<div id="what-kind-of-results-do-we-get-with-the-predict.coxph-function" class="section level3">
+<h3>What kind of results do we get with the predict.coxph function?</h3>
+<p>Now we now more about the cumulative baseline hazard function and the meaning of centering, it is easy to understand what kind of information the <code>predict.coxph</code> function generates.</p>
+<p>See let’s take a closer look at this function and also in what way it provides results. In the <code>predict.coxph</code> function we can choose for the options <code>type=c("lp", "risk", "expected", "terms", "survival")</code>. What do they all mean?</p>
+<p><strong>type=“lp”</strong></p>
+<p>As default the predict.coxph function generates the “lp” values or linear predictor values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox) # Same as predict(fit_cox, type=&quot;lp&quot;) </code></pre>
+<pre><code>## [1]   3.5189684   0.3498842  -2.1853832  -5.9882842  -0.3961355  -5.4666703
+## [7]  -8.6357545 -11.1710219</code></pre>
+<p>These are also stored under the <code>fit_cox</code> object and extracted by typing <code>fit_cox$linear.predictors</code>.</p>
+<pre class="r"><code>fit_cox$linear.predictors</code></pre>
+<pre><code>## [1]   3.5189684   0.3498842  -2.1853832  -5.9882842  -0.3961355  -5.4666703
+## [7]  -8.6357545 -11.1710219</code></pre>
+<p>LP scores can also be calculated manually. We know now that the linear predictor of the Cox model is by default mean centered, i.e. calculated relative to the value of the sample mean (which was explained under <code>**Mean centering the linear predictor values**</code> above and also further explained in light of the <code>predict.coxph</code> function below under <code>**What does it mean that predictions of type "risk" are relative to the sample**</code>), so we have to apply that here also to get the correct LP values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+LP_indiv &lt;- c((0.6338168*(df$age)) + (-7.4935992*df$sex) ) 
+
+LP_sample &lt;- c((0.6338168*(39.625)) + (-7.4935992*0) ) 
+LP_sample</code></pre>
+<pre><code>## [1] 25.11499</code></pre>
+<pre class="r"><code>LP &lt;- LP_indiv - LP_sample
+LP</code></pre>
+<pre><code>## [1]   3.5189677   0.3498837  -2.1853835  -5.9882843  -0.3961355  -5.4666699
+## [7]  -8.6357539 -11.1710211</code></pre>
+<p>The same result is obtained by using the reference option in the predict.coxph function</p>
+<pre class="r"><code>predict(fit_cox, reference=&quot;sample&quot;)</code></pre>
+<pre><code>## [1]   3.5189684   0.3498842  -2.1853832  -5.9882842  -0.3961355  -5.4666703
+## [7]  -8.6357545 -11.1710219</code></pre>
+<p>And this again is the same as mean centering the covariate values and subsequently calculating the linear predictor values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+LP &lt;- c((0.6338168*(df$age-39.625)) + (-7.4935992*df$sex) ) 
+LP</code></pre>
+<pre><code>## [1]   3.5189677   0.3498837  -2.1853835  -5.9882843  -0.3961355  -5.4666699
+## [7]  -8.6357539 -11.1710211</code></pre>
+<p>Now we know that the <code>predict.coxph</code> function uses as default a mean centered linear predictor.</p>
+<p><strong>What does it mean that predictions of type “risk” are relative to the sample</strong></p>
+<p>If we look at the R documentation of the predict.coxph function we find under details the following explanation: “The Cox model is a relative risk model; predictions of type”linear predictor”, “risk”, and “terms” are all relative to the sample from which they came. By default, the reference value for each of these is the mean covariate within strata.”</p>
+<p>Let’s see what this means for the calculation of the LP scores. We first calculate the LP scores by using the mean of the covariates (mean of 39.625 for age and the reference value of 0 for sex):</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+LP_sample &lt;- c((0.6338168*(39.625)) + (-7.4935992*0)) 
+LP_sample</code></pre>
+<pre><code>## [1] 25.11499</code></pre>
+<p>Than we calculate the LP scores for all individuals in our dataset.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+LP_indiv &lt;- c((0.6338168*(df$age)) + (-7.4935992*df$sex) ) 
+LP_indiv</code></pre>
+<pre><code>## [1] 28.63396 25.46487 22.92961 19.12671 24.71886 19.64832 16.47924 13.94397</code></pre>
+<p>Than we subtract the LP score at the mean of the sample (mean of the covariates) from the LP scores of the persons in our sample and exponentiate these values.</p>
+<pre class="r"><code>exp(LP_indiv - LP_sample)</code></pre>
+<pre><code>## [1] 3.374957e+01 1.418903e+00 1.124346e-01 2.507963e-03 6.729155e-01
+## [6] 4.225279e-03 1.776396e-04 1.407626e-05</code></pre>
+<p>We than get the same results as the “risk” results, but now see more clear that the LP and risk scores are calculated against the mean values of the covariates in the sample.</p>
+<p><strong>type=“risk</strong></p>
+<p>When we use this option hazard ratio’s are calculated with as the reference value the LP scores at the means of the covariates.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;risk&quot;) </code></pre>
+<pre><code>## [1] 3.374960e+01 1.418903e+00 1.124346e-01 2.507963e-03 6.729155e-01
+## [6] 4.225278e-03 1.776395e-04 1.407625e-05</code></pre>
+<p>The function will therefore produce the same results when we exponentiate the LP values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- 
+  coxph(Surv(time, status) ~ age + sex, x=TRUE, data=df, method = &quot;breslow&quot;)
+
+LP_indiv &lt;- c((0.6338168*(df$age)) + (-7.4935992*df$sex) ) 
+
+LP_sample &lt;- c((0.6338168*(39.625)) + (-7.4935992*0) ) 
+LP_sample</code></pre>
+<pre><code>## [1] 25.11499</code></pre>
+<pre class="r"><code>LP &lt;- LP_indiv - LP_sample
+risk &lt;- exp(LP)
+risk</code></pre>
+<pre><code>## [1] 3.374957e+01 1.418903e+00 1.124346e-01 2.507963e-03 6.729155e-01
+## [6] 4.225279e-03 1.776396e-04 1.407626e-05</code></pre>
+<p><strong>type=“expected”</strong></p>
+<p>When we use this option we get the following results.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;expected&quot;) </code></pre>
+<pre><code>##         1         2         3         4         5         6         7         8 
+## 0.9385114 0.6811525 0.9959573 0.3843788 0.3230369 0.6475801 0.9538031 1.0755799</code></pre>
+<p>In the R documentation is described that: “Predictions of type”expected” incorporate the baseline hazard and are thus absolute instead of relative”.</p>
+<p>For these predictions we need the cumulative baseline hazard function, which we can easily obtain by the <code>basehaz</code> function. To get the same result as the <code>predict.coxph</code> function we first use the default settings of the <code>basehaz</code> function, i.e. <code>centered=TRUE</code> and than multiply these values with the (default) (mean centered) linear predictor values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+H0 &lt;- basehaz(fit_cox) 
+LP &lt;- predict(fit_cox, type=&quot;lp&quot;) 
+
+H0[, 1]*exp(LP)</code></pre>
+<pre><code>## [1]   0.93851138   0.68115250   0.05397488   0.02221579 103.13326837
+## [6]   0.64758014   0.95380312   1.07557986</code></pre>
+<p><strong>type=“terms”</strong></p>
+<p>When we use this option we get the following values. These are the linear predictor values for each covariate (term) separately.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;terms&quot;) </code></pre>
+<pre><code>##           age       sex
+## 1  11.0125677 -7.493599
+## 2   7.8434834 -7.493599
+## 3   5.3082161 -7.493599
+## 4   1.5053150 -7.493599
+## 5  -0.3961355  0.000000
+## 6  -5.4666703  0.000000
+## 7  -8.6357545  0.000000
+## 8 -11.1710219  0.000000
+## attr(,&quot;constant&quot;)
+## [1] 25.11499</code></pre>
+<p>The information under <code>attr(,"constant")</code> is the linear predictor value of the reference population. As default value <code>type="terms"</code> provides the linear predictor values of all terms (covariates) in the model. With <code>terms</code> it is possible to get the linear predictor values for each separate covariate in the model.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;terms&quot;, terms = &quot;age&quot;) # same as terms = 1</code></pre>
+<pre><code>##           age
+## 1  11.0125677
+## 2   7.8434834
+## 3   5.3082161
+## 4   1.5053150
+## 5  -0.3961355
+## 6  -5.4666703
+## 7  -8.6357545
+## 8 -11.1710219
+## attr(,&quot;constant&quot;)
+## [1] 25.11499</code></pre>
+<p>These linear predictor values are calculated as,</p>
+<pre class="r"><code>LP_age &lt;- 0.6338168*df$age - (0.6338168*39.625)  
+LP_age</code></pre>
+<pre><code>## [1]  11.0125669   7.8434829   5.3082157   1.5053149  -0.3961355  -5.4666699
+## [7]  -8.6357539 -11.1710211</code></pre>
+<p>and for the covariate sex,</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;terms&quot;, terms = &quot;sex&quot;) # same as terms = 2</code></pre>
+<pre><code>##         sex
+## 1 -7.493599
+## 2 -7.493599
+## 3 -7.493599
+## 4 -7.493599
+## 5  0.000000
+## 6  0.000000
+## 7  0.000000
+## 8  0.000000
+## attr(,&quot;constant&quot;)
+## [1] 25.11499</code></pre>
+<p>These linear predictor values are calculated as.</p>
+<pre class="r"><code>LP_age &lt;- -7.4935992*df$sex - (-7.4935992*0)
+LP_age</code></pre>
+<pre><code>## [1] -7.493599 -7.493599 -7.493599 -7.493599  0.000000  0.000000  0.000000
+## [8]  0.000000</code></pre>
+<p>So, each covariate uses it’s own reference value.</p>
+<p><strong>type=“survival”</strong></p>
+<p>This option is used to calculate survival probabilities.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+predict(fit_cox, type=&quot;survival&quot;) </code></pre>
+<pre><code>##         1         2         3         4         5         6         7         8 
+## 0.3912098 0.5060335 0.3693697 0.6808734 0.7239472 0.5233106 0.3852730 0.3410999</code></pre>
+<p>Using the cumulative hazard to calculate survival probabilities we can make use of the following formula,</p>
+<p><span class="math display">\[S(t) = exp(-H(t)\]</span></p>
+<p>We have seen under <code>**type="expected"**</code> how to calculate the cumulative hazard values. We can make use of the same calculations and include these in the formula for the survival probability.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+H0 &lt;- basehaz(fit_cox) 
+LP &lt;- predict(fit_cox, type=&quot;lp&quot;) 
+
+exp(-H0[, 1]*exp(LP))</code></pre>
+<pre><code>## [1] 3.912098e-01 5.060335e-01 9.474559e-01 9.780292e-01 1.621028e-45
+## [6] 5.233106e-01 3.852730e-01 3.410999e-01</code></pre>
+<p>This is of course the same as,</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+exp(-predict(fit_cox, type=&quot;expected&quot;))</code></pre>
+<pre><code>##         1         2         3         4         5         6         7         8 
+## 0.3912098 0.5060335 0.3693697 0.6808734 0.7239472 0.5233106 0.3852730 0.3410999</code></pre>
+</div>
+<div id="where-can-we-use-the-termplot-function-for" class="section level3">
+<h3>Where can we use the termplot function for?</h3>
+<p>If we take a look at the R documentation of the <code>termplot</code> function we can read that with this function it is possible to plot regression terms. We can further read that we can extract the information that is plotted when we set <code>plot=FALSE</code>.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+termplot(fit_cox, plot=FALSE)</code></pre>
+<pre><code>## $age
+##    x           y
+## 1 22 -11.1710219
+## 2 26  -8.6357545
+## 3 31  -5.4666703
+## 4 39  -0.3961355
+## 5 42   1.5053150
+## 6 48   5.3082161
+## 7 52   7.8434834
+## 8 57  11.0125677
+## 
+## $sex
+##   x         y
+## 1 0  0.000000
+## 2 1 -7.493599
+## 
+## attr(,&quot;constant&quot;)
+## [1] 25.11499</code></pre>
+<p>We see that we get the same information as that is provided by the <code>predict.coxph</code> function and than option <code>type="terms"</code>. The values that are provided are the linear predictor values related to each covariate. For continuous predictors the ordered unique values are provided and for a factor the values related to each category (level).</p>
+<p>There is also the possibility to choose for specific covariate (term) values as was possible with the <code>predict.coxph</code> function.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+termplot(fit_cox, plot=FALSE, terms=&quot;age&quot;)</code></pre>
+<pre><code>## $age
+##    x           y
+## 1 22 -11.1710219
+## 2 26  -8.6357545
+## 3 31  -5.4666703
+## 4 39  -0.3961355
+## 5 42   1.5053150
+## 6 48   5.3082161
+## 7 52   7.8434834
+## 8 57  11.0125677
+## 
+## attr(,&quot;constant&quot;)
+## [1] 25.11499</code></pre>
+<p>To make a plot of the linear predictor values we can set <code>plot=TRUE</code> (default).</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+termplot(fit_cox, plot=TRUE, terms=&quot;age&quot;)</code></pre>
+<p><img src="/post/2025-09-09-Cox_Validation_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>This is especially informative if the model would include non-linear or spline terms.</p>
+</div>
+<div id="from-hazard-to-survival" class="section level3">
+<h3>From hazard to survival</h3>
+<p>What we all can do with these functions in terms of survival probabilities and survival curves will be explained in another post (probably published in February 2023).</p>
+<p><strong>References</strong></p>
+<p>Hosmer, D.W. and Lemeshow, S. (1999) Applied Survival Analysis, Regression Modeling of Time to Event Data. John Wiley and Sons, New York.</p>
+<p>Klein, J.P. and Moeschberger, S. (2003) Survival Analysis: Techniques for Censored and Truncated Data. 2nd edition. Springer, Berlin.</p>
+<p>Moore, D.F. (2016) Applied Survival Analysis Using R. Use R. Springer, Berlin.</p>
+</div>

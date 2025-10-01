@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/</link>
+    <description>Recent content on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
+      <link>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</link>
+      <pubDate>Tue, 09 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the internal and external validation
+of Cox regression models and how to adjust the
+baseline hazard function.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Welcome to Missing Data Solutions</title>
+      <link>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</link>
+      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</guid>
+      <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
+Examples are provided for applied researchers and frequenly in RStudio.
+RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>
+    </item>
+    
+    <item>
+      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
+      <link>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</link>
+      <pubDate>Tue, 27 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>External validation of a Cox prognostic model</title>
+      <link>https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/</link>
+      <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2021/02/cox-external-validation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;This blog shows how to externally validate a Cox regression prognostic model according to all steps in the paper of &lt;a href=&#34;https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-13-33&#34;&gt;&lt;code&gt;Royston &amp;amp; Altman&lt;/code&gt;&lt;/a&gt;. R code available.
+</description>
+    </item>
+    
+    <item>
+      <title>Multiple Imputation and Cross-validation</title>
+      <link>https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/</link>
+      <pubDate>Thu, 04 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2021/02/mi-cross-validation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the function &lt;code&gt;psfmi_perform&lt;/code&gt; of the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to combine Cross-validation with Multiple Imputation for internal validation.
+</description>
+    </item>
+    
+    <item>
+      <title>Steps to externally validate a prediction model</title>
+      <link>https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2021/01/steps-to-externally-validate-a-prediction-model/</guid>
+      <description>
+
+
+&lt;p&gt;External validation means that the performance of a prediction model is studied in a new (external) patient dataset that is not used to develop the model. It is important to use the correct predicted probabilities to evaluate if the external validation of the model is successful!&lt;br /&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Missing Data News</title>
+      <link>https://missingdatasolutions.rbind.io/news/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/news/</guid>
+      <description>On this page you will find news about missing data and applied biostatistical methods, referrals to other interesting blogs or articles.
+Calibration beltWith package givitiR a calibration belt can beplotted to assess the calibration of dichotomous outcome models. This is assumed a better procedure compared to theshortcomings of the Hosmer and Lemeshow test, that may become significant in large datasets, although predicted andobserved probabilities agree well.</description>
+    </item>
+    
+    <item>
+      <title>Shiny apps</title>
+      <link>https://missingdatasolutions.rbind.io/shiny/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/shiny/</guid>
+      <description>On this page you will find interactive learning tools of missing data methods
+Simple Imputation methodsThis app shows the effect of applying single imputation methods in the case of one outcome variable and one covariate with missing data.Go to the app
+Multiple ImputationThis app shows how imputed values are calculated during each iteration and imputation step according to the Multivariate Imputation by Chained Equations (MICE) algorithm.</description>
+    </item>
+    
+    <item>
+      <title>the R psfmi package</title>
+      <link>https://missingdatasolutions.rbind.io/psfmi/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/psfmi/</guid>
+      <description>IntroductionOn this page you will find information about the psfmi package.The package contains functions to pool logistic (psfmi_lr), Coxregression (psfmi_coxr) and linear and logistic mixed models (psfmi_mm)in multiply imputed datasets. It is also possible to apply backward variableselection in multiple imputed datasets (Be aware that backward selectionmay result in overfitted and optimistic prediction models, see TRIPOD). Backward selection should therefore be followed by internal validation of the model.</description>
+    </item>
+    
+    <item>
+      <title>Model Stability analysis after Multiple Imputation</title>
+      <link>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
+</description>
+    </item>
+    
+    <item>
+      <title>psfmi package update</title>
+      <link>https://missingdatasolutions.rbind.io/2020/01/psfmi/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2020/01/psfmi/</guid>
+      <description>With the psfmi_mm function pooling and selection of (generalized) linear mixed models, i.e linear and logistic mixed models, is possible. With the psfmi_stab function the stability of models after using psfmi_lr, psfmi_coxr and psfmi_mm can be evaluated. The latter function uses (single) bootstrapping for the psfmi_lr and psfmi_coxr functions and cluster bootstrapping for the psfmi_mm function. With the function the bootstrap inclusion frequency of predictors and models can be estimated.</description>
+    </item>
+    
+    <item>
+      <title>Package psfmi</title>
+      <link>https://missingdatasolutions.rbind.io/2019/05/psfmi/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/05/psfmi/</guid>
+      <description>More information about the package can be found on the Cran website.
+You can easily install the package by running install.packages(&#34;psfmi&#34;) in the Console window in Rstudio or R. The development version can be installed from Github by using:install.packages(&#34;devtools&#34;)
+library(devtools)
+devtools::install_github(&#34;mwheymans/psfmi&#34;)
+library(psfmi)
+If you have questions about the psfmi package send an email to mw.heymans@amsterdamumc.nl or leave a message below. Enjoy using the package!</description>
+    </item>
+    
+    <item>
+      <title>Applied Missing Data analysis Book</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/bookmi/</link>
+      <pubDate>Sun, 20 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/bookmi/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I have written an online Applied Missing Data book for all researchers that have missing data. Click on continue reading to access the book.
+</description>
+    </item>
+    
+    <item>
+      <title>Backward Logistic Regression after MI - forcing variables in model</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to force variables in the model during backward selection.
+</description>
+    </item>
+    
+    <item>
+      <title>Logistic Regression after Multiple Imputation - different selection criteria</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>https://missingdatasolutions.rbind.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/about/</guid>
+      <description>My name is Martijn Heymans. I am an Assistant Professor of Applied Biostatisticsand Missing Data Methods at the department of Epidemiology and Biostatisticsof the Amsterdam University Medical Center (Amsterdam UMC), The Netherlands.
+My work consists of statistical consultancy, supervising PhD projectson methodological and clinical topics and lecturing courses inepidemiology and biostatistics for the bachelor and Master’s Programmein Epidemiology epidm.nl and Medicine.
+I like to work with RStudio and try to provide solutions for applied clinicalresearchers.</description>
+    </item>
+    
+    <item>
+      <title>Martijn Heymans</title>
+      <link>https://missingdatasolutions.rbind.io/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/contact/</guid>
+      <description>Interested in my work?
+mw.heymans@amsterdamumc.nl
+Martijn51</description>
+    </item>
+    
+    <item>
+      <title>Modern Missing Data and Multiple Imputation Methods</title>
+      <link>https://missingdatasolutions.rbind.io/missingdata/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/missingdata/</guid>
+      <description>On this page you will find information about modern Missing Data Methods.
+Regression modelsI have written an R package that is called psfmi, whichmeans “Predictor Selection Functions in Multiply Imputed Datasets”
+Missing Data websitesYou may visit the Website of Iris Eekhout,who wrote her PhD on missing data in questionaire data. She compared missingdata methods for questionnaire missing items and total scores.I supervised that project.</description>
+    </item>
+    
+  </channel>
+</rss>

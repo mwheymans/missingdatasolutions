@@ -147,7 +147,8 @@ The AUC drops from 0.774 to 0.7496.
 
 #### Calibration 
 
-```{r echo=FALSE}
+```{r }
+# Predicted probabilities
 pred.ext <-  1/(1+exp(-lp.ext))
 group.cut <- quantile(pred.ext, c(seq(0, 1, 0.1)))
 group <- cut(pred.ext, group.cut) 

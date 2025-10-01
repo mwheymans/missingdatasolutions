@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shrinkage on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/shrinkage/</link>
+    <description>Recent content in Shrinkage on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/shrinkage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
+      <link>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</link>
+      <pubDate>Tue, 09 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the internal and external validation
+of Cox regression models and how to adjust the
+baseline hazard function.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

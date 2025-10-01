@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Model Stability on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/model-stability/</link>
+    <description>Recent content in Model Stability on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/model-stability/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Model Stability analysis after Multiple Imputation</title>
+      <link>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2020/01/model-stability-analysis-after-multiple-imputation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the psfmi_stab function of the psfmi package it is possible to do important stability analyses of the models and predictors selected during backward selection after multiple imputation.
+</description>
+    </item>
+    
+  </channel>
+</rss>

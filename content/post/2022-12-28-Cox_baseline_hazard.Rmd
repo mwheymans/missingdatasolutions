@@ -1,7 +1,7 @@
 ---
 title: "Prediction Modeling with the Cox model - all about the baseline hazard"
 author: "Martijn Heymans"
-date: '2022-12-27'
+date: '2025-10-1'
 output:
   blogdown::html_page
 categories: []
@@ -610,7 +610,7 @@ This is especially informative if the model would include non-linear or spline t
 
 ### From hazard to survival
 
-What we all can do with these functions in terms of survival probabilities and survival curves will be explained in another post (probably published in February 2023).
+What we all can do with these functions in terms of survival probabilities and survival curves will be explained in another post (probably published in February 2026).
 
 **References**
 

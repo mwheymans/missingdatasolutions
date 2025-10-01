@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/categories/</link>
+    <description>Recent content in Categories on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>psfmi</title>
+      <link>https://missingdatasolutions.rbind.io/categories/psfmi/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/categories/psfmi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BIF</title>
+      <link>https://missingdatasolutions.rbind.io/categories/bif/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/categories/bif/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bootstrapping</title>
+      <link>https://missingdatasolutions.rbind.io/categories/bootstrapping/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/categories/bootstrapping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Model Stability</title>
+      <link>https://missingdatasolutions.rbind.io/categories/model-stability/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/categories/model-stability/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

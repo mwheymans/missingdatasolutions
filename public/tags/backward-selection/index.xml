@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>backward selection on Missing Data Solutions</title>
+    <link>https://missingdatasolutions.rbind.io/tags/backward-selection/</link>
+    <description>Recent content in backward selection on Missing Data Solutions</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/backward-selection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logistic Regression after Multiple Imputation - different selection criteria</title>
+      <link>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</link>
+      <pubDate>Wed, 02 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/</guid>
+      <description>
+&lt;script src=&#34;https://missingdatasolutions.rbind.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+</description>
+    </item>
+    
+  </channel>
+</rss>

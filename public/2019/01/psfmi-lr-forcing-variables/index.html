@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.83.1 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Martijn W Heymans">
+<meta name="keywords" content="">
+<meta name="description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+
+
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backward Logistic Regression after MI - forcing variables in model">
+<meta name="twitter:title" content="Backward Logistic Regression after MI - forcing variables in model">
+<meta property="og:url" content="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+<meta property="og:site_name" content="Missing Data Solutions">
+<meta property="og:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+<meta name="twitter:description" content="
+
+
+
+With the psfmi package it is possible to force variables in the model during backward selection.
+">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2019-01-02T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2019-01-02T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="psfmi">
+    
+      <meta property="article:tag" content="force variables">
+    
+      <meta property="article:tag" content="keep predictors">
+    
+      <meta property="article:tag" content="interaction terms">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/forcing.png">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/forcing.png">
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/martijn1.jpg">
+
+
+    <title>Backward Logistic Regression after MI - forcing variables in model</title>
+
+    <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-127301719-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://missingdatasolutions.rbind.io/">Missing Data Solutions</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://missingdatasolutions.rbind.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://missingdatasolutions.rbind.io/#about">
+          <img class="sidebar-profile-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Martijn W Heymans</h4>
+        
+          <h5 class="sidebar-profile-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Data Science | Courses: <a href="https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://www.epidm.nl/en/course/clinical-prediction-models/">Prediction Models and Machine Learning</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/post/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Posts</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://bookdown.org/mwheymans/bookmi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Missing Data Book</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/shiny/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-play"></i>
+      
+      <span class="sidebar-button-desc">Learning Apps</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/news/">
+    
+      <i class="sidebar-button-icon fa fa-newspaper-o fa-lg"></i>
+      
+      <span class="sidebar-button-desc">News</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/tags/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/mwheymans" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Backward Logistic Regression after MI - forcing variables in model
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2019-01-02T00:00:00Z">
+        
+  January 2, 2019
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              </p>
+<p>Be aware that backward selection may result in overfitted and optimistic prediction models, see <a href="http://annals.org/aim/fullarticle/2088542/transparent-reporting-multivariable-prediction-model-individual-prognosis-diagnosis-tripod-explanation">TRIPOD</a>. Backward selection should therefore be followed by internal validation of the model.</p>
+<p>Forcing predictors in the model can be applied by using the <em>keep.predictors</em> option in
+the psfmi_lr function. These variables can be continuous, dichotomous or
+categorical variables. Also more than one variable can be forced in the model
+during backward selection. Examples will be given below.</p>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<ul>
+<li><a href="#pooling-with-bs-and-forcing-dichotomous-variable-in-the-model">Pooling with BS and forcing dichotomous variable in the model</a></li>
+<li><a href="#pooling-with-bs-and-forcing-categorical-variable-in-the-model">Pooling with BS and forcing categorical variable in the model</a></li>
+<li><a href="#pooling-with-bs-and-forcing-dichotomous-and-categorical-variable-in-the-model">Pooling with BS and forcing dichotomous and categorical variable in the model</a></li>
+</ul>
+<div id="pooling-with-bs-and-forcing-dichotomous-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing dichotomous variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” in the models
+during backward selection with method D3 (Meng and Rubin likelihood ratio statistics method).</p>
+<pre class="r"><code>library(psfmi)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<pre class="r"><code>pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), keep.predictors = &quot;Smoking&quot;,
+    p.crit = 0.05, method=&quot;D3&quot;, direction=&quot;BW&quot;)</code></pre>
+<pre><code>## Warning: The `keep` argument of `group_split()` is deprecated as of dplyr 1.0.0.
+## Please use the `.keep` argument instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - JobControl</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre class="r"><code>pool_lr$RR_Model</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>pool_lr$multiparm</code></pre>
+<pre><code>## $`Step 1 - removal - JobDemands`
+##                p-values D3  F-statistic
+## Gender        0.3947458613  0.724373380
+## Smoking       0.8317349667  0.045147955
+## Function      0.0007899068 11.386844932
+## JobControl    0.7343871650  0.115354428
+## JobDemands    0.9519212712  0.003639672
+## SocialSupport 0.4393657267  0.598319744
+## 
+## $`Step 2 - removal - JobControl`
+##               p-values D3 F-statistic
+## Gender        0.377527259  0.77873859
+## Smoking       0.832083852  0.04495781
+## Function      0.001008495 11.02012661
+## JobControl    0.736740083  0.11324567
+## SocialSupport 0.439547612  0.59781850
+## 
+## $`Step 3 - removal - SocialSupport`
+##                p-values D3 F-statistic
+## Gender        0.3229454514   0.9769937
+## Smoking       0.8260364908   0.0483077
+## Function      0.0007498005  11.4658858
+## SocialSupport 0.4734125383   0.5143055
+## 
+## $`Step 4 - removal - Gender`
+##          p-values D3 F-statistic
+## Gender   0.294148237  1.10054585
+## Smoking  0.843204307  0.03912415
+## Function 0.000911838 11.10833407
+## 
+## $`Step 5 - removal - ended`
+##           p-values D3 F-statistic
+## Smoking  0.8523804814  0.03462715
+## Function 0.0005132484 12.18345056</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-forcing-categorical-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing categorical variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the categorical predictor “Satisfaction” in the models
+during backward selection with method D1.</p>
+<pre class="r"><code>library(psfmi)
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), cat.predictors = &quot;Satisfaction&quot;, 
+    keep.predictors = &quot;Satisfaction&quot;,
+    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
+<pre><code>## Removed at Step 1 is - Smoking</code></pre>
+<pre><code>## Removed at Step 2 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 3 is - JobControl</code></pre>
+<pre><code>## Removed at Step 4 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 5 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre class="r"><code>pool_lr$RR_Model</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>pool_lr$multiparm</code></pre>
+<pre><code>## $`Step 1 - removal - Smoking`
+##                       p-values D1  F-statistic
+## Gender               0.3573489015  0.847398097
+## Smoking              0.9351090751  0.006629086
+## Function             0.0007175925 11.496258992
+## JobControl           0.7800813779  0.078093242
+## JobDemands           0.9013696138  0.015377782
+## SocialSupport        0.4191089815  0.653452178
+## factor(Satisfaction) 0.5203572810  0.654738411
+## 
+## $`Step 2 - removal - JobDemands`
+##                      p-values D1 F-statistic
+## Gender               0.357284017  0.84762552
+## Function             0.000701792 11.53368033
+## JobControl           0.778937831  0.07892848
+## JobDemands           0.902310755  0.01508410
+## SocialSupport        0.420362557  0.64993997
+## factor(Satisfaction) 0.510459302  0.67405488
+## 
+## $`Step 3 - removal - JobControl`
+##                       p-values D1 F-statistic
+## Gender               0.3394367824  0.91262498
+## Function             0.0007054094 11.52921072
+## JobControl           0.7836963849  0.07547789
+## SocialSupport        0.4209104436  0.64835463
+## factor(Satisfaction) 0.5142261855  0.66666092
+## 
+## $`Step 4 - removal - SocialSupport`
+##                       p-values D1 F-statistic
+## Gender               0.2927368751   1.1071226
+## Function             0.0007980798  11.3418578
+## SocialSupport        0.4448293996   0.5843689
+## factor(Satisfaction) 0.5004930621   0.6937948
+## 
+## $`Step 5 - removal - Gender`
+##                       p-values D1 F-statistic
+## Gender               0.2661240274   1.2367531
+## Function             0.0009425647  11.0294608
+## factor(Satisfaction) 0.5239840847   0.6477149
+## 
+## $`Step 6 - removal - ended`
+##                      p-values D1 F-statistic
+## Function             0.000645971  11.7563951
+## factor(Satisfaction) 0.567898285   0.5669431</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+<div id="pooling-with-bs-and-forcing-dichotomous-and-categorical-variable-in-the-model" class="section level3">
+<h3>Pooling with BS and forcing dichotomous and categorical variable in the model</h3>
+<p>Pooling Logistic regression models over 5 imputed datasets with backward selection
+using a p-value of 0.05 and forcing the dichotomous predictor “Smoking” and categorical
+predictor “Satisfaction” in the models during backward selection with method D1.</p>
+<pre class="r"><code>library(psfmi)
+pool_lr &lt;- psfmi_lr(data=lbpmilr, nimp=5, impvar=&quot;Impnr&quot;, Outcome=&quot;Chronic&quot;,
+    predictors=c(&quot;Gender&quot;, &quot;Smoking&quot;, &quot;Function&quot;, &quot;JobControl&quot;,
+    &quot;JobDemands&quot;, &quot;SocialSupport&quot;), cat.predictors = &quot;Satisfaction&quot;, 
+    keep.predictors = c(&quot;Satisfaction&quot;, &quot;Smoking&quot;),
+    p.crit = 0.05, method=&quot;D1&quot;, direction=&quot;BW&quot;)</code></pre>
+<pre><code>## Removed at Step 1 is - JobDemands</code></pre>
+<pre><code>## Removed at Step 2 is - JobControl</code></pre>
+<pre><code>## Removed at Step 3 is - SocialSupport</code></pre>
+<pre><code>## Removed at Step 4 is - Gender</code></pre>
+<pre><code>## 
+## Selection correctly terminated, 
+## No more variables removed from the model</code></pre>
+<pre class="r"><code>pool_lr$RR_Model</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>pool_lr$multiparm</code></pre>
+<pre><code>## $`Step 1 - removal - JobDemands`
+##                       p-values D1  F-statistic
+## Gender               0.3573489015  0.847398097
+## Smoking              0.9351090751  0.006629086
+## Function             0.0007175925 11.496258992
+## JobControl           0.7800813779  0.078093242
+## JobDemands           0.9013696138  0.015377782
+## SocialSupport        0.4191089815  0.653452178
+## factor(Satisfaction) 0.5203572810  0.654738411
+## 
+## $`Step 2 - removal - JobControl`
+##                       p-values D1  F-statistic
+## Gender               0.3394230225  0.912677425
+## Smoking              0.9378443208  0.006080901
+## Function             0.0007213489 11.491671726
+## JobControl           0.7848416655  0.074661274
+## SocialSupport        0.4196938335  0.651755427
+## factor(Satisfaction) 0.5240836144  0.647564355
+## 
+## $`Step 3 - removal - SocialSupport`
+##                       p-values D1  F-statistic
+## Gender               0.2929839539  1.105991149
+## Smoking              0.9370062682  0.006246338
+## Function             0.0008162769 11.303991030
+## SocialSupport        0.4433301611  0.588221771
+## factor(Satisfaction) 0.5104735549  0.673933069
+## 
+## $`Step 4 - removal - Gender`
+##                       p-values D1  F-statistic
+## Gender               0.2662260828  1.236225982
+## Smoking              0.9525907073  0.003534792
+## Function             0.0009599856 10.998316481
+## factor(Satisfaction) 0.5329101362  0.630726577
+## 
+## $`Step 5 - removal - ended`
+##                       p-values D1  F-statistic
+## Smoking              0.9526218671  0.003530147
+## Function             0.0006606787 11.718193089
+## factor(Satisfaction) 0.5762872019  0.552206139</code></pre>
+<p>Back to <a href="#examples">Examples</a></p>
+</div>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/psfmi/">psfmi</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/force-variables/">force variables</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/keep-predictors/">keep predictors</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/interaction-terms/">interaction terms</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/bookmi/" data-tooltip="Applied Missing Data analysis Book">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/" data-tooltip="Logistic Regression after Multiple Imputation - different selection criteria">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2025 Martijn W Heymans. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/bookmi/" data-tooltip="Applied Missing Data analysis Book">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2019/01/backward-logistic-regression-after-multiple-imputation/" data-tooltip="Logistic Regression after Multiple Imputation - different selection criteria">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2019/01/psfmi-lr-forcing-variables/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fmissingdatasolutions.rbind.io%2F2019%2F01%2Fpsfmi-lr-forcing-variables%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://missingdatasolutions.rbind.io/images/martijn1.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Martijn W Heymans</h4>
+    
+      <div id="about-card-bio">Assistant Professor of Applied Biostatistics | Department of Epidemiology and Data Science | Courses: <a href="https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://www.epidm.nl/en/course/clinical-prediction-models/">Prediction Models and Machine Learning</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></div>
+    
+    
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://missingdatasolutions.rbind.io/images/cover_mountain.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://missingdatasolutions.rbind.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/missingdatasolutions.rbind.io\/2019\/01\/psfmi-lr-forcing-variables\/';
+          
+            this.page.identifier = '\/2019\/01\/psfmi-lr-forcing-variables\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'http-missingdatasolutions-rbind-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { linebreaks: { automatic: true } },
+      tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
+      messageStyle: 'none'
+    });
+  </script>
+
+
+
+    
+  </body>
+</html>
+
