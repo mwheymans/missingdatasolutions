@@ -608,10 +608,6 @@ termplot(fit_cox, plot=TRUE, terms="age")
 
 This is especially informative if the model would include non-linear or spline terms.
 
-### From hazard to survival
-
-What we all can do with these functions in terms of survival probabilities and survival curves will be explained in another post (probably published in February 2026).
-
 **References**
 
 Hosmer, D.W. and Lemeshow, S. (1999) Applied Survival Analysis, Regression Modeling of Time to Event Data. John Wiley and Sons, New York.
