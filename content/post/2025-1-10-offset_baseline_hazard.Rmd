@@ -12,7 +12,7 @@ tags:
 - Shrinkage
 - Cox regression
 thumbnailImagePosition: left
-thumbnailImage: /images/Cox_baseline.jpg
+thumbnailImage: /images/Cox_bh_reclaibrate.jpg
 slug: Cox-Offset-baseline-hazard
 ---
 
