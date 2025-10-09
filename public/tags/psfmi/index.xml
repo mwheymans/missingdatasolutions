@@ -6,13 +6,13 @@
     <description>Recent content in psfmi on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/psfmi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/tags/psfmi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Welcome to Missing Data Solutions</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</link>
-      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
+      <link>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</link>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</guid>
+      <guid>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</guid>
       <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
 Examples are provided for applied researchers and frequenly in RStudio.
 RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>

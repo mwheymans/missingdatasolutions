@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to Missing Data Solutions</title>
+      <link>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</link>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</guid>
+      <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
+Examples are provided for applied researchers and frequenly in RStudio.
+RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>
+    </item>
+    
     <item>
       <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
       <link>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</link>
@@ -19,30 +30,6 @@
 &lt;p&gt;This post is about the internal and external validation
 of Cox regression models and how to adjust the
 baseline hazard function.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Welcome to Missing Data Solutions</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</link>
-      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</guid>
-      <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
-Examples are provided for applied researchers and frequenly in RStudio.
-RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>
-    </item>
-    
-    <item>
-      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</link>
-      <pubDate>Tue, 27 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</guid>
-      <description>
-
-
-&lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
 </description>
     </item>
     
@@ -163,6 +150,32 @@ If you have questions about the psfmi package send an email to mw.heymans@amster
 
 
 &lt;p&gt;With the &lt;a href=&#34;https://mwheymans.github.io/psfmi/&#34;&gt;psfmi&lt;/a&gt; package it is possible to do backward selection for logistic regression models after Multiple Imputation (MI). For backward selection, several variable selection criteria can be used. These criteria are called the D1, D2, D3 and Median P-rule (MPR).
+</description>
+    </item>
+    
+    <item>
+      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Recalibration of the Cox model baseline hazard function after Shrinkage</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.&lt;/p&gt;
 </description>
     </item>
     

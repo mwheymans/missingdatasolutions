@@ -22,5 +22,18 @@ baseline hazard function.&lt;/p&gt;
 </description>
     </item>
     
+    <item>
+      <title>Recalibration of the Cox model baseline hazard function after Shrinkage</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>

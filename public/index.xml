@@ -6,7 +6,18 @@
     <description>Recent content on Missing Data Solutions</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://missingdatasolutions.rbind.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to Missing Data Solutions</title>
+      <link>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</link>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</guid>
+      <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
+Examples are provided for applied researchers and frequenly in RStudio.
+RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>
+    </item>
+    
     <item>
       <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
       <link>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</link>
@@ -19,30 +30,6 @@
 &lt;p&gt;This post is about the internal and external validation
 of Cox regression models and how to adjust the
 baseline hazard function.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Welcome to Missing Data Solutions</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</link>
-      <pubDate>Wed, 28 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</guid>
-      <description>Most examples and solutions will be concentrated on Missing Data topics. Posts may also concern Regression modeling, Clinical Prediction models and Spline regression modeling. Most examples originate from FAQs asked during statistical consultations or during courses.
-Examples are provided for applied researchers and frequenly in RStudio.
-RStudio is an open source free package with a lot of possibilities,making it easy to share code so that you can use the code exampleand adjust it to your own needs.</description>
-    </item>
-    
-    <item>
-      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</link>
-      <pubDate>Tue, 27 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</guid>
-      <description>
-
-
-&lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
 </description>
     </item>
     
@@ -202,8 +189,8 @@ If you have questions about the psfmi package send an email to mw.heymans@amster
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://missingdatasolutions.rbind.io/about/</guid>
-      <description>My name is Martijn Heymans. I am an Assistant Professor of Applied Biostatisticsand Missing Data Methods at the department of Epidemiology and Biostatisticsof the Amsterdam University Medical Center (Amsterdam UMC), The Netherlands.
-My work consists of statistical consultancy, supervising PhD projectson methodological and clinical topics and lecturing courses inepidemiology and biostatistics for the bachelor and Master’s Programmein Epidemiology epidm.nl and Medicine.
+      <description>My name is Martijn Heymans. I am an Associate Professor at the department ofEpidemiology and Biostatistics of the Amsterdam University Medical Center(Amsterdam UMC), The Netherlands.
+My main topics of interest are Missing Data, Clinical Prediction Modeling,and Machine Learning. My work consists of supervising PhD projects onmethodological and clinical topics, lecturing courses and statistical consultancy.
 I like to work with RStudio and try to provide solutions for applied clinicalresearchers.</description>
     </item>
     
@@ -214,8 +201,7 @@ I like to work with RStudio and try to provide solutions for applied clinicalre
       
       <guid>https://missingdatasolutions.rbind.io/contact/</guid>
       <description>Interested in my work?
-mw.heymans@amsterdamumc.nl
-Martijn51</description>
+mw.heymans@amsterdamumc.nl</description>
     </item>
     
     <item>
@@ -227,6 +213,32 @@ Martijn51</description>
       <description>On this page you will find information about modern Missing Data Methods.
 Regression modelsI have written an R package that is called psfmi, whichmeans “Predictor Selection Functions in Multiply Imputed Datasets”
 Missing Data websitesYou may visit the Website of Iris Eekhout,who wrote her PhD on missing data in questionaire data. She compared missingdata methods for questionnaire missing items and total scores.I supervised that project.</description>
+    </item>
+    
+    <item>
+      <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Recalibration of the Cox model baseline hazard function after Shrinkage</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

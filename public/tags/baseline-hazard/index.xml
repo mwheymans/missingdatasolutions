@@ -24,14 +24,27 @@ baseline hazard function.&lt;/p&gt;
     
     <item>
       <title>Prediction Modeling with the Cox model - all about the baseline hazard</title>
-      <link>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</link>
-      <pubDate>Tue, 27 Dec 2022 00:00:00 +0000</pubDate>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</guid>
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</guid>
       <description>
 
 
 &lt;p&gt;This post is about different functions of the survival package, like basehaz, predict.coxph, survfit, termplot, what kind of results they provide and how they are calculated.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Recalibration of the Cox model baseline hazard function after Shrinkage</title>
+      <link>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</guid>
+      <description>
+
+
+&lt;p&gt;This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.&lt;/p&gt;
 </description>
     </item>
     

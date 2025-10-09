@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://missingdatasolutions.rbind.io/</loc>
+    <lastmod>2025-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/post/</loc>
+    <lastmod>2025-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
+    <lastmod>2025-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
+    <lastmod>2025-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/</loc>
+    <lastmod>2025-10-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/baseline-hazard/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,13 +26,7 @@
     <loc>https://missingdatasolutions.rbind.io/tags/internal-validation/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://missingdatasolutions.rbind.io/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/offset/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/post/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</loc>
@@ -25,18 +34,6 @@
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/shrinkage/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/tags/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/tags/psfmi/</loc>
-    <lastmod>2022-12-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/2022/12/welcome-to-missing-data-solutions/</loc>
-    <lastmod>2022-12-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/2022/12/cox-baseline-hazard/</loc>
-    <lastmod>2022-12-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
     <lastmod>2021-02-04T00:00:00+00:00</lastmod>
@@ -144,5 +141,13 @@
     <loc>https://missingdatasolutions.rbind.io/contact/</loc>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/missingdata/</loc>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/offset-cox-model/</loc>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</loc>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/recalibration/</loc>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</loc>
   </url>
 </urlset>
