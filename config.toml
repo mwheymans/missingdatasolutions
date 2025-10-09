@@ -206,6 +206,8 @@ canonifyurls = true
   # [[params.customCSS]]
   #   href = "css/mystyle.css"
 
+  customCSS = ["/css/background.css"]
+  
   # Custom JS. Put here your custom JS files. They are loaded after the theme JS;
   # they have to be referred from static root. Example
   # [[params.customJS]]

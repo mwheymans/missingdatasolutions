@@ -21,8 +21,8 @@ This post is about the offset procedure of the Cox model after shrinkage of the 
 This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.
 ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Recalibration of the Cox model baseline hazard function after Shrinkage">
-<meta name="twitter:title" content="Recalibration of the Cox model baseline hazard function after Shrinkage">
+<meta property="og:title" content="Recalibration of the Cox model Baseline Hazard Function after Shrinkage">
+<meta name="twitter:title" content="Recalibration of the Cox model Baseline Hazard Function after Shrinkage">
 <meta property="og:url" content="https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/">
 <meta property="twitter:url" content="https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/">
 <meta property="og:site_name" content="Missing Data Solutions">
@@ -76,7 +76,7 @@ This post is about the offset procedure of the Cox model after shrinkage of the 
   <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg">
 
 
-    <title>Recalibration of the Cox model baseline hazard function after Shrinkage</title>
+    <title>Recalibration of the Cox model Baseline Hazard Function after Shrinkage</title>
 
     <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
     
@@ -93,6 +93,10 @@ This post is about the offset procedure of the Cox model after shrinkage of the 
     
     <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
     
+    
+      
+        <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/background.css">
+      
     
 
     
@@ -275,7 +279,7 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Recalibration of the Cox model baseline hazard function after Shrinkage
+      Recalibration of the Cox model Baseline Hazard Function after Shrinkage
     </h1>
   
   
@@ -669,7 +673,7 @@ ggplot(df_surv_orig, aes(x = time, y = hazard)) +
   labs(title = &quot;Cumulative Hazard from Cox Model&quot;,
        x = &quot;Time&quot;,
        y = &quot;Cumulative Hazard&quot;) </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-1-10-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-1-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(df_surv_orig, aes(x = time, y = surv)) +
   geom_step() +
   labs(title = &quot;Survival Curve from Cox Model&quot;,
@@ -677,7 +681,7 @@ ggplot(df_surv_orig, aes(x = time, y = hazard)) +
        y = &quot;Survival Probability&quot;) +
   theme_minimal() +
   ylim(0, 1)</code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-1-10-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-1-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <p><strong><em>After shrinkage (recalibrated model)</em></strong></p>
 <pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk_correct), x=TRUE, y=TRUE, data = dat)
 
@@ -730,7 +734,7 @@ ggplot(df_long_cumhaz, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-1-10-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-1-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>df_long_surv &lt;- df_long %&gt;% filter(group == &quot;surv&quot; | group == &quot;surv_shrink&quot;)
 ## Survival curves
 ggplot(df_long_surv, aes(x = time, y = probability, color = group)) +
@@ -743,7 +747,7 @@ ggplot(df_long_surv, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-1-10-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-1-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
 </div>
 <div id="patient-specific-survival-curves" class="section level3">
 <h3>Patient Specific Survival Curves</h3>
@@ -803,7 +807,7 @@ ggplot(df_long_indiv, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-1-10-offset_baseline_hazard_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-1-offset_baseline_hazard_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 
               
