@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.83.1 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Martijn W Heymans">
+<meta name="keywords" content="">
+<meta name="description" content="
+
+
+This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.
+">
+
+
+<meta property="og:description" content="
+
+
+This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recalibration of the Cox model Baseline Hazard Function after Shrinkage">
+<meta name="twitter:title" content="Recalibration of the Cox model Baseline Hazard Function after Shrinkage">
+<meta property="og:url" content="https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/">
+<meta property="twitter:url" content="https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/">
+<meta property="og:site_name" content="Missing Data Solutions">
+<meta property="og:description" content="
+
+
+This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.
+">
+<meta name="twitter:description" content="
+
+
+This post is about the offset procedure of the Cox model after shrinkage of the coefficient, followed by recalibration of the baseline hazard function. This seems straightforward to apply like with the logistic regression model but some caveats remain. These will be unraveled here.
+">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2025-10-01T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2025-10-01T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="Offset Cox model">
+    
+      <meta property="article:tag" content="Recalibration">
+    
+      <meta property="article:tag" content="Baseline hazard">
+    
+      <meta property="article:tag" content="Shrinkage">
+    
+      <meta property="article:tag" content="Cox regression">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/Cox_bh_reclaibrate.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Cox_bh_reclaibrate.jpg">
+
+
+
+
+
+  <meta property="og:image" content="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg">
+  <meta property="twitter:image" content="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg">
+
+
+    <title>Recalibration of the Cox model Baseline Hazard Function after Shrinkage</title>
+
+    <link rel="icon" href="https://missingdatasolutions.rbind.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet" href="https://missingdatasolutions.rbind.io/css/background.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-127301719-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://missingdatasolutions.rbind.io/">Missing Data Solutions</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://missingdatasolutions.rbind.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://missingdatasolutions.rbind.io/#about">
+          <img class="sidebar-profile-picture" src="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Martijn W Heymans</h4>
+        
+          <h5 class="sidebar-profile-bio">Associate Professor of Applied Biostatistics | Department of Epidemiology and Data Science | Courses: <a href="https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://www.epidm.nl/en/course/clinical-prediction-models/">Prediction Models and Machine Learning</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/post/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Posts</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://bookdown.org/mwheymans/bookmi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Missing Data Book</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/shiny/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-play"></i>
+      
+      <span class="sidebar-button-desc">Learning Apps</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/news/">
+    
+      <i class="sidebar-button-icon fa fa-newspaper-o fa-lg"></i>
+      
+      <span class="sidebar-button-desc">News</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/tags/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/mwheymans" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://missingdatasolutions.rbind.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Recalibration of the Cox model Baseline Hazard Function after Shrinkage
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2025-10-01T00:00:00Z">
+        
+  October 1, 2025
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <div id="generating-sample-survival-data" class="section level3">
+<h3>Generating sample survival data</h3>
+<p>I generate a small dataset with some example data that has no further meaning but is used to compare results. The dataset contains a time, status, continuous and dichotomous variable.</p>
+<pre class="r"><code>set.seed(8284)
+n &lt;- 15
+x1 &lt;- rnorm(n)
+x2 &lt;- rbinom(n, 1, 0.7)
+X &lt;- cbind(x1, x2)
+colnames(X) &lt;- c(&quot;x1&quot;, &quot;x2&quot;)
+beta_true &lt;- c(0.8, -0.5)
+
+h0 &lt;- 0.1  # constant baseline hazard
+
+# linear predictor and survival times
+LP_true &lt;- X %*% beta_true
+T_event &lt;- rexp(n, rate = as.numeric(h0 * exp(LP_true)))
+C &lt;- rexp(n, rate = 0.15)
+time &lt;- pmin(T_event, C)
+status &lt;- as.integer(T_event &lt;= C)
+
+dat &lt;- data.frame(time = time, status = status, X)
+print(dat)</code></pre>
+<pre><code>##          time status          x1 x2
+## 1  11.6452145      0 -1.15997331  1
+## 2  11.9546509      1  0.24323493  0
+## 3   6.5568061      0 -0.05651773  1
+## 4  10.7845487      0  0.85035738  1
+## 5   6.8575038      1  1.35094683  1
+## 6   1.3656016      1  2.38539478  1
+## 7   6.5143091      0  1.59643397  1
+## 8  13.6411050      1 -0.37149123  1
+## 9   0.3101726      0  0.48354893  0
+## 10  5.4913030      1 -0.18398557  1
+## 11  4.5790413      1  1.34070837  1
+## 12  4.4963411      0  0.67235594  1
+## 13  2.1050665      0  0.05044414  1
+## 14  0.3567029      0  0.72108005  1
+## 15 13.6965845      0  1.82171965  1</code></pre>
+</div>
+<div id="estimate-the-cox-model" class="section level3">
+<h3>Estimate the Cox model</h3>
+<p>We estimate the Cox model using the example dataset.</p>
+<pre class="r"><code>fit_orig &lt;- coxph(Surv(time, status) ~ x1 + x2, 
+                  x=TRUE, y=TRUE, data = dat)
+summary(fit_orig)</code></pre>
+<pre><code>## Call:
+## coxph(formula = Surv(time, status) ~ x1 + x2, data = dat, x = TRUE, 
+##     y = TRUE)
+## 
+##   n= 15, number of events= 6 
+## 
+##       coef exp(coef) se(coef)      z Pr(&gt;|z|)
+## x1  0.2732    1.3141   0.4490  0.608    0.543
+## x2 -0.4508    0.6371   1.1957 -0.377    0.706
+## 
+##    exp(coef) exp(-coef) lower .95 upper .95
+## x1    1.3141      0.761   0.54504     3.168
+## x2    0.6371      1.570   0.06115     6.638
+## 
+## Concordance= 0.649  (se = 0.159 )
+## Likelihood ratio test= 0.46  on 2 df,   p=0.8
+## Wald test            = 0.43  on 2 df,   p=0.8
+## Score (logrank) test = 0.44  on 2 df,   p=0.8</code></pre>
+</div>
+<div id="calculate-the-linear-predictor-of-the-cox-model" class="section level3">
+<h3>Calculate the linear predictor of the Cox model</h3>
+<p>First I provide the linear predictor values of the Cox model extracted from the model fit by using the <code>predict</code> function, followed by a manual calculation. Both provide the same result. These linear predictor values are relative values to the sample mean value (see the previous post “Prediction Modeling with the Cox model - all about the baseline hazard” for more details) and calculated as:</p>
+<p><span class="math display">\[LP_{sample} = \sum fit_{mean}*\beta&#39;s\]</span></p>
+<p><span class="math display">\[LP_{indiv} = \sum X_i*\beta&#39;s\]</span></p>
+<p><span class="math display">\[\widehat{LP} = LP_{indiv} - LP{sample}\]</span></p>
+<p>First, we extract the values from the predict function.</p>
+<pre class="r"><code>LP_hat &lt;- predict(fit_orig, newdata = dat, type = &quot;lp&quot;)
+LP_hat</code></pre>
+<pre><code>##           1           2           3           4           5           6 
+## -0.94513787 -0.11100825 -0.64371553 -0.39599154 -0.25924944  0.02332263 
+##           7           8           9          10          11          12 
+## -0.19219163 -0.72975438 -0.04536356 -0.67853493 -0.26204620 -0.44461481 
+##          13          14          15 
+## -0.61449759 -0.43130522 -0.13065210</code></pre>
+<p>Manual calculation gives the same result. For the manual calculation we use the coefficients from the Cox model and the mean covariate values to calculate the sample reference value. For dichotomous values 0 is used as reference value.</p>
+<pre class="r"><code>coef(fit_orig)</code></pre>
+<pre><code>##         x1         x2 
+##  0.2731622 -0.4508262</code></pre>
+<pre class="r"><code>fit_orig$means</code></pre>
+<pre><code>##        x1        x2 
+## 0.6496171 0.0000000</code></pre>
+<pre class="r"><code>LP_indiv &lt;- (0.2731622*dat$x1) + (-0.4508262*dat$x2) 
+LP_sample &lt;- sum(c((0.2731622*0.6496171), (-0.4508262*0) ))
+LP_manual &lt;- LP_indiv-LP_sample
+LP_manual</code></pre>
+<pre><code>##  [1] -0.94513790 -0.11100825 -0.64371554 -0.39599154 -0.25924943  0.02332265
+##  [7] -0.19219162 -0.72975440 -0.04536355 -0.67853494 -0.26204619 -0.44461481
+## [13] -0.61449760 -0.43130522 -0.13065209</code></pre>
+</div>
+<div id="shrink-the-coefficients-and-linear-predictor-of-the-cox-model" class="section level3">
+<h3>Shrink the coefficients and linear predictor of the Cox model</h3>
+<p>We can shrink the coefficients and linear predictor of the Cox model by using different methods. We show them here. We start by using a shrinkage factor of 1, so no effective shrinkage will be applied. We call the linear predictor <code>lp_shrunk</code> because later on we will use a shrinkage factor below 1 to effectively shrink the coefficients and subsequently recalibrate the baseline hazard. Now we use a shrinkage factor of 1, which makes that <code>lp_shrunk</code> is equal to <code>LP_hat</code> and <code>LP_manual</code> from the previous paragraph.</p>
+<p><strong><em>Indirectly Shrinking the LP by shrinking the coefficients first</em></strong></p>
+<p>We start by applying a shrinkage factor to the coefficients first.</p>
+<p>In formula form, where <span class="math inline">\(s\)</span> is the shrinkage factor:</p>
+<p><span class="math display">\[\beta_{shrunk} = \beta_{orig}*s\]</span></p>
+<p><span class="math display">\[LP_{sample \,shrunk} = \sum fit_{mean}*\beta_{shrunk}\]</span></p>
+<p><span class="math display">\[LP_{indiv \,shrunk} = \sum X_i*\beta_{shrunk}\]</span></p>
+<p><span class="math display">\[\widehat{LP_{shrunk}} = LP_{indiv \, shrunk} - LP_{sample \,shrunk}\]</span></p>
+<pre class="r"><code>s = 1 # s = shrinkage factor
+
+coef_hat &lt;- coef(fit_orig)
+coef_shrunk &lt;- coef_hat * s
+
+lp_sample_shrunk &lt;- sum((coef_shrunk) * fit_orig$means)
+lp_indiv_shrunk &lt;- as.vector(as.matrix(dat[, c(&quot;x1&quot;,&quot;x2&quot;)]) %*% (coef_shrunk))
+lp_shrunk &lt;- lp_indiv_shrunk - lp_sample_shrunk 
+lp_shrunk</code></pre>
+<pre><code>##  [1] -0.94513787 -0.11100825 -0.64371553 -0.39599154 -0.25924944  0.02332263
+##  [7] -0.19219163 -0.72975438 -0.04536356 -0.67853493 -0.26204620 -0.44461481
+## [13] -0.61449759 -0.43130522 -0.13065210</code></pre>
+<p><strong><em>Directly Shrinking the LP</em></strong></p>
+<p>We apply a shrinkage factor directly to the linear predictor values.</p>
+<p>In formula form:</p>
+<p><span class="math display">\[\widehat{LP_{shrunk}} = \widehat{LP} * s\]</span></p>
+<p>Both methods will provide the same result.</p>
+<pre class="r"><code>s = 1
+
+lp_shrunk &lt;- predict(fit_orig, newdata=dat, type=&quot;lp&quot;) * s
+lp_shrunk</code></pre>
+<pre><code>##           1           2           3           4           5           6 
+## -0.94513787 -0.11100825 -0.64371553 -0.39599154 -0.25924944  0.02332263 
+##           7           8           9          10          11          12 
+## -0.19219163 -0.72975438 -0.04536356 -0.67853493 -0.26204620 -0.44461481 
+##          13          14          15 
+## -0.61449759 -0.43130522 -0.13065210</code></pre>
+</div>
+<div id="offset-of-the-linear-predictor" class="section level3">
+<h3>Offset of the Linear predictor</h3>
+<p>Now we are going to use the offset of the linear predictor in the Cox model to first evaluate what happens with the linear predictor values of that model. We start with an example where no shrinkage is applied (we use the same <code>lp_shrunk</code> as defined above, with a shrinkage factor s of 1). In the next paragraph we will see the effect of the offset model on the baseline hazard values.</p>
+<pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk), x=TRUE, y=TRUE, data = dat)
+fit_offset</code></pre>
+<pre><code>## Call:  coxph(formula = Surv(time, status) ~ offset(lp_shrunk), data = dat, 
+##     x = TRUE, y = TRUE)
+## 
+## Null model
+##   log likelihood= -10.42071 
+##   n= 15</code></pre>
+<pre class="r"><code>fit_offset$linear.predictors  </code></pre>
+<pre><code>##           1           2           3           4           5           6 
+## -0.94513787 -0.11100825 -0.64371553 -0.39599154 -0.25924944  0.02332263 
+##           7           8           9          10          11          12 
+## -0.19219163 -0.72975438 -0.04536356 -0.67853493 -0.26204620 -0.44461481 
+##          13          14          15 
+## -0.61449759 -0.43130522 -0.13065210</code></pre>
+<p>The linear predictor values of the offset model are the same as the <code>lp_shrunk</code> values from the original Cox model. This is what we expect because we re-fit the same model.</p>
+</div>
+<div id="the-baseline-hazard-of-the-offset-model" class="section level3">
+<h3>The baseline hazard of the offset model</h3>
+<p>Now we compare the baseline hazard function values of the original Cox model fit and the model where we used the linear predictor <code>lp_shrunk</code> as an offset procedure. Be aware, we still use the linear predictor without shrinkage, so the results of the baseline hazard values should be the same between the fit of the original and offset Cox model.</p>
+<p>We start by extracting the baseline hazard values of the original model.</p>
+<pre class="r"><code>bh_fit_orig &lt;- basehaz(fit_orig, centered = TRUE)
+bh_fit_orig</code></pre>
+<pre><code>##       hazard       time
+## 1  0.0000000  0.3101726
+## 2  0.0000000  0.3567029
+## 3  0.1120994  1.3656016
+## 4  0.1120994  2.1050665
+## 5  0.1120994  4.4963411
+## 6  0.2610182  4.5790413
+## 7  0.4292099  5.4913030
+## 8  0.4292099  6.5143091
+## 9  0.4292099  6.5568061
+## 10 0.6738432  6.8575038
+## 11 0.6738432 10.7845487
+## 12 0.6738432 11.6452145
+## 13 1.1174041 11.9546509
+## 14 1.8529414 13.6411050
+## 15 1.8529414 13.6965845</code></pre>
+<p>Followed by the baseline hazard values of the offset model.</p>
+<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)
+bh_fit_offset</code></pre>
+<pre><code>##        hazard       time
+## 1  0.00000000  0.3101726
+## 2  0.00000000  0.3567029
+## 3  0.07584336  1.3656016
+## 4  0.07584336  2.1050665
+## 5  0.07584336  4.4963411
+## 6  0.17659765  4.5790413
+## 7  0.29039150  5.4913030
+## 8  0.29039150  6.5143091
+## 9  0.29039150  6.5568061
+## 10 0.45590362  6.8575038
+## 11 0.45590362 10.7845487
+## 12 0.45590362 11.6452145
+## 13 0.75600463 11.9546509
+## 14 1.25364875 13.6411050
+## 15 1.25364875 13.6965845</code></pre>
+<p>That is remarkable. We see now that they provide different results. Let’s see if we can find an answer by reading the help information of the <code>basehaz</code> function. We read there: “Offset terms can pose a particular challenge for the underlying code and are always re-centered; to override this use the newdata argument and include the offset as one of the variables.”</p>
+<p>Let us focus on the following parts: “and are always recentered” and “use the newdata argument”. What does that mean? Let’s explore first what happens when we re-center the offset term”, followed by “use the newdata argument”.</p>
+</div>
+<div id="re-centering-the-offset-term" class="section level3">
+<h3>Re-centering the offset term</h3>
+<p>We use the manual Breslow formula calculation (see the previous post “Prediction Modeling with the Cox model - all about the baseline hazard” for more details) to see what happens with the calculation of the baseline hazard when we re-center the linear predictor of the offset model, i.e. <code>lp_shrunk</code> by subtracting the mean value of <code>lp_shrunk</code> from <code>lp_shrunk</code> itself. Remember, <code>lp_shrunk</code>, the linear predictor of the offset model is still the same as the original model here because the shrinkage factor was 1 in the calculation of <code>lp_shrunk</code>.</p>
+<pre class="r"><code>mean_lp_shrunk &lt;- mean(lp_shrunk)
+
+breslow_est &lt;- function(time, status, X, B){
+  data &lt;- 
+    data.frame(time, status, X)
+  data &lt;- 
+    data[order(data$time), ]
+  t   &lt;- 
+    unique(data$time)
+  k    &lt;- 
+    length(t)
+  h    &lt;- 
+    rep(0,k)
+  
+  for(i in 1:k) {
+    LP_sample &lt;- sum(fit_orig$means * coef(fit_orig)) 
+    LP_indiv &lt;- (data.matrix(data[,-c(1:2)]) %*% B)
+    lp_shrunk &lt;- LP_indiv - LP_sample
+
+    lp &lt;- (lp_shrunk-mean_lp_shrunk)[data$time&gt;=t[i]] # re-centering the offset term
+    
+    risk &lt;- exp(lp)
+    h[i] &lt;- sum(data$status[data$time==t[i]]) / sum(risk)
+  }
+  
+  res &lt;- cumsum(h)
+  return(res)
+}
+
+H0 &lt;- breslow_est(time=dat$time, status=dat$status, X=fit_orig$x, B=coef(fit_orig))
+H0</code></pre>
+<pre><code>##  [1] 0.00000000 0.00000000 0.07584336 0.07584336 0.07584336 0.17659765
+##  [7] 0.29039150 0.29039150 0.29039150 0.45590362 0.45590362 0.45590362
+## [13] 0.75600463 1.25364875 1.25364875</code></pre>
+<p>This gives indeed the same INCORRECT results as in the previous paragraph where we used the <code>basehaz</code> function for the offset model, which was.</p>
+<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)
+bh_fit_offset</code></pre>
+<pre><code>##        hazard       time
+## 1  0.00000000  0.3101726
+## 2  0.00000000  0.3567029
+## 3  0.07584336  1.3656016
+## 4  0.07584336  2.1050665
+## 5  0.07584336  4.4963411
+## 6  0.17659765  4.5790413
+## 7  0.29039150  5.4913030
+## 8  0.29039150  6.5143091
+## 9  0.29039150  6.5568061
+## 10 0.45590362  6.8575038
+## 11 0.45590362 10.7845487
+## 12 0.45590362 11.6452145
+## 13 0.75600463 11.9546509
+## 14 1.25364875 13.6411050
+## 15 1.25364875 13.6965845</code></pre>
+<p>In the help description of the <code>basehaz</code> function you can read at the <code>centered</code> option “if FALSE return a prediction for all covariates equal to zero”. You could think that you get the same result when you use the basehaz function and choose for centered is FALSE. Let’s try that also.</p>
+<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, centered = FALSE)
+bh_offset</code></pre>
+<pre><code>##        hazard       time
+## 1  0.00000000  0.3101726
+## 2  0.00000000  0.3567029
+## 3  0.07584336  1.3656016
+## 4  0.07584336  2.1050665
+## 5  0.07584336  4.4963411
+## 6  0.17659765  4.5790413
+## 7  0.29039150  5.4913030
+## 8  0.29039150  6.5143091
+## 9  0.29039150  6.5568061
+## 10 0.45590362  6.8575038
+## 11 0.45590362 10.7845487
+## 12 0.45590362 11.6452145
+## 13 0.75600463 11.9546509
+## 14 1.25364875 13.6411050
+## 15 1.25364875 13.6965845</code></pre>
+<p>We see however, that we still provide the same INCORRECT result. This also means that the basehaz function is insensitive for the centered option after fitting the offset model.</p>
+</div>
+<div id="use-the-newdata-argument" class="section level3">
+<h3>Use the newdata argument</h3>
+<p>Let’s see what happens when we use the <code>newdata</code> option in the basehaz function. It is described in the help file of that function that the <code>centered</code> option is ignored if the newdata argument is used. The question is now, what kind of value for <code>lp_shrunk</code> do we need for the newdata argument.</p>
+<p>It seems that we have to use the value 0 to prevent re-centering. Let’s see what happens when we do that. We set the value for <code>lp_shrunk</code> at 0.</p>
+<pre class="r"><code>mean(lp_shrunk)</code></pre>
+<pre><code>## [1] -0.390716</code></pre>
+<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk=0))
+bh_offset</code></pre>
+<pre><code>##       hazard       time
+## 1  0.0000000  0.3101726
+## 2  0.0000000  0.3567029
+## 3  0.1120994  1.3656016
+## 4  0.1120994  2.1050665
+## 5  0.1120994  4.4963411
+## 6  0.2610182  4.5790413
+## 7  0.4292099  5.4913030
+## 8  0.4292099  6.5143091
+## 9  0.4292099  6.5568061
+## 10 0.6738432  6.8575038
+## 11 0.6738432 10.7845487
+## 12 0.6738432 11.6452145
+## 13 1.1174041 11.9546509
+## 14 1.8529414 13.6411050
+## 15 1.8529414 13.6965845</code></pre>
+<p>now we get the same cumulative hazard values as the original model when we had used centered is TRUE. This is a good starting point to apply shrinkage of the coefficients and linear predictor and subsequently adjust the baseline hazard function.</p>
+</div>
+<div id="shrinking-the-cox-model-and-adjusting-the-baseline-hazard" class="section level3">
+<h3>Shrinking the Cox model and adjusting the baseline hazard</h3>
+<p>We start by shrinking the Cox model and use a shrinkage factor of 0.7.</p>
+<pre class="r"><code>s = 0.7
+
+lp_shrunk_correct &lt;- predict(fit_orig, newdata=dat, type=&quot;lp&quot;) * s
+lp_shrunk_correct</code></pre>
+<pre><code>##           1           2           3           4           5           6 
+## -0.66159651 -0.07770578 -0.45060087 -0.27719408 -0.18147461  0.01632584 
+##           7           8           9          10          11          12 
+## -0.13453414 -0.51082807 -0.03175449 -0.47497445 -0.18343234 -0.31123037 
+##          13          14          15 
+## -0.43014832 -0.30191366 -0.09145647</code></pre>
+</div>
+<div id="offset-the-linear-predictor" class="section level3">
+<h3>Offset the Linear predictor</h3>
+<p>Now we use the shrunken linear predictor as an offset in the Cox model.</p>
+<pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk_correct), x=TRUE, y=TRUE, data = dat)</code></pre>
+</div>
+<div id="recalibrate-the-baseline-hazard-function" class="section level3">
+<h3>Recalibrate the baseline hazard function</h3>
+<p>Finally we use the basehaz function to recalibrate the baseline hazard values (and prevent the re-centering of lp_shrunk_correct).</p>
+<pre class="r"><code>bh_offset_correct &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk_correct=0))
+bh_offset_correct</code></pre>
+<pre><code>##       hazard       time
+## 1  0.0000000  0.3101726
+## 2  0.0000000  0.3567029
+## 3  0.1008990  1.3656016
+## 4  0.1008990  2.1050665
+## 5  0.1008990  4.4963411
+## 6  0.2340284  4.5790413
+## 7  0.3837496  5.4913030
+## 8  0.3837496  6.5143091
+## 9  0.3837496  6.5568061
+## 10 0.6037324  6.8575038
+## 11 0.6037324 10.7845487
+## 12 0.6037324 11.6452145
+## 13 1.0139323 11.9546509
+## 14 1.6750458 13.6411050
+## 15 1.6750458 13.6965845</code></pre>
+<p>With these recalibrated baseline hazard values we can calculate and plot cumulative hazard and survival curves.</p>
+</div>
+<div id="cumulative-hazard-and-survival-curves-before-and-after-shrinkage" class="section level3">
+<h3>Cumulative Hazard and Survival curves before and after shrinkage</h3>
+<p>Now we can compare the cumulative hazard and survival curves before and after shrinkage of the Cox model and adjusting the baseline hazard.</p>
+<p><strong><em>Before shrinkage (original model)</em></strong></p>
+<pre class="r"><code>fit_orig &lt;- coxph(Surv(time, status) ~ x1 + x2, 
+                  x=TRUE, y=TRUE, data = dat)
+
+model_surv &lt;- survfit(fit_orig)
+
+df_surv_orig &lt;- data.frame(time=model_surv$time, surv=model_surv$surv, hazard=model_surv$cumhaz)
+df_surv_orig</code></pre>
+<pre><code>##          time      surv    hazard
+## 1   0.3101726 1.0000000 0.0000000
+## 2   0.3567029 1.0000000 0.0000000
+## 3   1.3656016 0.8939554 0.1120994
+## 4   2.1050665 0.8939554 0.1120994
+## 5   4.4963411 0.8939554 0.1120994
+## 6   4.5790413 0.7702669 0.2610182
+## 7   5.4913030 0.6510233 0.4292099
+## 8   6.5143091 0.6510233 0.4292099
+## 9   6.5568061 0.6510233 0.4292099
+## 10  6.8575038 0.5097458 0.6738432
+## 11 10.7845487 0.5097458 0.6738432
+## 12 11.6452145 0.5097458 0.6738432
+## 13 11.9546509 0.3271279 1.1174041
+## 14 13.6411050 0.1567753 1.8529414
+## 15 13.6965845 0.1567753 1.8529414</code></pre>
+<pre class="r"><code>library(ggplot2)
+# Create the plot
+ggplot(df_surv_orig, aes(x = time, y = hazard)) +
+  geom_step() +
+  labs(title = &quot;Cumulative Hazard from Cox Model&quot;,
+       x = &quot;Time&quot;,
+       y = &quot;Cumulative Hazard&quot;) </code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(df_surv_orig, aes(x = time, y = surv)) +
+  geom_step() +
+  labs(title = &quot;Survival Curve from Cox Model&quot;,
+       x = &quot;Time&quot;,
+       y = &quot;Survival Probability&quot;) +
+  theme_minimal() +
+  ylim(0, 1)</code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><strong><em>After shrinkage (recalibrated model)</em></strong></p>
+<pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk_correct), x=TRUE, y=TRUE, data = dat)
+
+model_surv_offset &lt;- survfit(fit_offset, newdata=data.frame(lp_shrunk_correct=0))
+
+df_surv_total &lt;- data.frame(time=model_surv_offset$time, 
+                            df_surv_orig,
+                            surv_shrink=model_surv_offset$surv,
+                            hazard_shrink=model_surv_offset$cumhaz)
+
+df_surv_total[, -2] # exclude 1 time variable</code></pre>
+<pre><code>##          time      surv    hazard surv_shrink hazard_shrink
+## 1   0.3101726 1.0000000 0.0000000   1.0000000     0.0000000
+## 2   0.3567029 1.0000000 0.0000000   1.0000000     0.0000000
+## 3   1.3656016 0.8939554 0.1120994   0.9040244     0.1008990
+## 4   2.1050665 0.8939554 0.1120994   0.9040244     0.1008990
+## 5   4.4963411 0.8939554 0.1120994   0.9040244     0.1008990
+## 6   4.5790413 0.7702669 0.2610182   0.7913393     0.2340284
+## 7   5.4913030 0.6510233 0.4292099   0.6813020     0.3837496
+## 8   6.5143091 0.6510233 0.4292099   0.6813020     0.3837496
+## 9   6.5568061 0.6510233 0.4292099   0.6813020     0.3837496
+## 10  6.8575038 0.5097458 0.6738432   0.5467670     0.6037324
+## 11 10.7845487 0.5097458 0.6738432   0.5467670     0.6037324
+## 12 11.6452145 0.5097458 0.6738432   0.5467670     0.6037324
+## 13 11.9546509 0.3271279 1.1174041   0.3627896     1.0139323
+## 14 13.6411050 0.1567753 1.8529414   0.1872996     1.6750458
+## 15 13.6965845 0.1567753 1.8529414   0.1872996     1.6750458</code></pre>
+<pre class="r"><code>library(tidyr)
+df_long &lt;- df_surv_total %&gt;%
+  pivot_longer(
+    cols = c(surv, 
+             surv_shrink,
+             hazard,
+             hazard_shrink), 
+    names_to = &quot;group&quot;,                 
+    values_to = &quot;probability&quot;           
+  )
+
+library(dplyr)
+
+df_long_cumhaz &lt;- df_long %&gt;% filter(group == &quot;hazard&quot; | group == &quot;hazard_shrink&quot;)
+## Hazard curves
+ggplot(df_long_cumhaz, aes(x = time, y = probability, color = group)) +
+  geom_step(linewidth = 1.2) + 
+  scale_y_continuous(name = &quot;Survival Probability&quot;) + 
+  scale_x_continuous(name = &quot;Time&quot;) +
+  labs(
+    title = &quot;Cumulative Hazard Curves&quot;,
+    subtitle = &quot;Plotting Cumulative Hazard&quot;,
+    color = &quot;Group&quot; 
+  ) +
+  theme_classic() </code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code>df_long_surv &lt;- df_long %&gt;% filter(group == &quot;surv&quot; | group == &quot;surv_shrink&quot;)
+## Survival curves
+ggplot(df_long_surv, aes(x = time, y = probability, color = group)) +
+  geom_step(linewidth = 1.2) + 
+  scale_y_continuous(limits = c(0, 1), name = &quot;Survival Probability&quot;) + 
+  scale_x_continuous(name = &quot;Time&quot;) +
+  labs(
+    title = &quot;Survival Curves &quot;,
+    subtitle = &quot;Plotting survival probabilities&quot;,
+    color = &quot;Group&quot; 
+  ) +
+  theme_classic() </code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+</div>
+<div id="patient-specific-survival-curves" class="section level3">
+<h3>Patient Specific Survival Curves</h3>
+<p>We can now also generate patient specific survival curves for each patient covariate pattern. We use here a patient with the values -2 and 0 for the variables x1 and x2 respectively. We compare again the survival curves before and after shrinkage of the Cox model.</p>
+<pre class="r"><code>LP_indiv &lt;- predict(fit_orig, newdata = data.frame(x1 = -2,
+                                             x2 = 0), type=&quot;lp&quot;) 
+LP_indiv # linear predictor value of specific values of individual patient (values are centered) </code></pre>
+<pre><code>##          1 
+## -0.7237752</code></pre>
+<pre class="r"><code>H0 &lt;- basehaz(fit_orig, centered=TRUE) # baseline hazard of original model.
+
+cumhaz_indiv &lt;- H0[, 1]*exp(LP_indiv) # cumulative hazard of individual patient before shrinkage
+surv_indiv &lt;- exp(-cumhaz_indiv) # survival probability of individual patient before shrinkage
+
+df_surv_indiv &lt;- data.frame(time=model_surv$time, surv=surv_indiv)
+
+H0_offset &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk_correct=0)) # baseline hazard of shrunken model
+cumhaz_offset &lt;- H0_offset[, 1]*exp(LP_indiv) # cumulative hazard of individual patient from shrunken model
+surv_indiv_offset &lt;- exp(-cumhaz_offset) # survival probability of individual patient of shrunken model
+
+df_surv_total_indiv &lt;- data.frame(time=model_surv_offset$time, 
+                                  surv_indiv = surv_indiv,
+                                  surv_shrink_indiv=surv_indiv_offset)
+
+df_surv_total_indiv</code></pre>
+<pre><code>##          time surv_indiv surv_shrink_indiv
+## 1   0.3101726  1.0000000         1.0000000
+## 2   0.3567029  1.0000000         1.0000000
+## 3   1.3656016  0.9470920         0.9522499
+## 4   2.1050665  0.9470920         0.9522499
+## 5   4.4963411  0.9470920         0.9522499
+## 6   4.5790413  0.8811103         0.8927179
+## 7   5.4913030  0.8121001         0.8302012
+## 8   6.5143091  0.8121001         0.8302012
+## 9   6.5568061  0.8121001         0.8302012
+## 10  6.8575038  0.7212577         0.7462006
+## 11 10.7845487  0.7212577         0.7462006
+## 12 11.6452145  0.7212577         0.7462006
+## 13 11.9546509  0.5816714         0.6116016
+## 14 13.6411050  0.4071698         0.4438538
+## 15 13.6965845  0.4071698         0.4438538</code></pre>
+<pre class="r"><code>df_long_indiv &lt;- df_surv_total_indiv %&gt;%
+  pivot_longer(
+    cols = c(surv_indiv, 
+             surv_shrink_indiv), 
+    names_to = &quot;group&quot;,                 
+    values_to = &quot;probability&quot;           
+  )
+
+ggplot(df_long_indiv, aes(x = time, y = probability, color = group)) +
+  geom_step(linewidth = 1.2) + 
+  scale_y_continuous(limits = c(0, 1), name = &quot;Survival Probability&quot;) + 
+  scale_x_continuous(name = &quot;Time&quot;) +
+  labs(
+    title = &quot;Patient Specific Survival Curves &quot;,
+    subtitle = &quot;Plotting survival probabilities&quot;,
+    color = &quot;Group&quot; 
+  ) +
+  theme_classic() </code></pre>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/offset-cox-model/">Offset Cox model</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/recalibration/">Recalibration</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/baseline-hazard/">Baseline hazard</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/shrinkage/">Shrinkage</a>
+
+  <a class="tag tag--primary tag--small" href="https://missingdatasolutions.rbind.io/tags/cox-regression/">Cox regression</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/" data-tooltip="Welcome to Missing Data Solutions">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/" data-tooltip="Prediction Modeling with the Cox model - all about the baseline hazard">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2025 Martijn W Heymans. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2025/10/welcome-to-missing-data-solutions/" data-tooltip="Welcome to Missing Data Solutions">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/" data-tooltip="Prediction Modeling with the Cox model - all about the baseline hazard">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fmissingdatasolutions.rbind.io%2F2025%2F10%2Fcox-offset-baseline-hazard%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://missingdatasolutions.rbind.io/images/Martijn_photo.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Martijn W Heymans</h4>
+    
+      <div id="about-card-bio">Associate Professor of Applied Biostatistics | Department of Epidemiology and Data Science | Courses: <a href="https://www.epidm.nl/en/course/missing-data-consequences-and-solutions/">Missing Data</a> and <a href="https://www.epidm.nl/en/course/clinical-prediction-models/">Prediction Models and Machine Learning</a> | <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=heymans+m">Publications</a> | email: <a href="mailto:mw.heymans@amsterdamumc.nl">mw.heymans@amsterdamumc.nl</a></div>
+    
+    
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      
+      <div id="cover" style="background-image:url('https://missingdatasolutions.rbind.io/images/cover_mountain.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://missingdatasolutions.rbind.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/missingdatasolutions.rbind.io\/2025\/10\/cox-offset-baseline-hazard\/';
+          
+            this.page.identifier = '\/2025\/10\/cox-offset-baseline-hazard\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'http-missingdatasolutions-rbind-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { linebreaks: { automatic: true } },
+      tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
+      messageStyle: 'none'
+    });
+  </script>
+
+
+
+    
+  </body>
+</html>
+

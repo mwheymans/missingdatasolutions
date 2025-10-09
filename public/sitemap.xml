@@ -18,10 +18,22 @@
     <lastmod>2025-10-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/baseline-hazard/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/cox-regression/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/offset-cox-model/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/recalibration/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/2025/10/cox-offset-baseline-hazard/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://missingdatasolutions.rbind.io/tags/shrinkage/</loc>
+    <lastmod>2025-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/internal-validation/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
@@ -30,9 +42,6 @@
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/2025/09/cox-internal-validation/</loc>
-    <lastmod>2025-09-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/tags/shrinkage/</loc>
     <lastmod>2025-09-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/tags/cross-validation/</loc>
@@ -142,12 +151,6 @@
   </url><url>
     <loc>https://missingdatasolutions.rbind.io/missingdata/</loc>
   </url><url>
-    <loc>https://missingdatasolutions.rbind.io/tags/offset-cox-model/</loc>
-  </url><url>
     <loc>https://missingdatasolutions.rbind.io/1/01/cox-baseline-hazard/</loc>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/tags/recalibration/</loc>
-  </url><url>
-    <loc>https://missingdatasolutions.rbind.io/1/01/cox-offset-baseline-hazard/</loc>
   </url>
 </urlset>
