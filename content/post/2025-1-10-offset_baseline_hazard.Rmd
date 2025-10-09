@@ -1,7 +1,7 @@
 ---
 title: "Recalibration of the Cox model baseline hazard function after Shrinkage"
 author: "Martijn Heymans"
-date: '2025-10-1'
+date: '2025-10-9'
 output:
   blogdown::html_page
 categories: []

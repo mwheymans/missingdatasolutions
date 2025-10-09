@@ -8,7 +8,7 @@ keywords:
 autoThumbnailImage: false
 thumbnailImagePosition: "top"
 thumbnailImage: "/images/Cover_small.jpg"
-coverImage: "/images/cover_mountain.jpg"
+coverImage: "/images/cover_water.jpg"
 metaAlignment: center
 description: Missing data is present in each study, but is still not wel understood and handled, [see for example](https://journals.lww.com/epidem/fulltext/2012/09000/Missing_Data__A_Systematic_Review_of_How_They_Are.13.aspx). This may severely bias the study results! On this website you will find simple and complex missing data solutions concerning medical and epidemiological studies.  
 
