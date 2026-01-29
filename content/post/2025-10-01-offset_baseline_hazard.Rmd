@@ -62,8 +62,12 @@ We estimate the Cox model using the example dataset.
 
 ```{r }
 
-fit_orig <- coxph(Surv(time, status) ~ x1 + x2, 
-                  x=TRUE, y=TRUE, data = dat)
+fit_orig <- coxph(Surv(time, status) ~ x1 + x2, x=TRUE, y=TRUE, data = dat)
+
+```
+
+```{r }
+
 summary(fit_orig)
 
 ```
@@ -159,7 +163,16 @@ Now we are going to use the offset of the linear predictor in the Cox model to f
 ```{r }
 
 fit_offset <- coxph(Surv(time, status) ~ offset(lp_shrunk), x=TRUE, y=TRUE, data = dat)
+
+``` 
+
+```{r }
+
 fit_offset
+
+``` 
+
+```{r }
 
 fit_offset$linear.predictors  
 
@@ -176,15 +189,26 @@ We start by extracting the baseline hazard values of the original model.
 ```{r }
 
 bh_fit_orig <- basehaz(fit_orig, centered = TRUE)
+
+```
+
+```{r }
+
 bh_fit_orig
 
 ```
+
 
 Followed by the baseline hazard values of the offset model.
 
 ```{r }
 
 bh_fit_offset <- basehaz(fit_offset, centered = TRUE)
+
+```
+
+```{r }
+
 bh_fit_offset
 
 ```
@@ -239,6 +263,11 @@ This gives indeed the same INCORRECT results as in the previous paragraph where 
 ```{r }
 
 bh_fit_offset <- basehaz(fit_offset, centered = TRUE)
+
+```
+
+```{r }
+
 bh_fit_offset
 
 ```
@@ -248,6 +277,11 @@ In the help description of the `basehaz` function you can read at the `centered`
 ```{r }
 
 bh_offset <- basehaz(fit_offset, centered = FALSE)
+
+```
+
+```{r }
+
 bh_offset
 
 ```
@@ -265,6 +299,11 @@ It seems that we have to use the value 0 to prevent re-centering. Let's see what
 mean(lp_shrunk)
 
 bh_offset <- basehaz(fit_offset, newdata=data.frame(lp_shrunk=0))
+
+```
+
+```{r }
+
 bh_offset
 
 ```
@@ -301,6 +340,11 @@ Finally we use the basehaz function to recalibrate the baseline hazard values (a
 ```{r }
 
 bh_offset_correct <- basehaz(fit_offset, newdata=data.frame(lp_shrunk_correct=0))
+
+```
+
+```{r }
+
 bh_offset_correct
 
 ```
