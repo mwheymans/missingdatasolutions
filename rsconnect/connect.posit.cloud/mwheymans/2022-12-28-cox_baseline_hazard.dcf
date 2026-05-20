@@ -1,0 +1,12 @@
+name: 2022-12-28-cox_baseline_hazard
+title: 2022-12-28-Cox_baseline_hazard
+username: mwheymans
+account: mwheymans
+server: connect.posit.cloud
+hostUrl: https://api.connect.posit.cloud/v1
+appId: 019e46ed-0c23-1254-86f0-e22c0d2147dd
+bundleId:
+url: https://connect.posit.cloud/mwheymans/content/019e46ed-0c23-1254-86f0-e22c0d2147dd
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
