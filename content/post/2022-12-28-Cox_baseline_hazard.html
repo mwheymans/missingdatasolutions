@@ -357,16 +357,34 @@ predict(fit_cox, type=&quot;expected&quot;) </code></pre>
 <pre><code>##         1         2         3         4         5         6         7         8 
 ## 0.9385114 0.6811525 0.9959573 0.3843788 0.3230369 0.6475801 0.9538031 1.0755799</code></pre>
 <p>In the R documentation is described that: “Predictions of type”expected” incorporate the baseline hazard and are thus absolute instead of relative”.</p>
-<p>For these predictions we need the cumulative baseline hazard function, which we can easily obtain by the <code>basehaz</code> function. To get the same result as the <code>predict.coxph</code> function we first use the default settings of the <code>basehaz</code> function, i.e. <code>centered=TRUE</code> and than multiply these values with the (default) (mean centered) linear predictor values.</p>
+<p>For these predictions we need the cumulative baseline hazard function at the individual follow-up time of each individual. For this, we first extract the cumulative baseline hazard function, which we can easily obtain by the <code>basehaz</code> function.</p>
 <pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
 
 fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
-H0 &lt;- basehaz(fit_cox) 
+H0 &lt;- basehaz(fit_cox, centered = TRUE) 
+H0</code></pre>
+<pre><code>##         hazard time
+## 1 2.780808e-02    1
+## 2 4.800556e-01    2
+## 3 4.800556e-01    3
+## 4 8.858100e+00    5
+## 5 1.532633e+02    6
+## 6 1.532633e+02    7
+## 7 5.369320e+03    9
+## 8 7.641099e+04   11</code></pre>
+<p>These cumulative baseline hazard values are not yet linked to the individual time values in the dataset. To link both we can use the <code>findInterval</code> function. When we have linked them we can multiply the baseline hazard values with the (default) (mean centered) linear predictor values.</p>
+<pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
+
+fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
+H0 &lt;- basehaz(fit_cox, centered = TRUE) 
 LP &lt;- predict(fit_cox, type=&quot;lp&quot;) 
 
-H0[, 1]*exp(LP)</code></pre>
-<pre><code>## [1]   0.93851138   0.68115250   0.05397488   0.02221579 103.13326837
-## [6]   0.64758014   0.95380312   1.07557986</code></pre>
+match_id &lt;- findInterval(df$time, H0$time)
+H0_id &lt;- H0$hazard[match_id]
+
+H0_id*exp(LP)</code></pre>
+<pre><code>## [1] 0.9385114 0.6811525 0.9959573 0.3843788 0.3230369 0.6475801 0.9538031
+## [8] 1.0755799</code></pre>
 <p><strong>type=“terms”</strong></p>
 <p>When we use this option we get the following values. These are the linear predictor values for each covariate (term) separately.</p>
 <pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
@@ -441,12 +459,15 @@ predict(fit_cox, type=&quot;survival&quot;) </code></pre>
 <pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
 
 fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
-H0 &lt;- basehaz(fit_cox) 
+H0 &lt;- basehaz(fit_cox, centered = TRUE) 
 LP &lt;- predict(fit_cox, type=&quot;lp&quot;) 
 
-exp(-H0[, 1]*exp(LP))</code></pre>
-<pre><code>## [1] 3.912098e-01 5.060335e-01 9.474559e-01 9.780292e-01 1.621028e-45
-## [6] 5.233106e-01 3.852730e-01 3.410999e-01</code></pre>
+match_id &lt;- findInterval(df$time, H0$time)
+H0_id &lt;- H0$hazard[match_id]
+
+exp(-H0_id*exp(LP))</code></pre>
+<pre><code>## [1] 0.3912098 0.5060335 0.3693697 0.6808734 0.7239472 0.5233106 0.3852730
+## [8] 0.3410999</code></pre>
 <p>This is of course the same as,</p>
 <pre class="r"><code>df &lt;- data.frame(time, status, sex, age)
 
@@ -504,7 +525,7 @@ termplot(fit_cox, plot=FALSE, terms=&quot;age&quot;)</code></pre>
 
 fit_cox &lt;- coxph(Surv(time, status) ~ age + sex, data=df, method = &quot;breslow&quot;)
 termplot(fit_cox, plot=TRUE, terms=&quot;age&quot;)</code></pre>
-<p><img src="/post/2022-12-28-Cox_baseline_hazard_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="/post/2022-12-28-Cox_baseline_hazard_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>This is especially informative if the model would include non-linear or spline terms.</p>
 <p><strong>References</strong></p>
 <p>Hosmer, D.W. and Lemeshow, S. (1999) Applied Survival Analysis, Regression Modeling of Time to Event Data. John Wiley and Sons, New York.</p>

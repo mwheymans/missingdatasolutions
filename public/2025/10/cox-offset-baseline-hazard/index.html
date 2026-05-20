@@ -340,9 +340,8 @@ print(dat)</code></pre>
 <div id="estimate-the-cox-model" class="section level3">
 <h3>Estimate the Cox model</h3>
 <p>We estimate the Cox model using the example dataset.</p>
-<pre class="r"><code>fit_orig &lt;- coxph(Surv(time, status) ~ x1 + x2, 
-                  x=TRUE, y=TRUE, data = dat)
-summary(fit_orig)</code></pre>
+<pre class="r"><code>fit_orig &lt;- coxph(Surv(time, status) ~ x1 + x2, x=TRUE, y=TRUE, data = dat)</code></pre>
+<pre class="r"><code>summary(fit_orig)</code></pre>
 <pre><code>## Call:
 ## coxph(formula = Surv(time, status) ~ x1 + x2, data = dat, x = TRUE, 
 ##     y = TRUE)
@@ -433,8 +432,8 @@ lp_shrunk</code></pre>
 <div id="offset-of-the-linear-predictor" class="section level3">
 <h3>Offset of the Linear predictor</h3>
 <p>Now we are going to use the offset of the linear predictor in the Cox model to first evaluate what happens with the linear predictor values of that model. We start with an example where no shrinkage is applied (we use the same <code>lp_shrunk</code> as defined above, with a shrinkage factor s of 1). In the next paragraph we will see the effect of the offset model on the baseline hazard values.</p>
-<pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk), x=TRUE, y=TRUE, data = dat)
-fit_offset</code></pre>
+<pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk), x=TRUE, y=TRUE, data = dat)</code></pre>
+<pre class="r"><code>fit_offset</code></pre>
 <pre><code>## Call:  coxph(formula = Surv(time, status) ~ offset(lp_shrunk), data = dat, 
 ##     x = TRUE, y = TRUE)
 ## 
@@ -454,8 +453,8 @@ fit_offset</code></pre>
 <h3>The baseline hazard of the offset model</h3>
 <p>Now we compare the baseline hazard function values of the original Cox model fit and the model where we used the linear predictor <code>lp_shrunk</code> as an offset procedure. Be aware, we still use the linear predictor without shrinkage, so the results of the baseline hazard values should be the same between the fit of the original and offset Cox model.</p>
 <p>We start by extracting the baseline hazard values of the original model.</p>
-<pre class="r"><code>bh_fit_orig &lt;- basehaz(fit_orig, centered = TRUE)
-bh_fit_orig</code></pre>
+<pre class="r"><code>bh_fit_orig &lt;- basehaz(fit_orig, centered = TRUE)</code></pre>
+<pre class="r"><code>bh_fit_orig</code></pre>
 <pre><code>##       hazard       time
 ## 1  0.0000000  0.3101726
 ## 2  0.0000000  0.3567029
@@ -473,8 +472,8 @@ bh_fit_orig</code></pre>
 ## 14 1.8529414 13.6411050
 ## 15 1.8529414 13.6965845</code></pre>
 <p>Followed by the baseline hazard values of the offset model.</p>
-<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)
-bh_fit_offset</code></pre>
+<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)</code></pre>
+<pre class="r"><code>bh_fit_offset</code></pre>
 <pre><code>##        hazard       time
 ## 1  0.00000000  0.3101726
 ## 2  0.00000000  0.3567029
@@ -532,8 +531,8 @@ H0</code></pre>
 ##  [7] 0.29039150 0.29039150 0.29039150 0.45590362 0.45590362 0.45590362
 ## [13] 0.75600463 1.25364875 1.25364875</code></pre>
 <p>This gives indeed the same INCORRECT results as in the previous paragraph where we used the <code>basehaz</code> function for the offset model, which was.</p>
-<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)
-bh_fit_offset</code></pre>
+<pre class="r"><code>bh_fit_offset &lt;- basehaz(fit_offset, centered = TRUE)</code></pre>
+<pre class="r"><code>bh_fit_offset</code></pre>
 <pre><code>##        hazard       time
 ## 1  0.00000000  0.3101726
 ## 2  0.00000000  0.3567029
@@ -551,8 +550,8 @@ bh_fit_offset</code></pre>
 ## 14 1.25364875 13.6411050
 ## 15 1.25364875 13.6965845</code></pre>
 <p>In the help description of the <code>basehaz</code> function you can read at the <code>centered</code> option “if FALSE return a prediction for all covariates equal to zero”. You could think that you get the same result when you use the basehaz function and choose for centered is FALSE. Let’s try that also.</p>
-<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, centered = FALSE)
-bh_offset</code></pre>
+<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, centered = FALSE)</code></pre>
+<pre class="r"><code>bh_offset</code></pre>
 <pre><code>##        hazard       time
 ## 1  0.00000000  0.3101726
 ## 2  0.00000000  0.3567029
@@ -577,8 +576,8 @@ bh_offset</code></pre>
 <p>It seems that we have to use the value 0 to prevent re-centering. Let’s see what happens when we do that. We set the value for <code>lp_shrunk</code> at 0.</p>
 <pre class="r"><code>mean(lp_shrunk)</code></pre>
 <pre><code>## [1] -0.390716</code></pre>
-<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk=0))
-bh_offset</code></pre>
+<pre class="r"><code>bh_offset &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk=0))</code></pre>
+<pre class="r"><code>bh_offset</code></pre>
 <pre><code>##       hazard       time
 ## 1  0.0000000  0.3101726
 ## 2  0.0000000  0.3567029
@@ -619,8 +618,8 @@ lp_shrunk_correct</code></pre>
 <div id="recalibrate-the-baseline-hazard-function" class="section level3">
 <h3>Recalibrate the baseline hazard function</h3>
 <p>Finally we use the basehaz function to recalibrate the baseline hazard values (and prevent the re-centering of lp_shrunk_correct).</p>
-<pre class="r"><code>bh_offset_correct &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk_correct=0))
-bh_offset_correct</code></pre>
+<pre class="r"><code>bh_offset_correct &lt;- basehaz(fit_offset, newdata=data.frame(lp_shrunk_correct=0))</code></pre>
+<pre class="r"><code>bh_offset_correct</code></pre>
 <pre><code>##       hazard       time
 ## 1  0.0000000  0.3101726
 ## 2  0.0000000  0.3567029
@@ -673,7 +672,7 @@ ggplot(df_surv_orig, aes(x = time, y = hazard)) +
   labs(title = &quot;Cumulative Hazard from Cox Model&quot;,
        x = &quot;Time&quot;,
        y = &quot;Cumulative Hazard&quot;) </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(df_surv_orig, aes(x = time, y = surv)) +
   geom_step() +
   labs(title = &quot;Survival Curve from Cox Model&quot;,
@@ -681,7 +680,7 @@ ggplot(df_surv_orig, aes(x = time, y = hazard)) +
        y = &quot;Survival Probability&quot;) +
   theme_minimal() +
   ylim(0, 1)</code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
 <p><strong><em>After shrinkage (recalibrated model)</em></strong></p>
 <pre class="r"><code>fit_offset &lt;- coxph(Surv(time, status) ~ offset(lp_shrunk_correct), x=TRUE, y=TRUE, data = dat)
 
@@ -734,7 +733,7 @@ ggplot(df_long_cumhaz, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <pre class="r"><code>df_long_surv &lt;- df_long %&gt;% filter(group == &quot;surv&quot; | group == &quot;surv_shrink&quot;)
 ## Survival curves
 ggplot(df_long_surv, aes(x = time, y = probability, color = group)) +
@@ -747,7 +746,7 @@ ggplot(df_long_surv, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
 </div>
 <div id="patient-specific-survival-curves" class="section level3">
 <h3>Patient Specific Survival Curves</h3>
@@ -807,7 +806,7 @@ ggplot(df_long_indiv, aes(x = time, y = probability, color = group)) +
     color = &quot;Group&quot; 
   ) +
   theme_classic() </code></pre>
-<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="https://missingdatasolutions.rbind.io/post/2025-10-01-offset_baseline_hazard_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 
               
@@ -903,7 +902,7 @@ ggplot(df_long_indiv, aes(x = time, y = probability, color = group)) +
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2025 Martijn W Heymans. All Rights Reserved
+    &copy; 2026 Martijn W Heymans. All Rights Reserved
   </span>
 </footer>
 
