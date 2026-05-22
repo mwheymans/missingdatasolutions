@@ -462,17 +462,32 @@ predict(fit_cox, type="expected")
 
 In the R documentation is described that: "Predictions of type "expected" incorporate the baseline hazard and are thus absolute instead of relative". 
 
-For these predictions we need the cumulative baseline hazard function, which we can easily obtain by the `basehaz` function. To get the same result as the `predict.coxph` function we first use the default settings of the `basehaz` function, i.e. `centered=TRUE` and than multiply these values with the (default) (mean centered) linear predictor values.
+For these predictions we need the cumulative baseline hazard function at the individual follow-up time of each individual. For this, we first extract the cumulative baseline hazard function, which we can easily obtain by the `basehaz` function. 
 
 ```{r }
 
 df <- data.frame(time, status, sex, age)
 
 fit_cox <- coxph(Surv(time, status) ~ age + sex, data=df, method = "breslow")
-H0 <- basehaz(fit_cox) 
+H0 <- basehaz(fit_cox, centered = TRUE) 
+H0
+
+```
+
+These cumulative baseline hazard values are not yet linked to the individual time values in the dataset. To link both we can use the `findInterval` function. When we have linked them we can multiply the baseline hazard values with the (default) (mean centered) linear predictor values.
+
+```{r }
+
+df <- data.frame(time, status, sex, age)
+
+fit_cox <- coxph(Surv(time, status) ~ age + sex, data=df, method = "breslow")
+H0 <- basehaz(fit_cox, centered = TRUE) 
 LP <- predict(fit_cox, type="lp") 
 
-H0[, 1]*exp(LP)
+match_id <- findInterval(df$time, H0$time)
+H0_id <- H0$hazard[match_id]
+
+H0_id*exp(LP)
 
 ```
 
@@ -556,10 +571,13 @@ We have seen under `**type="expected"**` how to calculate the cumulative hazard 
 df <- data.frame(time, status, sex, age)
 
 fit_cox <- coxph(Surv(time, status) ~ age + sex, data=df, method = "breslow")
-H0 <- basehaz(fit_cox) 
+H0 <- basehaz(fit_cox, centered = TRUE) 
 LP <- predict(fit_cox, type="lp") 
 
-exp(-H0[, 1]*exp(LP))
+match_id <- findInterval(df$time, H0$time)
+H0_id <- H0$hazard[match_id]
+
+exp(-H0_id*exp(LP))
 
 ```
 
